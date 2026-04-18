@@ -432,7 +432,10 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
 .compare-grid{display:grid;border:1px solid var(--hairline-bright);background:var(--bg);overflow-x:auto}
 .compare-cell{padding:14px 18px;border-right:1px dotted var(--hairline);border-bottom:1px dotted var(--hairline-soft);min-width:180px}
 .compare-cell.row-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);font-weight:700;background:var(--bg-raised);min-width:130px}
-.compare-cell.header{padding:22px 18px;border-bottom:2px solid var(--hairline-bright);background:var(--bg-raised)}
+.compare-cell.header{padding:22px 18px 18px 18px;border-bottom:2px solid var(--hairline-bright);background:var(--bg-raised);position:relative;padding-right:44px}
+.compare-remove{position:absolute;top:10px;right:10px;width:24px;height:24px;background:var(--bg);border:1px solid var(--hairline-bright);color:var(--fg-muted);font-size:18px;line-height:1;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;font-family:inherit;font-weight:300;padding:0}
+.compare-remove:hover{background:var(--rika);color:#fff;border-color:var(--rika);transform:rotate(90deg)}
+.compare-cell.header.ventus .compare-remove:hover{background:var(--ventus);border-color:var(--ventus)}
 .compare-cell.header .brand{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-muted);font-weight:700;display:block;margin-bottom:5px}
 .compare-cell.header .name{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:var(--fg);line-height:1.15;display:block}
 .compare-cell.header.ventus{border-bottom-color:var(--ventus)}
@@ -1231,7 +1234,8 @@ function renderCompare(){
   section.style.display='block';
   if(titleEl) titleEl.innerHTML = size===1 ? '<em>Scope Detail</em>' : '<em>Side-by-side</em>';
 
-  const models = [...state.selected].map(findModelByKey).filter(Boolean);
+  const entries = [...state.selected].map(key=>({key, m:findModelByKey(key)})).filter(x=>x.m);
+  const models = entries.map(e=>e.m);
   const cols = models.length;
   grid.style.gridTemplateColumns = `130px repeat(${cols}, minmax(180px,1fr))`;
 
@@ -1262,8 +1266,8 @@ function renderCompare(){
 
   let html = '';
   html += '<div class="compare-cell row-label" style="background:var(--bg);border-bottom:2px solid var(--hairline-bright);font-weight:700">Model</div>';
-  models.forEach(m=>{
-    html += `<div class="compare-cell header ${m.ventus?'ventus':''}"><span class="brand">${m.brand}</span><span class="name">${m.name}</span></div>`;
+  entries.forEach(({key, m})=>{
+    html += `<div class="compare-cell header ${m.ventus?'ventus':''}"><button class="compare-remove" data-key="${key}" aria-label="Remove ${m.name}" title="Remove from compare">×</button><span class="brand">${m.brand}</span><span class="name">${m.name}</span></div>`;
   });
   rows.forEach(([label, fn, bestField])=>{
     html += `<div class="compare-cell row-label">${label}</div>`;
@@ -1289,6 +1293,16 @@ function renderCompare(){
     }
   });
   grid.innerHTML = html;
+
+  // Attach ✕ remove handlers
+  grid.querySelectorAll('.compare-remove').forEach(btn=>{
+    btn.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      state.selected.delete(btn.dataset.key);
+      renderTable();
+      renderCompare();
+    });
+  });
 }
 
 // ─── Search ⌘K
