@@ -623,7 +623,9 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
   <div class="tube-bar">
     <span class="caps">Tube focus</span>
     <div class="tube-focus" id="tubeFocus"></div>
-    <span class="caption">Tube diameter is structurally fixed. Comparing <strong>30mm</strong> and <strong>34mm</strong> scopes mixes different engineering classes — we filter to like-for-like only. Dots mark tubes present in the Ventus lineup.</span>
+    <span class="caps">Focal plane</span>
+    <div class="tube-focus" id="fpFocus"></div>
+    <span class="caption">Tube diameter is structurally fixed; FP (FFP / SFP) defines whether the reticle scales with magnification. Comparing <strong>30mm</strong> and <strong>34mm</strong> scopes — or FFP and SFP — mixes different engineering classes; we filter to like-for-like only. Dots mark tubes present in the Ventus lineup.</span>
   </div>
   <div class="tbl-wrap">
     <table class="ledger" id="ledgerTable">
@@ -1010,7 +1012,7 @@ const COLS = [
   {id:'price',label:'Price',w:'auto'}
 ];
 
-let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1, tubeFocus:null, selected:new Set()};
+let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1, tubeFocus:null, fpFocus:'all', selected:new Set()};
 const cls = ()=>CLASSES[state.classIdx];
 const metric = ()=>METRICS.find(m=>m.id===state.metric);
 const modelKey = m => `${m.brand}|${m.name}|${cls().id}`;
@@ -1060,7 +1062,8 @@ function peerSourceUrl(m){
 function updateHash(){
   const c = cls();
   const t = (state.tubeFocus === 'all' || state.tubeFocus == null) ? 'all' : state.tubeFocus;
-  const newHash = `#${c.id}/${t}/${state.metric}`;
+  const p = state.fpFocus || 'all';
+  const newHash = `#${c.id}/${t}/${state.metric}/${p}`;
   if(location.hash !== newHash) history.replaceState(null,'',newHash);
 }
 function parseHash(){
@@ -1074,16 +1077,22 @@ function parseHash(){
     else if(!isNaN(+parts[1])) state.tubeFocus = +parts[1];
   }
   if(parts[2] && METRICS.some(m => m.id === parts[2])) state.metric = parts[2];
+  if(parts[3] && (parts[3]==='all'||parts[3]==='FFP'||parts[3]==='SFP')) state.fpFocus = parts[3];
   return true;
 }
 
 function availableTubes(c){ return [...new Set(c.models.map(m=>m.tube))].sort((a,b)=>a-b); }
 function ventusTubes(c){ return [...new Set(c.models.filter(m=>m.ventus).map(m=>m.tube))].sort((a,b)=>a-b); }
 function defaultTubeFocus(c){ return ventusTubes(c)[0]; }
+function availableFps(c){ return [...new Set(c.models.map(m=>m.fp))].sort(); }
+function ventusFps(c){ return [...new Set(c.models.filter(m=>m.ventus).map(m=>m.fp))].sort(); }
 function filteredModels(c){
   const f = state.tubeFocus;
-  if(f==='all'||f==null) return c.models.slice();
-  return c.models.filter(m=>m.tube===f);
+  const p = state.fpFocus;
+  let arr = c.models.slice();
+  if(!(f==='all'||f==null)) arr = arr.filter(m=>m.tube===f);
+  if(p && p!=='all') arr = arr.filter(m=>m.fp===p);
+  return arr;
 }
 
 function renderRail(){
@@ -1101,6 +1110,7 @@ function renderRail(){
       state.sortKey = 'elev';
       state.sortDir = -1;
       state.tubeFocus = defaultTubeFocus(CLASSES[state.classIdx]);
+      state.fpFocus = 'all';
       state.selected.clear();
       renderAll();
       window.scrollTo({top:0,behavior:'smooth'});
@@ -1125,7 +1135,29 @@ function renderTubeFocus(){
       const t = b.dataset.tube;
       state.tubeFocus = (t==='all') ? 'all' : +t;
       state.selected.clear();
-      renderTubeFocus(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
+      renderTubeFocus(); renderFpFocus(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
+      updateHash();
+    });
+  });
+}
+
+function renderFpFocus(){
+  const c = cls();
+  const fps = availableFps(c);
+  const vf = ventusFps(c);
+  const box = document.getElementById('fpFocus');
+  let html = fps.map(p=>{
+    const isV = vf.includes(p);
+    const active = state.fpFocus===p;
+    return `<button data-fp="${p}" class="${active?'active':''}">${p}${isV?'<span class="ventus-dot"></span>':''}</button>`;
+  }).join('');
+  html += `<button data-fp="all" class="${state.fpFocus==='all'?'active':''}">Both</button>`;
+  box.innerHTML = html;
+  box.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click',()=>{
+      state.fpFocus = b.dataset.fp;
+      state.selected.clear();
+      renderTubeFocus(); renderFpFocus(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
       updateHash();
     });
   });
@@ -1140,7 +1172,8 @@ function renderHero(){
   const ventusCount = models.filter(m=>m.ventus).length;
   const totalCount = models.length;
   const tubeLabel = (state.tubeFocus==='all' || state.tubeFocus==null) ? 'all tubes' : `${state.tubeFocus}mm`;
-  document.getElementById('modelCount').innerHTML = `<span class="dot"></span>${totalCount.toString().padStart(2,'0')} models · ${ventusCount} Ventus · ${tubeLabel}`;
+  const fpLabel = (state.fpFocus && state.fpFocus!=='all') ? ` · ${state.fpFocus}` : '';
+  document.getElementById('modelCount').innerHTML = `<span class="dot"></span>${totalCount.toString().padStart(2,'0')} models · ${ventusCount} Ventus · ${tubeLabel}${fpLabel}`;
 }
 
 function renderOverview(){
@@ -1391,7 +1424,7 @@ function jumpToSearchResult(el){
   const c = CLASSES[ci];
   const [brand,name] = key.split('|');
   const m = c.models.find(x => x.brand===brand && x.name===name);
-  if(m) state.tubeFocus = m.tube;
+  if(m){ state.tubeFocus = m.tube; state.fpFocus = m.fp; }
   state.sortKey = 'elev';
   state.sortDir = -1;
   closeSearch();
@@ -1455,7 +1488,8 @@ function renderChart(){
 
 function renderAll(){
   if(state.tubeFocus==null) state.tubeFocus = defaultTubeFocus(cls());
-  renderRail(); renderTubeFocus(); renderHero(); renderOverview();
+  if(state.fpFocus==null) state.fpFocus = 'all';
+  renderRail(); renderTubeFocus(); renderFpFocus(); renderHero(); renderOverview();
   renderTable(); renderMetricPicker(); renderChart(); renderCompare();
   updateHash();
 }
