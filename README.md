@@ -1,6 +1,6 @@
 # Ventus Riflescope Competitive Analysis
 
-**Live atlas:** https://shah1git.github.io/ventus-atlas/  ·  Published by RIKA NV
+**Live atlas:** https://shah1git.github.io/ventus-atlas/  ·  Published by RikaNV
 
 ## Tube-strict methodology
 

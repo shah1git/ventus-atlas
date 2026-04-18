@@ -40,9 +40,9 @@ All six SKUs share identical mechanics — only objective (56 vs 60mm) and zoom 
 
 | Brand | Reference model | Focal Plane |
 |---|---|---|
-| Vector Optics | Continental x6 5-30×56 FFP (SCFF-30) | FFP |
-| Vortex | Razor HD Gen III 6-36×56 FFP | FFP |
-| Nightforce | ATACR 7-35×56 F1 | FFP |
+| Vector Optics | [Continental x6 5-30×56 FFP](https://www.vectoroptics.com/rifle-scopes/34mm-Continental-x6-5-30x56-VCT-FFP-Riflescope-SCFF-30.html) (SCFF-30) | FFP |
+| Vortex | [Razor HD Gen III 6-36×56 FFP](https://vortexoptics.com/razor-hd-gen-iii-6-36x56.html) | FFP |
+| Nightforce | [ATACR 7-35×56 F1](https://www.nightforceoptics.com/riflescopes/atacr/atacr-7-35x56-f1) | FFP |
 | March | March-FX 5-42×56 HM Gen II WA | FFP |
 | Schmidt & Bender | PM II 5-45×56 High Power | FFP |
 
@@ -56,14 +56,14 @@ Sorted by elevation.
 
 | Model | Mag | Obj | Tube | Elev | Windage | Click | FOV @100m (min–max mag) | Weight | Length | ER | Street |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| March-FX 5-42×56 Gen II | 5-42× | 56mm | 34mm | **40.0 MIL** | 14.0 MIL | 0.1 MIL | 8.7 – 1.1m | 1015g | ~410mm | 73–90mm | $3,999+ |
+| [March-FX 5-42×56 Gen II](https://www.eurooptic.com/march-fx-tactical-gen-ii-5x-40x56-fml-1-reticle-005-mil-ffp-riflescope-d40v56) | 5-42× | 56mm | 34mm | **40.0 MIL** | 14.0 MIL | 0.1 MIL | 8.7 – 1.1m | 1015g | ~410mm | 73–90mm | $3,999+ |
 | **Ventus FFP 5-40×56/60** | 5-40× | 56/60 | 34mm | **37.8 MIL** | 20.4 MIL | 0.1 MIL / ¼ MOA | 8.73 – 1.10m | **940g** | **393mm** | 91mm | OEM / TBD |
 | **Ventus FFP 6-36×56/60** | 6-36× | 56/60 | 34mm | **37.8 MIL** | 20.4 MIL | 0.1 MIL / ¼ MOA | 7.30 – 1.21m | **940g** | **393mm** | 91mm | OEM / TBD |
 | **Ventus FFP 7-35×56/60** | 7-35× | 56/60 | 34mm | **37.8 MIL** | 20.4 MIL | 0.1 MIL / ¼ MOA | 6.21 – 1.25m | **940g** | **393mm** | 91mm | OEM / TBD |
 | Vortex Razor HD Gen III | 6-36× | 56mm | 34mm | 36.1 MIL | 15.5 MIL | 0.1 MIL | 6.25 – 1.07m | 1279g | 389mm | 89mm | $2,999 |
-| Nightforce ATACR 7-35×56 F1 | 7-35× | 56mm | 34mm | 29.0 MIL | 18.0 MIL | 0.1 MIL / ¼ MOA | 5.0 – 1.10m | 1113g | 406mm | 91mm | $3,500+ |
-| S&B PM II 5-45×56 HP | 5-45× | 56mm | 34mm | 27.0 MIL | 12.0 MIL | 0.1 MIL | 7.8 – 0.9m | 1130g | 434mm | 90mm | €4,700+ |
-| Vector Continental x6 | 5-30× | 56mm | 34mm | 26.0 MIL | 16.0 MIL | 0.1 MIL | 8.17 – 1.37m | **810g** | 392mm | 100mm | $833 |
+| Nightforce [ATACR 7-35×56 F1](https://www.nightforceoptics.com/riflescopes/atacr/atacr-7-35x56-f1) | 7-35× | 56mm | 34mm | 29.0 MIL | 18.0 MIL | 0.1 MIL / ¼ MOA | 5.0 – 1.10m | 1113g | 406mm | 91mm | $3,500+ |
+| S&B [PM II 5-45×56 HP](https://www.schmidtundbender.de/en/products/1-focal-plane/product/5-45x56-pm-ii-high-power/) | 5-45× | 56mm | 34mm | 27.0 MIL | 12.0 MIL | 0.1 MIL | 7.8 – 0.9m | 1130g | 434mm | 90mm | €4,700+ |
+| Vector [Continental x6](https://www.vectoroptics.com/rifle-scopes/34mm-Continental-x6-5-30x56-VCT-FFP-Riflescope-SCFF-30.html) | 5-30× | 56mm | 34mm | 26.0 MIL | 16.0 MIL | 0.1 MIL | 8.17 – 1.37m | **810g** | 392mm | 100mm | $833 |
 
 > **Ventus FOV values are the manufacturer's published figures.** Competitor values are from manufacturer datasheets and verified retailer listings.
 

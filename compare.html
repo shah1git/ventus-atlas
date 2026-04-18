@@ -248,6 +248,13 @@ table.ledger{
 .model-cell .brand-line{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--fg-muted);letter-spacing:.16em;text-transform:uppercase}
 .model-cell .model-name{color:var(--fg)}
 .model-cell .mflag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;background:rgba(168,92,58,.15);color:var(--rust);letter-spacing:.1em;border:1px solid rgba(168,92,58,.3);display:inline-block;margin-top:4px;width:fit-content}
+.model-cell .sources{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.model-cell .sources a{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--fg-muted);text-decoration:none;padding:3px 7px;border:1px solid var(--hairline-bright);background:transparent;transition:all .18s;display:inline-flex;align-items:center;gap:5px;line-height:1;white-space:nowrap}
+.model-cell .sources a:hover{color:var(--brass);border-color:var(--brass);background:rgba(212,162,84,.08)}
+.model-cell .sources a .ext{font-size:10px;opacity:.7}
+.ledger tr.ventus-row .sources a{border-color:rgba(212,162,84,.35);color:var(--brass)}
+.ledger tr.ventus-row .sources a:hover{border-color:var(--brass-glow);background:rgba(212,162,84,.12)}
+.ledger tr.ventus-row .sources .oem{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);border:1px dashed rgba(212,162,84,.4);padding:3px 7px;opacity:.75;font-style:italic;cursor:default}
 .ledger .pill{display:inline-block;padding:3px 7px;font-size:10px;border:1px solid var(--hairline-bright);border-radius:2px;color:var(--fg-muted);letter-spacing:.05em}
 .ledger .pill.ffp{color:var(--brass);border-color:rgba(212,162,84,.4)}
 .ledger .pill.big-tube{color:var(--rust);border-color:rgba(168,92,58,.3)}
@@ -553,6 +560,75 @@ footer.colophon li strong{color:var(--fg);font-weight:400;letter-spacing:.08em}
    ══════════════════════════════════════════════════════════ */
 
 const V = {ventus:true,fp:'FFP'};
+
+const SOURCES = {
+  'Vector Optics|Continental x8 1-8×24 SFP ED':[['Official','https://www.vectoroptics.com/rifle-scopes/Continental-x8-1-8x24-SFP-Tactical-Scope-ED-SCOC-T37.html'],['EuroOptic','https://www.eurooptic.com/vector-optics-continental-x8-1-8x24-ed-tactical-riflescope-scoc-t37']],
+  'Vector Optics|Continental x10 1-10×28 FFP ED':[['Official','https://www.vectoroptics.com/rifle-scopes/Continental-x10-1-10x28-ED-FFP-Riflescope-VET-CTR-SCFF-47.html'],['Vector2007','https://vector2007.com/products/scff-47-continental-x10-1-10x28-ed-ffp-riflescope-vet-ctr']],
+  'Vector Optics|Continental x6 2-12×44 FFP':[['Vector2007','https://vector2007.com/products/continental-x6-2-12x44-mpvo-rifle-scope'],['Intro','https://www.vectoroptics.com/NewProductIntro/Continental-2-12x44-FFP-Introduction.html']],
+  'Vector Optics|Continental x8 2-16×44 SFP ED':[['Official','https://www.vectoroptics.com/rifle-scopes/Continental-x8-2-16x44-ED-Tactical-riflescope-SCOM-T39.html']],
+  'Vector Optics|Continental 3-18×50 FFP':[['Vector2007','https://vector2007.com/products/scff-28-vector-optics-34mm-continental-3-18x50ffp-riflescope'],['Optics-Trade','https://www.optics-trade.eu/blog/vector-optics-continental-3-18x50-ffp-riflescope-review-optics-trade-reviews/']],
+  'Vector Optics|Continental x6 4-24×56 FFP':[['Official','https://www.vectoroptics.com/rifle-scopes/Continental-x6-4-24x56-VEC-MBR-riflescope-SCFF-40.html']],
+  'Vector Optics|Continental x6 5-30×56 SFP':[['Official','https://www.vectoroptics.com/rifle-scopes/Continental-x6-5-30x56-SFP-ZERO-STOP-Tactical-Riflescope-SCOL-47.html']],
+  'Vector Optics|Continental x6 5-30×56 FFP':[['Official','https://www.vectoroptics.com/rifle-scopes/34mm-Continental-x6-5-30x56-VCT-FFP-Riflescope-SCFF-30.html'],['EuroOptic','https://www.eurooptic.com/vector-optics-continental-x6-5-30x56-vct-34ffp-riflescope-scff-30']],
+
+  'Primary Arms|PLxC 1-8×24 FFP':[['Official','https://www.primaryarms.com/primary-arms-compact-plxc-1-8x24-ffp-rdb-riflescope-acss-raptor-yard-556-308-reticle']],
+  'Primary Arms|GLx 1-10×24 FFP':[['Official','https://primaryarmsoptics.com/optics/rifle-scopes/low-power-variable-optics/primary-arms-glx-1-10x24-ffp-rifle-scope-black/']],
+  'Primary Arms|SLx 1-10×28 SFP':[['Official','https://www.primaryarms.com/primary-arms-slx-1-10x28mm-sfp-rifle-scope-illuminated-acss-raptor-556-m10s-reticle']],
+
+  'Athlon|Ares ETR 1-10×24 FFP':[['Official','https://athlonoptics.com/product/ares-etr-uhd-1-10x24-atmr3-ffp-ir-mil/']],
+  'Athlon|Ares ETR Gen2 1-10×24 FFP':[['Official','https://athlonoptics.com/product/ares-etr-gen2-uhd-1-10x24-atmr3-ffp-ir-mil/']],
+  'Athlon|Ares ETR 3-18×50 FFP':[['Official','https://athlonoptics.com/product/ares-etr-uhd-3-18x50-aprs6-ffp-ir-mil/']],
+  'Athlon|Midas TAC Gen2 HD 4-16×44 FFP':[['Official','https://athlonoptics.com/product-category/rifle-scopes/midas-tac-gen2-hd/']],
+  'Athlon|Midas TAC 6-24×50 FFP':[['Official','https://athlonoptics.com/product/midas-tac-6-24x50-aprs2-ffp-mil-scope/']],
+  'Athlon|Cronus BTR Gen II 4.5-29×56 FFP':[['Official','https://athlonoptics.com/product/cronus-btr-gen2-uhd-4-5-29x56-aprs6-ffp-ir-mil/']],
+
+  'Vortex|Razor HD Gen III 1-10×24 FFP':[['Official','https://vortexoptics.com/vortex-razor-hd-gen-iii-1-10x24-riflescope+reticle-EBR-9~MRAD'],['EuroOptic','https://www.eurooptic.com/vortex-razor-gen-iii-1-10x24-ebr-9-mrad-riflescope-rzr-11002']],
+  'Vortex|Viper PST Gen II 3-15×44 FFP':[['Official','https://vortexoptics.com/vortex-viper-pst-gen-2-3-15x44-ffp-riflescope.html']],
+  'Vortex|Viper PST Gen II 5-25×50 FFP':[['Official','https://vortexoptics.com/viper-pst-gen-2-5-25x50-ffp.html']],
+  'Vortex|Razor HD Gen II 4.5-27×56 FFP':[['Official','https://vortexoptics.com/vortex-razor-hd-gen-2-45-27x56-riflescope.html']],
+  'Vortex|Razor HD Gen III 6-36×56 FFP':[['Official','https://vortexoptics.com/razor-hd-gen-iii-6-36x56.html']],
+
+  'Burris|XTR II 1-8×24 FFP':[['Legacy','https://www.burrisoptics.com/scopes/xtr-ii-riflescopes-series/xtr-ii-riflescope-1-8x24']],
+  'Burris|XTR III 3.3-18×50 FFP':[['Official','https://www.burrisoptics.com/riflescopes/xtr-iii-33-18x50mm']],
+  'Burris|XTR III 5.5-30×56 FFP':[['Official','https://www.burrisoptics.com/riflescopes/xtr-iii-55-30x56mm']],
+
+  'Trijicon|Credo 1-8×28 FFP':[['Official','https://www.trijicon.com/products/product-family/trijicon-credo-1-8x28-riflescope']],
+  'Trijicon|VCOG 1-8×28':[['Official','https://www.trijicon.com/products/product-family/trijicon-vcog-VC18']],
+  'Trijicon|Credo HX 1-10×28 FFP':[['Official','https://www.trijicon.com/products/product-family/trijicon-credo-hx-1-10x28-riflescope']],
+
+  'Leupold|Mark 5HD 3.6-18×44 FFP':[['Official','https://www.leupold.com/mark-5hd-36-18x44-m5c3-ffp-tmr-riflescope']],
+
+  'Bushnell|Match Pro ED 3-18×50 FFP':[['Official','https://www.bushnell.com/products/match-pro-ed-3-18x50-riflescope']],
+  'Bushnell|Match Pro ED 5-30×56 FFP':[['Official','https://www.bushnell.com/scopes/shop-all-scopes/match-pro-ed-5-30x56-riflescope/BU-MP53056DMI.html']],
+
+  'Arken|SH-4 Gen2 4-16×50 FFP':[['Official','https://www.arkenopticsusa.com/products/sh-4-4-16x50-gen2-ffp-illuminated-vpr-zero-stop-34mm-tube']],
+  'Arken|SH-4J Gen II 6-24×50 FFP':[['Official','https://www.arkenopticsusa.com/products/sh-4j-6-24x50-ffp-illuminated-vhr-vpr-zero-stop-34mm-tube']],
+  'Arken|EP-5 5-25×56 FFP':[['Official','https://www.arkenopticsusa.com/products/ep-5-5-25x56-ffp-illuminated-vpr-zero-stop-34mm-tube']],
+
+  'Nightforce|NX8 4-32×50 F1':[['Official','https://www.nightforceoptics.com/riflescopes/nx8/nx8-4-32x50-f1'],['MHS','https://www.milehighshooting.com/nightforce-nx8-4-32x50-f1-digillum-moa-xt/']],
+  'Nightforce|NX8 2.5-20×50 F1':[['Official','https://www.nightforceoptics.com/riflescopes/nx8/nx8-25-20x50-f1']],
+  'Nightforce|ATACR 5-25×56 F1':[['Official','https://www.nightforceoptics.com/riflescopes/atacr/atacr-5-25x56-f1']],
+  'Nightforce|ATACR 7-35×56 F1':[['Official','https://www.nightforceoptics.com/riflescopes/atacr/atacr-7-35x56-f1']],
+
+  'Schmidt & Bender|PM II 3-20×50 Ultra Short':[['Official','https://www.schmidtundbender.de/en/3-20x50-PM-II-Ultra-Short-LP-GR2ID-1cm-cw-DT-II-MTC-LT-ST-II-ZC-LT/667-911-422-M3-I6'],['EuroOptic','https://www.eurooptic.com/schmidt-bender-3-20x50-pm-ii-ultra-short-riflescope']],
+  'Schmidt & Bender|PM II 5-25×56 LP':[['Official','https://www.schmidtundbender.de/en/5-25x56-PM-II-LP-TREMOR3-1cm-cw-DT27-MTC-LT-ST-ZC-CT/689-911-552-G9-E9']],
+  'Schmidt & Bender|PM II 5-45×56 HP':[['S&B','https://www.schmidtundbender.de/en/products/1-focal-plane/product/5-45x56-pm-ii-high-power/']],
+
+  'March|March-FX 5-40×56 HM Gen II':[['Official','https://marchscopes.com/scopes/d40v56fml-2/']],
+  'March|March-FX 5-42×56 HM Gen II WA':[['EuroOptic','https://www.eurooptic.com/march-fx-tactical-gen-ii-5x-40x56-fml-1-reticle-005-mil-ffp-riflescope-d40v56']],
+
+  'ZCO|ZC527 5-27×56 FFP':[['MileHighShooting','https://www.milehighshooting.com/zero-compromise-optic-zc527-5-27x56-ffp-nle-10mil-mpct2x/']],
+
+  'Tangent Theta|TT525P 5-25×56':[['Armament','https://armament.com/products/tangent-theta-525x56mm-professional'],['SportOptics','https://www.sportoptics.com/tangent-theta-tt525p-800100-0001.html']],
+  'Tangent Theta|TT735P 7-35×56':[['Armament','https://armament.com/products/tangent-theta-725x56mm-professional']]
+};
+function getSources(m){ return SOURCES[`${m.brand}|${m.name}`] || []; }
+function sourcesHtml(m){
+  if(m.ventus) return '<div class="sources"><span class="oem" title="Original-equipment manufacturer source — internal">OEM / Ventus</span></div>';
+  const s = getSources(m);
+  if(!s.length) return '';
+  return '<div class="sources">'+s.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener noreferrer">${l}<span class="ext">↗</span></a>`).join('')+'</div>';
+}
 
 const CLASSES = [
   {
@@ -900,6 +976,7 @@ function renderTable(){
         <span class="model-name">${m.name}</span>
         ${m.discontinued?'<span class="mflag">DISCONTINUED</span>':''}
         ${m.substitute?'<span class="mflag" style="background:rgba(90,97,81,.15);color:var(--olive);border-color:rgba(90,97,81,.4)">SUBSTITUTE</span>':''}
+        ${sourcesHtml(m)}
       </td>
       <td><span class="pill ${m.fp==='FFP'?'ffp':''}">${m.fp}</span></td>
       <td>${m.mag}</td>

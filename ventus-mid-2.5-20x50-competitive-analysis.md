@@ -37,7 +37,7 @@
 
 | Brand | Model | Focal Plane | Note |
 |---|---|---|---|
-| Vortex | Viper PST Gen II 3-15×44 FFP (PST-3158) | FFP | Different objective (44mm) but same tube class |
+| Vortex | [Viper PST Gen II 3-15×44 FFP](https://vortexoptics.com/vortex-viper-pst-gen-2-3-15x44-ffp-riflescope.html) (PST-3158) | FFP | Different objective (44mm) but same tube class |
 
 *(No other mainstream brand offers a 30mm-tube FFP in this magnification/objective combination. Vector Continental 3-18×50 is 34mm; Athlon Ares ETR 3-18×50 is 34mm; Leupold Mark 5HD is 35mm.)*
 
@@ -52,7 +52,7 @@ Sorted by elevation.
 | **Ventus FFP/SFP 2.5-20×50** | FFP/SFP | 2.5-20× | 50mm | **37.8 MIL** | **32.0 MIL** | 0.1 MIL | 17.5 – 2.18m | 840g | 331mm | 91mm | OEM |
 | **Ventus FFP/SFP 2.5-15×50** | FFP/SFP | 2.5-15× | 50mm | **37.8 MIL** | **32.0 MIL** | 0.1 MIL | 17.5 – 2.89m | 840g | 331mm | 91mm | OEM |
 | **Ventus FFP/SFP 3-18×50** | FFP/SFP | 3-18× | 50mm | **37.8 MIL** | **32.0 MIL** | 0.1 MIL | 14.56 – 2.40m | **785g** | 352mm | 91mm | OEM |
-| Vortex Viper PST Gen II 3-15×44 FFP | FFP | 3-15× | 44mm | 22.0 MIL | 11.0 MIL | 0.1 MRAD | 13.7 – 2.86m | 797g | 363mm | 86mm | $999–1,199 |
+| Vortex [Viper PST Gen II 3-15×44 FFP](https://vortexoptics.com/vortex-viper-pst-gen-2-3-15x44-ffp-riflescope.html) | FFP | 3-15× | 44mm | 22.0 MIL | 11.0 MIL | 0.1 MRAD | 13.7 – 2.86m | 797g | 363mm | 86mm | $999–1,199 |
 
 ---
 

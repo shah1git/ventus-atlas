@@ -35,10 +35,10 @@
 
 | Brand | Model | Focal Plane | Note |
 |---|---|---|---|
-| Vector Optics | Continental x6 5-30×56 SFP Tactical (SCOL-47) | **SFP** | 30mm but 56mm obj |
-| Vortex | Viper PST Gen II 5-25×50 FFP (PST-5259) | FFP | Direct tube/obj match |
-| Nightforce | NX8 2.5-20×50 F1 | FFP | Direct tube/obj match — elevation tie |
-| Athlon | Midas TAC 6-24×50 FFP | FFP | Direct tube/obj match |
+| Vector Optics | [Continental x6 5-30×56 SFP](https://www.vectoroptics.com/rifle-scopes/Continental-x6-5-30x56-SFP-ZERO-STOP-Tactical-Riflescope-SCOL-47.html) Tactical (SCOL-47) | **SFP** | 30mm but 56mm obj |
+| Vortex | [Viper PST Gen II 5-25×50 FFP](https://vortexoptics.com/viper-pst-gen-2-5-25x50-ffp.html) (PST-5259) | FFP | Direct tube/obj match |
+| Nightforce | [NX8 2.5-20×50 F1](https://www.nightforceoptics.com/riflescopes/nx8/nx8-25-20x50-f1) | FFP | Direct tube/obj match — elevation tie |
+| Athlon | [Midas TAC 6-24×50 FFP](https://athlonoptics.com/product/midas-tac-6-24x50-aprs2-ffp-mil-scope/) | FFP | Direct tube/obj match |
 
 *(Athlon Cronus BTR, Arken SH-4, S&B PM II 5-25, Burris XTR III all 34mm — excluded.)*
 
@@ -52,10 +52,10 @@ Sorted by elevation.
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | **Ventus FFP/SFP 3.125-25×50** | FFP/SFP | 3.125-25× | 50mm | **32.0 MIL** | **26.2 MIL** | 0.1 MIL | 13.99 – 1.75m | **765g** | 349mm | 91mm | OEM |
 | **Ventus FFP/SFP 5-25×50** | FFP/SFP | 5-25× | 50mm | **32.0 MIL** | **26.2 MIL** | 0.1 MIL | 8.74 – 1.75m | **765g** | 349mm | 91mm | OEM |
-| Nightforce NX8 2.5-20×50 F1 | FFP | 2.5-20× | 50mm | **32.0 MRAD** | 23.0 MRAD | 0.1 MRAD | 12.7 – 2.13m | 802g | **305mm** | 88mm | $2,250–2,600 |
-| Athlon Midas TAC 6-24×50 FFP | FFP | 6-24× | 50mm | 25.0 MIL | 25.0 MIL | 0.1 MIL | 5.43 – 1.40m | 745g | 371mm | 94mm | $687–700 |
-| Vortex Viper PST Gen II 5-25×50 FFP | FFP | 5-25× | 50mm | 20.0 MRAD | 10.0 MRAD | 0.1 MRAD | 7.35 – 1.46m | 885g | 401mm | 86mm | $999–1,099 |
-| Vector Continental x6 5-30×56 SFP | SFP | 5-30× | 56mm | 16.5 MIL | 16.5 MIL | 0.1 MIL | 7.6 – 1.3m | 745g | 401mm | 100mm | $833 |
+| Nightforce [NX8 2.5-20×50 F1](https://www.nightforceoptics.com/riflescopes/nx8/nx8-25-20x50-f1) | FFP | 2.5-20× | 50mm | **32.0 MRAD** | 23.0 MRAD | 0.1 MRAD | 12.7 – 2.13m | 802g | **305mm** | 88mm | $2,250–2,600 |
+| Athlon [Midas TAC 6-24×50 FFP](https://athlonoptics.com/product/midas-tac-6-24x50-aprs2-ffp-mil-scope/) | FFP | 6-24× | 50mm | 25.0 MIL | 25.0 MIL | 0.1 MIL | 5.43 – 1.40m | 745g | 371mm | 94mm | $687–700 |
+| Vortex [Viper PST Gen II 5-25×50 FFP](https://vortexoptics.com/viper-pst-gen-2-5-25x50-ffp.html) | FFP | 5-25× | 50mm | 20.0 MRAD | 10.0 MRAD | 0.1 MRAD | 7.35 – 1.46m | 885g | 401mm | 86mm | $999–1,099 |
+| Vector [Continental x6 5-30×56 SFP](https://www.vectoroptics.com/rifle-scopes/Continental-x6-5-30x56-SFP-ZERO-STOP-Tactical-Riflescope-SCOL-47.html) | SFP | 5-30× | 56mm | 16.5 MIL | 16.5 MIL | 0.1 MIL | 7.6 – 1.3m | 745g | 401mm | 100mm | $833 |
 
 ---
 

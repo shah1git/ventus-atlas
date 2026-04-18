@@ -35,8 +35,8 @@
 
 | Brand | Model | Focal Plane | Note |
 |---|---|---|---|
-| Nightforce | NX8 4-32×50 F1 | FFP | Closest tube + objective match; different zoom |
-| Vortex | Viper PST Gen II 5-25×50 FFP (PST-5259) | FFP | Same objective; different zoom start |
+| Nightforce | [NX8 4-32×50 F1](https://www.nightforceoptics.com/riflescopes/nx8/nx8-4-32x50-f1) | FFP | Closest tube + objective match; different zoom |
+| Vortex | [Viper PST Gen II 5-25×50 FFP](https://vortexoptics.com/viper-pst-gen-2-5-25x50-ffp.html) (PST-5259) | FFP | Same objective; different zoom start |
 
 *(No 30mm-tube 3-24× or 4-24× FFP exists from any other mainstream brand. S&B PM II 3-20×50 Ultra Short is 34mm.)*
 
@@ -50,8 +50,8 @@ Sorted by elevation.
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | **Ventus FFP/SFP 3-24×50** | FFP/SFP | 3-24× | 50mm | **32.0 MIL** | **26.2 MIL** | 0.1 MIL | 14.54 – 1.81m | **792g** | 352mm | 91mm | OEM |
 | **Ventus FFP/SFP 4-24×50** | FFP/SFP | 4-24× | 50mm | **32.0 MIL** | **26.2 MIL** | 0.1 MIL | 10.93 – 1.81m | 870g | 375mm | 91mm | OEM |
-| Nightforce NX8 4-32×50 F1 | FFP | 4-32× | 50mm | 26.0 MRAD | 20.0 MRAD | 0.1 MRAD | 8.7 – 1.5m | 811g | **340mm** | 89mm | $2,450 |
-| Vortex Viper PST Gen II 5-25×50 FFP | FFP | 5-25× | 50mm | 20.0 MRAD | 10.0 MRAD | 0.1 MRAD | 8.0 – 1.6m | 885g | 401mm | 86mm | $999–1,099 |
+| Nightforce [NX8 4-32×50 F1](https://www.nightforceoptics.com/riflescopes/nx8/nx8-4-32x50-f1) | FFP | 4-32× | 50mm | 26.0 MRAD | 20.0 MRAD | 0.1 MRAD | 8.7 – 1.5m | 811g | **340mm** | 89mm | $2,450 |
+| Vortex [Viper PST Gen II 5-25×50 FFP](https://vortexoptics.com/viper-pst-gen-2-5-25x50-ffp.html) | FFP | 5-25× | 50mm | 20.0 MRAD | 10.0 MRAD | 0.1 MRAD | 8.0 – 1.6m | 885g | 401mm | 86mm | $999–1,099 |
 
 ---
 

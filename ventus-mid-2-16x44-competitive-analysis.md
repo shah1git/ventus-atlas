@@ -36,8 +36,8 @@
 | Brand | Model | Focal Plane |
 |---|---|---|
 | Vector Optics | Continental x8 2-16×44 ED Tactical (SCOM-T39) | **SFP** |
-| Vortex | Viper PST Gen II 3-15×44 FFP (PST-3158) | FFP |
-| Athlon | Midas TAC Gen2 HD 4-16×44 FFP (213083) | FFP |
+| Vortex | [Viper PST Gen II 3-15×44 FFP](https://vortexoptics.com/vortex-viper-pst-gen-2-3-15x44-ffp-riflescope.html) (PST-3158) | FFP |
+| Athlon | [Midas TAC Gen2 HD 4-16×44 FFP](https://athlonoptics.com/product-category/rifle-scopes/midas-tac-gen2-hd/) (213083) | FFP |
 
 *(Note: this tier is thin in 30mm. Most mid-range FFP 44mm scopes migrated to 34mm. Ventus is nearly alone offering 2× low-end in this tube class.)*
 
@@ -52,8 +52,8 @@ Sorted by elevation.
 | **Ventus FFP/SFP 2-16×44** | FFP/SFP | 2-16× | 44mm | **49.5 MIL** | **40.7 MIL** | 0.1 MIL | 21.9 – 2.72m | 715g | 307mm | 91mm | OEM |
 | **Ventus FFP/SFP 2-12×44** | FFP/SFP | 2-12× | 44mm | **49.5 MIL** | **40.7 MIL** | 0.1 MIL | 21.9 – 3.63m | 710g | 307mm | 91mm | OEM |
 | Vector Continental x8 2-16×44 SFP | SFP | 2-16× | 44mm | 32.0 MIL | 32.0 MIL | 0.1 MIL | 20.5 – 2.56m | **672g** | 347mm | 95mm | $449–629 |
-| Athlon Midas TAC Gen2 HD 4-16×44 FFP | FFP | 4-16× | 44mm | ~24.0 MIL | ~16.0 MIL | 0.1 MIL | 9.22 – 2.33m | 675g | 361mm | 94mm | $600–700 |
-| Vortex Viper PST Gen II 3-15×44 FFP | FFP | 3-15× | 44mm | 22.0 MIL | 11.0 MIL | 0.1 MRAD | 13.7 – 2.86m | 797g | 363mm | 86mm | $899–999 |
+| Athlon [Midas TAC Gen2 HD 4-16×44 FFP](https://athlonoptics.com/product-category/rifle-scopes/midas-tac-gen2-hd/) | FFP | 4-16× | 44mm | ~24.0 MIL | ~16.0 MIL | 0.1 MIL | 9.22 – 2.33m | 675g | 361mm | 94mm | $600–700 |
+| Vortex [Viper PST Gen II 3-15×44 FFP](https://vortexoptics.com/vortex-viper-pst-gen-2-3-15x44-ffp-riflescope.html) | FFP | 3-15× | 44mm | 22.0 MIL | 11.0 MIL | 0.1 MRAD | 13.7 – 2.86m | 797g | 363mm | 86mm | $899–999 |
 
 ---
 

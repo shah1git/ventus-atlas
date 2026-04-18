@@ -34,12 +34,12 @@
 
 | Brand | Model | Focal Plane |
 |---|---|---|
-| Vector Optics | Continental x6 5-30×56 VCT FFP (SCFF-30) | FFP |
-| Vortex | Razor HD Gen III 6-36×56 FFP (RZR-63602) | FFP |
-| Nightforce | ATACR 5-25×56 F1 | FFP |
-| March | March-FX 5-40×56 HM Gen II WA (D40V56FML-G2) | FFP |
-| Schmidt & Bender | PM II 5-25×56 LP | FFP |
-| Tangent Theta | TT525P Professional Marksman 5-25×56 | FFP |
+| Vector Optics | [Continental x6](https://www.vectoroptics.com/rifle-scopes/34mm-Continental-x6-5-30x56-VCT-FFP-Riflescope-SCFF-30.html) 5-30×56 VCT FFP (SCFF-30) | FFP |
+| Vortex | [Razor HD Gen III 6-36×56 FFP](https://vortexoptics.com/razor-hd-gen-iii-6-36x56.html) (RZR-63602) | FFP |
+| Nightforce | [ATACR 5-25×56 F1](https://www.nightforceoptics.com/riflescopes/atacr/atacr-5-25x56-f1) | FFP |
+| March | [March-FX 5-40×56 HM Gen II](https://marchscopes.com/scopes/d40v56fml-2/) WA (D40V56FML-G2) | FFP |
+| Schmidt & Bender | [PM II 5-25×56 LP](https://www.schmidtundbender.de/en/5-25x56-PM-II-LP-TREMOR3-1cm-cw-DT27-MTC-LT-ST-ZC-CT/689-911-552-G9-E9) | FFP |
+| Tangent Theta | [TT525P](https://armament.com/products/tangent-theta-525x56mm-professional) Professional Marksman 5-25×56 | FFP |
 
 *(ZCO ZC527 5-27×56 uses a 36mm tube — excluded on tube-strict grounds; see note below.)*
 
@@ -54,12 +54,12 @@ Sorted by elevation.
 | **Ventus FFP 4-32×56** | FFP | 4-32× | 56mm | **46.5 MIL** | 23.3 MIL | 0.1 MIL | 10.9 – 1.36m | **880g** | **375mm** | 91mm | OEM |
 | **Ventus FFP 5-25×56** | FFP | 5-25× | 56mm | **46.5 MIL** | 23.3 MIL | 0.1 MIL | 8.74 – 1.75m | **875g** | **375mm** | 91mm | OEM |
 | **Ventus FFP 5-30×56** | FFP | 5-30× | 56mm | **46.5 MIL** | 23.3 MIL | 0.1 MIL | 8.74 – 1.46m | **880g** | **375mm** | 91mm | OEM |
-| Vortex Razor HD Gen III 6-36×56 | FFP | 6-36× | 56mm | 36.1 MRAD | 15.5 MRAD | 0.1 MRAD | 6.25 – 1.07m | 1278g | 387mm | 89mm | $3,000–4,800 |
-| Nightforce ATACR 5-25×56 F1 | FFP | 5-25× | 56mm | 35.0 MRAD | **23.0 MRAD** | 0.1 MRAD | 6.24 – 1.63m | 1066g | 391mm | 89mm | $5,291–5,360 |
-| Vector Continental x6 5-30×56 | FFP | 5-30× | 56mm | 30.0 MIL | 16.0 MIL | 0.1 MIL | 8.1 – 1.36m | **810g** | 393mm | 100mm | $674–833 |
-| Tangent Theta TT525P 5-25×56 | FFP | 5-25× | 56mm | 30.0 MRAD | 20.0 MRAD | 0.1 MRAD | 7.6 – 1.6m | 1150g | 425mm | 90mm | $5,537–6,457 |
-| S&B PM II 5-25×56 LP | FFP | 5-25× | 56mm | 27.0 MRAD | 12.0 MRAD | 0.1 MRAD | 5.3 – 1.5m | 1065g | 420mm | 90mm | $3,209–3,800 |
-| March-FX 5-40×56 HM Gen II | FFP | 5-40× | 56mm | 22–24 MIL | 11.5 MIL | 0.05 MIL | 6.98 – 0.87m | 900g | 389mm | 96mm | $3,800–4,500 |
+| Vortex [Razor HD Gen III 6-36×56](https://vortexoptics.com/razor-hd-gen-iii-6-36x56.html) | FFP | 6-36× | 56mm | 36.1 MRAD | 15.5 MRAD | 0.1 MRAD | 6.25 – 1.07m | 1278g | 387mm | 89mm | $3,000–4,800 |
+| Nightforce [ATACR 5-25×56 F1](https://www.nightforceoptics.com/riflescopes/atacr/atacr-5-25x56-f1) | FFP | 5-25× | 56mm | 35.0 MRAD | **23.0 MRAD** | 0.1 MRAD | 6.24 – 1.63m | 1066g | 391mm | 89mm | $5,291–5,360 |
+| Vector [Continental x6](https://www.vectoroptics.com/rifle-scopes/34mm-Continental-x6-5-30x56-VCT-FFP-Riflescope-SCFF-30.html) 5-30×56 | FFP | 5-30× | 56mm | 30.0 MIL | 16.0 MIL | 0.1 MIL | 8.1 – 1.36m | **810g** | 393mm | 100mm | $674–833 |
+| Tangent Theta [TT525P 5-25×56](https://armament.com/products/tangent-theta-525x56mm-professional) | FFP | 5-25× | 56mm | 30.0 MRAD | 20.0 MRAD | 0.1 MRAD | 7.6 – 1.6m | 1150g | 425mm | 90mm | $5,537–6,457 |
+| S&B [PM II 5-25×56 LP](https://www.schmidtundbender.de/en/5-25x56-PM-II-LP-TREMOR3-1cm-cw-DT27-MTC-LT-ST-ZC-CT/689-911-552-G9-E9) | FFP | 5-25× | 56mm | 27.0 MRAD | 12.0 MRAD | 0.1 MRAD | 5.3 – 1.5m | 1065g | 420mm | 90mm | $3,209–3,800 |
+| [March-FX 5-40×56 HM Gen II](https://marchscopes.com/scopes/d40v56fml-2/) | FFP | 5-40× | 56mm | 22–24 MIL | 11.5 MIL | 0.05 MIL | 6.98 – 0.87m | 900g | 389mm | 96mm | $3,800–4,500 |
 
 ---
 
@@ -153,7 +153,7 @@ Ventus is 12mm shorter than next-best. Meaningful for rifle balance and mount pl
 
 > "100%+ of the travel (if the 46.5 MIL holds up in tracking), 70% of the weight, 90% of the length, at 15–25% of the price. The remaining optical-quality and mechanical-repeatability delta is where the $3,000–$5,000 premium lives."
 
-For a reseller (Rika NV), retail positioning should be meaningfully above Vector Continental ($700–800) but well below Arken/Athlon Cronus/Burris XTR III. Target street: $800–$1,300. At that price, Ventus dominates its tier on paper spec and is a clear choice for ELR-leaning buyers who prioritize elevation over brand pedigree.
+For a reseller (RikaNV), retail positioning should be meaningfully above Vector Continental ($700–800) but well below Arken/Athlon Cronus/Burris XTR III. Target street: $800–$1,300. At that price, Ventus dominates its tier on paper spec and is a clear choice for ELR-leaning buyers who prioritize elevation over brand pedigree.
 
 ---
 

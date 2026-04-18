@@ -37,7 +37,7 @@
 
 | Brand | Model | Focal Plane |
 |---|---|---|
-| Primary Arms | GLx 1-10×24 FFP | FFP |
+| Primary Arms | [GLx 1-10×24 FFP](https://primaryarmsoptics.com/optics/rifle-scopes/low-power-variable-optics/primary-arms-glx-1-10x24-ffp-rifle-scope-black/) | FFP |
 
 *(Only one major-brand 30mm 1-10× FFP on current market. Ventus and PA GLx are structural peers.)*
 
@@ -46,10 +46,10 @@
 | Brand | Model | Focal Plane |
 |---|---|---|
 | Vector Optics | Continental x10 1-10×28 ED FFP (SCFF-47) | FFP |
-| Vortex | Razor HD Gen III 1-10×24 FFP (RZR-11002) | FFP |
-| Primary Arms | SLx 1-10×28 SFP | SFP |
+| Vortex | [Razor HD Gen III 1-10×24 FFP](https://vortexoptics.com/vortex-razor-hd-gen-iii-1-10x24-riflescope+reticle-EBR-9~MRAD) (RZR-11002) | FFP |
+| Primary Arms | [SLx 1-10×28 SFP](https://www.primaryarms.com/primary-arms-slx-1-10x28mm-sfp-rifle-scope-illuminated-acss-raptor-556-m10s-reticle) | SFP |
 | Athlon | Ares ETR Gen2 UHD 1-10×24 FFP (212110) | FFP |
-| Trijicon | Credo HX 1-10×28 FFP (CRHX1028) | FFP |
+| Trijicon | [Credo HX 1-10×28 FFP](https://www.trijicon.com/products/product-family/trijicon-credo-hx-1-10x28-riflescope) (CRHX1028) | FFP |
 
 *(Burris: no 1-10× offering; Leupold: no 1-10× in current lineup.)*
 
@@ -59,7 +59,7 @@
 
 | Model | FP | Obj | Elev | Windage | Click | FOV @100m | Weight | Length | ER | Street |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Primary Arms GLx 1-10×24 FFP | FFP | 24mm | **40.0 MIL** | 40.0 MIL | 0.1 MIL | 34.6 – 3.20m | 660g | 290mm | 102mm | $680 |
+| Primary Arms [GLx 1-10×24 FFP](https://primaryarmsoptics.com/optics/rifle-scopes/low-power-variable-optics/primary-arms-glx-1-10x24-ffp-rifle-scope-black/) | FFP | 24mm | **40.0 MIL** | 40.0 MIL | 0.1 MIL | 34.6 – 3.20m | 660g | 290mm | 102mm | $680 |
 | **Ventus FFP 1-10×24** | FFP | 24mm | **34.9 MIL** | 34.9 MIL | ½ MOA | 42.7 – 4.27m | **527g** | 270mm | 86mm | OEM |
 | **Ventus SFP 1-10×24** | SFP | 24mm | **34.9 MIL** | 34.9 MIL | ½ MOA | 44.3 – 4.43m | 553g | 270mm | 85mm | OEM |
 
@@ -80,11 +80,11 @@ Two-horse race at 30mm. PA GLx wins elevation and click precision; Ventus wins w
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | Vector Continental x10 1-10×28 FFP | FFP | 1-10× | 28mm | **51.0 MIL** | 51.0 MIL | 0.1 MIL | 39.2 – 3.92m | 651g | 278mm | 93mm | $750–849 |
 | **Ventus FFP 1-10×26** | FFP | 1-10× | 26mm | **34.9 MIL** | **34.9 MIL** | ½ MOA | **46.0 – 5.76m** | **608g** | 278mm | 86mm | OEM |
-| Vortex Razor HD Gen III 1-10×24 | FFP | 1-10× | 24mm | 30.0 MIL | 30.0 MIL | 0.1 MRAD | 38.6 – 3.90m | 610g | 257mm | 91mm | $1,999 |
-| Athlon Ares ETR Gen2 1-10×24 FFP | FFP | 1-10× | 24mm | 29.0 MIL | 25.0 MIL | 0.1 MIL | 39.1 – 3.90m | 762g | 254mm | 94mm | $1,000 |
-| Trijicon Credo HX 1-10×28 FFP | FFP | 1-10× | 28mm | 29.0 MIL | 29.0 MIL | 0.1 MIL | 38.8 – 3.90m | 601g | 257mm | 81–99mm | $1,429–1,600 |
+| Vortex [Razor HD Gen III 1-10×24](https://vortexoptics.com/vortex-razor-hd-gen-iii-1-10x24-riflescope+reticle-EBR-9~MRAD) | FFP | 1-10× | 24mm | 30.0 MIL | 30.0 MIL | 0.1 MRAD | 38.6 – 3.90m | 610g | 257mm | 91mm | $1,999 |
+| Athlon [Ares ETR Gen2 1-10×24 FFP](https://athlonoptics.com/product/ares-etr-gen2-uhd-1-10x24-atmr3-ffp-ir-mil/) | FFP | 1-10× | 24mm | 29.0 MIL | 25.0 MIL | 0.1 MIL | 39.1 – 3.90m | 762g | 254mm | 94mm | $1,000 |
+| Trijicon [Credo HX 1-10×28 FFP](https://www.trijicon.com/products/product-family/trijicon-credo-hx-1-10x28-riflescope) | FFP | 1-10× | 28mm | 29.0 MIL | 29.0 MIL | 0.1 MIL | 38.8 – 3.90m | 601g | 257mm | 81–99mm | $1,429–1,600 |
 | **Ventus SFP 1-10×28** | SFP | 1-10× | 28mm | 26.2 MIL | 26.2 MIL | ½ MOA | **49.9 – 6.11m** | 646g | 278mm | 85mm | OEM |
-| Primary Arms SLx 1-10×28 SFP | SFP | 1-10× | 28mm | 11.6 MIL | 11.6 MIL | ½ MOA | 36.6 – 3.33m | 542g | 267mm | 81–89mm | $450 |
+| Primary Arms [SLx 1-10×28 SFP](https://www.primaryarms.com/primary-arms-slx-1-10x28mm-sfp-rifle-scope-illuminated-acss-raptor-556-m10s-reticle) | SFP | 1-10× | 28mm | 11.6 MIL | 11.6 MIL | ½ MOA | 36.6 – 3.33m | 542g | 267mm | 81–89mm | $450 |
 
 ### 5a. 34mm analysis
 

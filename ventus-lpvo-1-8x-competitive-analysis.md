@@ -40,7 +40,7 @@
 | Brand | Model | Focal Plane |
 |---|---|---|
 | Vector Optics | Continental x8 1-8×24 SFP Tactical ED (SCOC-T37) | SFP |
-| Primary Arms | Compact PLxC 1-8×24 FFP | FFP |
+| Primary Arms | Compact [PLxC 1-8×24 FFP](https://www.primaryarms.com/primary-arms-compact-plxc-1-8x24-ffp-rdb-riflescope-acss-raptor-yard-556-308-reticle) | FFP |
 
 *(Only two current-production 30mm-tube 1-8× FFP/SFP models from major brands. The class is structurally thin.)*
 
@@ -49,10 +49,10 @@
 | Brand | Model | Focal Plane | Note |
 |---|---|---|---|
 | Athlon | Ares ETR 1-10×24 UHD (212104 MIL) | FFP | 1-10× substitute — Athlon has no 1-8× |
-| Vortex | Razor HD Gen III 1-10×24 (RZR-11002) | FFP | 1-10× substitute — Gen III no 1-8× |
-| Burris | XTR II 1-8×24 FFP (#201018) | FFP | Discontinued — reference only |
-| Trijicon | Credo 1-8×28 FFP (CR828) | FFP | |
-| Trijicon | VCOG 1-8×28 (VC18) | FFP | Rugged mil-spec sibling |
+| Vortex | [Razor HD Gen III 1-10×24](https://vortexoptics.com/vortex-razor-hd-gen-iii-1-10x24-riflescope+reticle-EBR-9~MRAD) (RZR-11002) | FFP | 1-10× substitute — Gen III no 1-8× |
+| Burris | [XTR II 1-8×24 FFP](https://www.burrisoptics.com/scopes/xtr-ii-riflescopes-series/xtr-ii-riflescope-1-8x24) (#201018) | FFP | Discontinued — reference only |
+| Trijicon | [Credo 1-8×28 FFP](https://www.trijicon.com/products/product-family/trijicon-credo-1-8x28-riflescope) (CR828) | FFP | |
+| Trijicon | [VCOG 1-8×28](https://www.trijicon.com/products/product-family/trijicon-vcog-VC18) (VC18) | FFP | Rugged mil-spec sibling |
 
 *(Burris XTR III has no 1-8×; Leupold Mark 8 CQBSS is gov't-only; Trijicon AccuPower discontinued.)*
 
@@ -64,10 +64,10 @@ Sorted by elevation.
 
 | Model | FP | Mag | Obj | Elev | Windage | Click | FOV @100m | Weight | Length | ER | Street |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Vector Continental x8 1-8×24 SFP ED | SFP | 1-8× | 24mm | **40.0 MIL** | 40.0 MIL | 0.1 MIL | 41.0 – 5.1m | **520g** | 284mm | 95mm | $349–499 |
+| Vector [Continental x8 1-8×24 SFP ED](https://www.vectoroptics.com/rifle-scopes/Continental-x8-1-8x24-SFP-Tactical-Scope-ED-SCOC-T37.html) | SFP | 1-8× | 24mm | **40.0 MIL** | 40.0 MIL | 0.1 MIL | 41.0 – 5.1m | **520g** | 284mm | 95mm | $349–499 |
 | **Ventus FFP 1-8×24** | FFP | 1-8× | 24mm | **34.9 MIL** | **34.9 MIL** | ½ MOA | 42.7 – 5.33m | 525g | 270mm | 86mm | OEM |
 | **Ventus SFP 1-8×24** | SFP | 1-8× | 24mm | **34.9 MIL** | **34.9 MIL** | ½ MOA | 44.4 – 5.53m | 551g | 270mm | 85mm | OEM |
-| Primary Arms PLxC 1-8×24 FFP | FFP | 1-8× | 24mm | 29.1 MIL | 29.1 MIL | 0.1 MIL | 40.3 – 4.86m | **481g** | **236mm** | 81–94mm | $1,749 |
+| Primary Arms [PLxC 1-8×24 FFP](https://www.primaryarms.com/primary-arms-compact-plxc-1-8x24-ffp-rdb-riflescope-acss-raptor-yard-556-308-reticle) | FFP | 1-8× | 24mm | 29.1 MIL | 29.1 MIL | 0.1 MIL | 40.3 – 4.86m | **481g** | **236mm** | 81–94mm | $1,749 |
 
 ### 4a. 30mm-tube analysis
 
@@ -87,12 +87,12 @@ Sorted by elevation.
 
 | Model | FP | Mag | Obj | Elev | Windage | Click | FOV @100m | Weight | Length | ER | Street |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Trijicon VCOG 1-8×28 | FFP | 1-8× | 28mm | **35.0 MIL** | 35.0 MIL | 0.1 MIL | 36.4 – 4.37m | 893g | 274mm | 99–102mm | $2,300–2,800 |
+| Trijicon [VCOG 1-8×28](https://www.trijicon.com/products/product-family/trijicon-vcog-VC18) | FFP | 1-8× | 28mm | **35.0 MIL** | 35.0 MIL | 0.1 MIL | 36.4 – 4.37m | 893g | 274mm | 99–102mm | $2,300–2,800 |
 | **Ventus FFP 1-8×26** | FFP | 1-8× | 26mm | **34.9 MIL** | **34.9 MIL** | ½ MOA | **46.0 – 5.77m** | **608g** | 278mm | 86mm | OEM |
-| Vortex Razor HD Gen III 1-10×24 | FFP | 1-10× | 24mm | 30.0 MIL | 30.0 MIL | 0.1 MRAD | 38.7 – 3.9m | 610g | 257mm | 91mm | $1,999 |
-| Burris XTR II 1-8×24 FFP *(disc.)* | FFP | 1-8× | 24mm | 30.0 MIL | 30.0 MIL | 0.1 MIL | 35.0 – 4.15m | 692g | 273mm | 89–102mm | $900–1,100 |
-| Athlon Ares ETR 1-10×24 FFP | FFP | 1-10× | 24mm | 29.1 MIL | 23.3 MIL | 0.1 MIL | 39.1 – 3.9m | 544g | 254mm | 94mm | $849–1,062 |
-| Trijicon Credo 1-8×28 FFP | FFP | 1-8× | 28mm | 29.0 MIL | 29.0 MIL | 0.1 MIL | 35.3 – 4.4m | 726g | 274mm | 76–102mm | $1,389–1,410 |
+| Vortex [Razor HD Gen III 1-10×24](https://vortexoptics.com/vortex-razor-hd-gen-iii-1-10x24-riflescope+reticle-EBR-9~MRAD) | FFP | 1-10× | 24mm | 30.0 MIL | 30.0 MIL | 0.1 MRAD | 38.7 – 3.9m | 610g | 257mm | 91mm | $1,999 |
+| Burris [XTR II 1-8×24 FFP](https://www.burrisoptics.com/scopes/xtr-ii-riflescopes-series/xtr-ii-riflescope-1-8x24) *(disc.)* | FFP | 1-8× | 24mm | 30.0 MIL | 30.0 MIL | 0.1 MIL | 35.0 – 4.15m | 692g | 273mm | 89–102mm | $900–1,100 |
+| Athlon [Ares ETR 1-10×24 FFP](https://athlonoptics.com/product/ares-etr-uhd-1-10x24-atmr3-ffp-ir-mil/) | FFP | 1-10× | 24mm | 29.1 MIL | 23.3 MIL | 0.1 MIL | 39.1 – 3.9m | 544g | 254mm | 94mm | $849–1,062 |
+| Trijicon [Credo 1-8×28 FFP](https://www.trijicon.com/products/product-family/trijicon-credo-1-8x28-riflescope) | FFP | 1-8× | 28mm | 29.0 MIL | 29.0 MIL | 0.1 MIL | 35.3 – 4.4m | 726g | 274mm | 76–102mm | $1,389–1,410 |
 | **Ventus SFP 1-8×28** | SFP | 1-8× | 28mm | 26.2 MIL | 26.2 MIL | ½ MOA | **49.9 – 6.11m** | 646g | 278mm | 85mm | OEM |
 
 ### 5a. 34mm-tube analysis
