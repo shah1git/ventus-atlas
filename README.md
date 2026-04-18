@@ -2,6 +2,12 @@
 
 **Live atlas:** https://shah1git.github.io/ventus-atlas/  ·  Published by RIKA NV
 
+## Tube-strict methodology
+
+All comparisons are **tube-strict** — competitors are matched to Ventus only on the same tube diameter (30mm ↔ 30mm, 34mm ↔ 34mm). Tube diameter fixes internal erector travel room, ring compatibility, and rifle-build ergonomics. Mixing tubes compares different engineering classes.
+
+The interactive atlas (index.html) exposes a tube-focus selector; the written analyses use two sub-tables for classes where Ventus offers multiple tubes (LPVO 1-8×, LPVO 1-10×) and single tube-strict tables for the rest.
+
 ## Interactive tools
 
 - **[`index.html`](index.html)** — live Rika-branded competitive atlas (vellum-paper, purple/amber)

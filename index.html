@@ -289,6 +289,19 @@ table.ledger{
 .num-weak{color:var(--fg-subtle);font-weight:400}
 .num-accent{color:var(--rika);font-weight:600}
 
+/* ─── TUBE FOCUS ─── */
+.tube-bar{display:flex;gap:14px;align-items:center;margin-bottom:26px;flex-wrap:wrap;padding:14px 18px;background:var(--bg-raised);border:1px solid var(--hairline-bright);border-left:3px solid var(--rika)}
+.tube-bar .caps{color:var(--rika);font-weight:700}
+.tube-focus{display:inline-flex;gap:0;border:1px solid var(--hairline-bright);background:var(--bg);width:fit-content}
+.tube-focus button{padding:8px 16px;background:transparent;border:none;border-right:1px solid var(--hairline);color:var(--fg-muted);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-weight:600}
+.tube-focus button:last-child{border-right:none}
+.tube-focus button:hover:not(:disabled){color:var(--rika);background:rgba(126,20,255,.05)}
+.tube-focus button.active{color:#fff;background:var(--rika)}
+.tube-focus button:disabled{opacity:.3;cursor:not-allowed}
+.tube-focus button .ventus-dot{display:inline-block;width:4px;height:4px;background:var(--ventus);border-radius:50%;margin-left:6px;vertical-align:middle}
+.tube-bar .caption{font-family:'Newsreader',serif;font-style:italic;color:var(--fg-muted);font-size:13.5px;line-height:1.4;flex:1;min-width:200px}
+.tube-bar .caption strong{color:var(--ventus-deep);font-weight:500;font-style:normal}
+
 /* ─── CHART ─── */
 .chart-section{padding:60px 0 88px;position:relative}
 .metric-picker{display:flex;gap:0;border:1px solid var(--hairline-bright);margin-bottom:40px;width:fit-content;background:var(--bg-raised);flex-wrap:wrap}
@@ -510,7 +523,12 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
 <section class="data-section">
   <div class="section-head">
     <h2>Master Ledger</h2>
-    <p class="notice">Sortable sheet of every model in the class. Click any column heading to re-sort. Ventus entries — the subject — are highlighted in amber.</p>
+    <p class="notice">Sortable sheet — apples-to-apples comparison within a single tube class. Only competitors sharing the selected tube diameter with Ventus are shown. Click any column heading to re-sort.</p>
+  </div>
+  <div class="tube-bar">
+    <span class="caps">Tube focus</span>
+    <div class="tube-focus" id="tubeFocus"></div>
+    <span class="caption">Tube diameter is structurally fixed. Comparing <strong>30mm</strong> and <strong>34mm</strong> scopes mixes different engineering classes — we filter to like-for-like only. Dots mark tubes present in the Ventus lineup.</span>
   </div>
   <div class="tbl-wrap">
     <table class="ledger" id="ledgerTable">
@@ -781,9 +799,18 @@ const COLS = [
   {id:'price',label:'Price',w:'auto'}
 ];
 
-let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1};
+let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1, tubeFocus:null};
 const cls = ()=>CLASSES[state.classIdx];
 const metric = ()=>METRICS.find(m=>m.id===state.metric);
+
+function availableTubes(c){ return [...new Set(c.models.map(m=>m.tube))].sort((a,b)=>a-b); }
+function ventusTubes(c){ return [...new Set(c.models.filter(m=>m.ventus).map(m=>m.tube))].sort((a,b)=>a-b); }
+function defaultTubeFocus(c){ return ventusTubes(c)[0]; }
+function filteredModels(c){
+  const f = state.tubeFocus;
+  if(f==='all'||f==null) return c.models.slice();
+  return c.models.filter(m=>m.tube===f);
+}
 
 function renderRail(){
   const rail = document.getElementById('classRail');
@@ -799,8 +826,30 @@ function renderRail(){
       state.classIdx = +el.dataset.idx;
       state.sortKey = 'elev';
       state.sortDir = -1;
+      state.tubeFocus = defaultTubeFocus(CLASSES[state.classIdx]);
       renderAll();
       window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+}
+
+function renderTubeFocus(){
+  const c = cls();
+  const tubes = availableTubes(c);
+  const vt = ventusTubes(c);
+  const box = document.getElementById('tubeFocus');
+  let html = tubes.map(t=>{
+    const isV = vt.includes(t);
+    const active = state.tubeFocus===t;
+    return `<button data-tube="${t}" class="${active?'active':''}">${t}mm${isV?'<span class="ventus-dot"></span>':''}</button>`;
+  }).join('');
+  html += `<button data-tube="all" class="${state.tubeFocus==='all'?'active':''}">All tubes</button>`;
+  box.innerHTML = html;
+  box.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const t = b.dataset.tube;
+      state.tubeFocus = (t==='all') ? 'all' : +t;
+      renderHero(); renderOverview(); renderTable(); renderChart();
     });
   });
 }
@@ -810,8 +859,11 @@ function renderHero(){
   document.getElementById('heroNum').textContent = c.roman;
   document.getElementById('heroTitle').innerHTML = c.title;
   document.getElementById('heroLead').textContent = c.lead;
-  const ventusCount = c.models.filter(m=>m.ventus).length;
-  document.getElementById('modelCount').innerHTML = `<span class="dot"></span>${c.models.length.toString().padStart(2,'0')} models · ${ventusCount} Ventus`;
+  const models = filteredModels(c);
+  const ventusCount = models.filter(m=>m.ventus).length;
+  const totalCount = models.length;
+  const tubeLabel = (state.tubeFocus==='all' || state.tubeFocus==null) ? 'all tubes' : `${state.tubeFocus}mm`;
+  document.getElementById('modelCount').innerHTML = `<span class="dot"></span>${totalCount.toString().padStart(2,'0')} models · ${ventusCount} Ventus · ${tubeLabel}`;
 }
 
 function renderOverview(){
@@ -823,7 +875,7 @@ function renderOverview(){
   document.getElementById('objSpec').textContent = c.meta.obj;
   document.getElementById('clickSpec').textContent = c.meta.click;
 
-  const ventusOnly = c.models.filter(m=>m.ventus);
+  const ventusOnly = filteredModels(c).filter(m=>m.ventus);
   document.getElementById('skuCountBadge').textContent = `${String(ventusOnly.length).padStart(2,'0')} SKU`;
   document.getElementById('lineupList').innerHTML = ventusOnly.map((m,i)=>`
     <div class="lineup-card">
@@ -862,14 +914,14 @@ function renderTable(){
     });
   });
 
-  const models = [...c.models].sort((a,b)=>{
+  const models = filteredModels(c).sort((a,b)=>{
     const k = state.sortKey;
     let av = a[k], bv = b[k];
     if(typeof av==='string') return state.sortDir*(av>bv?1:av<bv?-1:0);
     return state.sortDir*((bv??0)-(av??0));
   });
 
-  const maxElev = Math.max(...models.map(x=>x.elev));
+  const maxElev = models.length?Math.max(...models.map(x=>x.elev)):0;
   document.getElementById('ledgerBody').innerHTML = models.map((m,i)=>{
     const rowCls = (m.ventus?'ventus-row':'')+(m.discontinued?' discontinued':'');
     return `<tr class="${rowCls}">
@@ -912,7 +964,7 @@ function renderMetricPicker(){
 function renderChart(){
   const c = cls();
   const m = metric();
-  const models = [...c.models].sort((a,b)=> m.dir==='max' ? b[m.id]-a[m.id] : a[m.id]-b[m.id]);
+  const models = filteredModels(c).sort((a,b)=> m.dir==='max' ? b[m.id]-a[m.id] : a[m.id]-b[m.id]);
   const vals = models.map(x=>x[m.id]);
   const maxV = Math.max(...vals);
   const minV = Math.min(...vals);
@@ -941,7 +993,8 @@ function renderChart(){
 }
 
 function renderAll(){
-  renderRail(); renderHero(); renderOverview();
+  if(state.tubeFocus==null) state.tubeFocus = defaultTubeFocus(cls());
+  renderRail(); renderTubeFocus(); renderHero(); renderOverview();
   renderTable(); renderMetricPicker(); renderChart();
 }
 renderAll();
