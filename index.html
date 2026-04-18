@@ -391,6 +391,78 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
 .colofon-bottom{grid-column:1/-1;padding-top:40px;margin-top:14px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;color:var(--fg-subtle);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
 .colofon-bottom span em{color:var(--rika);font-style:italic;text-transform:none;letter-spacing:.04em;font-family:'Instrument Serif',serif;font-size:15px;font-weight:400}
 
+/* ─── STICKY FIRST COLUMN ─── */
+.ledger th:first-child, .ledger td:first-child{position:sticky;left:0;z-index:2}
+.ledger thead th:first-child{background:var(--bg);box-shadow:1px 0 0 var(--hairline-bright)}
+.ledger tbody td:first-child{background:var(--bg);box-shadow:1px 0 0 var(--hairline)}
+.ledger tbody tr.ventus-row td:first-child{background:var(--ventus-tint)}
+.ledger tbody tr.selected td:first-child{background:rgba(126,20,255,.08)}
+.ledger tbody tr.ventus-row.selected td:first-child{background:rgba(168,105,26,.14)}
+.ledger tbody tr:hover:not(.ventus-row):not(.selected) td:first-child{background:var(--bg-raised)}
+.ledger tbody tr{cursor:pointer}
+.ledger tbody tr.selected td{background:rgba(126,20,255,.05)}
+.ledger tbody tr.selected{outline:1px solid var(--rika);outline-offset:-1px}
+.ledger tbody tr.ventus-row.selected td{background:rgba(168,105,26,.08)}
+.ledger tbody tr.ventus-row.selected{outline:1px solid var(--ventus)}
+@keyframes flash{0%,100%{background-color:transparent}20%,60%{background-color:rgba(126,20,255,.2)}}
+.ledger tbody tr.flash td{animation:flash 1.4s ease-out}
+
+/* ─── COMPARE PANEL ─── */
+.compare-section{padding:50px 0 42px;border-bottom:1px solid var(--hairline);background:linear-gradient(to bottom,var(--bg-raised),var(--bg))}
+.compare-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:26px;gap:24px;flex-wrap:wrap}
+.compare-head h3{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(30px,4.4vw,52px);line-height:1;color:var(--fg)}
+.compare-head h3::before{content:"§ ";color:var(--rika);font-style:normal;font-family:'JetBrains Mono',monospace;font-size:.35em;letter-spacing:.1em;vertical-align:middle;margin-right:4px}
+.compare-head h3 em{color:var(--rika);font-style:italic}
+.compare-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--fg-muted);letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.compare-meta .count{color:var(--rika);font-weight:700}
+.compare-clear{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);background:transparent;border:1px solid var(--hairline-bright);padding:9px 16px;cursor:pointer;transition:all .2s;font-weight:600}
+.compare-clear:hover{color:var(--rika);border-color:var(--rika);background:rgba(126,20,255,.04)}
+.compare-grid{display:grid;border:1px solid var(--hairline-bright);background:var(--bg);overflow-x:auto}
+.compare-cell{padding:14px 18px;border-right:1px dotted var(--hairline);border-bottom:1px dotted var(--hairline-soft);min-width:180px}
+.compare-cell.row-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);font-weight:700;background:var(--bg-raised);min-width:130px}
+.compare-cell.header{padding:22px 18px;border-bottom:2px solid var(--hairline-bright);background:var(--bg-raised)}
+.compare-cell.header .brand{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-muted);font-weight:700;display:block;margin-bottom:5px}
+.compare-cell.header .name{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:var(--fg);line-height:1.15;display:block}
+.compare-cell.header.ventus{border-bottom-color:var(--ventus)}
+.compare-cell.header.ventus .brand{color:var(--ventus)}
+.compare-cell.header.ventus .name{color:var(--ventus-deep)}
+.compare-cell .val{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;font-size:14px;color:var(--fg);letter-spacing:.02em}
+.compare-cell .val.best{color:var(--rika);font-weight:700;position:relative}
+.compare-cell .val.best::after{content:"⟵ best";font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--rika);font-weight:600;margin-left:10px;opacity:.75}
+.compare-cell.sources-cell{padding:18px}
+.compare-sources{display:flex;flex-direction:column;gap:8px}
+.compare-sources a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--rika);text-decoration:none;padding:8px 12px;border:1px solid var(--rika);background:rgba(126,20,255,.04);transition:all .18s;display:inline-flex;align-items:center;gap:8px;line-height:1.2}
+.compare-sources a:hover{background:var(--rika);color:#fff}
+.compare-sources a .ext{font-size:13px}
+.compare-sources .oem-note{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ventus-deep);padding:8px 12px;border:1px dashed var(--ventus);opacity:.75;font-style:italic;font-weight:500}
+
+/* ─── SEARCH OVERLAY ─── */
+.search-overlay{position:fixed;inset:0;background:rgba(19,16,12,.55);z-index:100;display:none;align-items:flex-start;justify-content:center;padding-top:10vh;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.search-overlay.open{display:flex;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.search-box{width:min(680px,92vw);background:var(--bg);border:1px solid var(--hairline-bright);box-shadow:0 24px 80px rgba(19,16,12,.35);display:flex;flex-direction:column;max-height:70vh}
+.search-input-wrap{padding:20px 24px;border-bottom:1px solid var(--hairline);display:flex;align-items:center;gap:14px;flex-shrink:0}
+.search-input-wrap .icon{color:var(--rika);font-size:22px;font-weight:300}
+.search-input{flex:1;background:transparent;border:none;outline:none;font-family:'Newsreader',serif;font-size:20px;color:var(--fg);font-style:italic;letter-spacing:-.005em}
+.search-input::placeholder{color:var(--fg-subtle)}
+.search-hint{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--fg-muted);text-transform:uppercase;padding:4px 10px;border:1px solid var(--hairline-bright);font-weight:600}
+.search-results{overflow-y:auto;flex:1}
+.search-result{padding:14px 24px;display:grid;grid-template-columns:170px 1fr auto;gap:18px;align-items:baseline;border-bottom:1px dotted var(--hairline-soft);cursor:pointer;transition:background .14s}
+.search-result:hover,.search-result.active{background:rgba(126,20,255,.06)}
+.search-result .class-badge{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);padding:4px 9px;border:1px solid var(--hairline-bright);display:inline-block;white-space:nowrap;font-weight:600}
+.search-result:hover .class-badge,.search-result.active .class-badge{color:var(--rika);border-color:var(--rika)}
+.search-result .model-text{font-family:'Newsreader',serif;font-size:15.5px;color:var(--fg);line-height:1.2}
+.search-result .model-text .brand{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:var(--fg-muted);text-transform:uppercase;margin-right:10px;font-weight:600}
+.search-result.ventus .model-text .name{color:var(--ventus-deep);font-weight:500}
+.search-result.ventus .class-badge{border-color:var(--ventus);color:var(--ventus)}
+.search-result .tube-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--fg-muted);letter-spacing:.08em;font-weight:500}
+.search-empty{padding:40px 24px;text-align:center;font-family:'Newsreader',serif;font-style:italic;color:var(--fg-muted);font-size:16px}
+
+.kbd-hint{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--fg-muted);padding:5px 10px;border:1px solid var(--hairline-bright);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;font-weight:500}
+.kbd-hint:hover{color:var(--rika);border-color:var(--rika);background:rgba(126,20,255,.04)}
+.kbd-hint kbd{background:transparent;font-family:inherit;font-weight:700;padding:0 2px;color:var(--fg)}
+.kbd-hint:hover kbd{color:var(--rika)}
+
 /* Responsive */
 @media (max-width:980px){
   .hero-grid{grid-template-columns:1fr;gap:24px}
@@ -456,6 +528,7 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
     <span class="micro">Edition 01 · Apr 2026</span>
   </div>
   <div class="mast-meta">
+    <span class="kbd-hint" id="searchTrigger"><kbd>⌘K</kbd> Search</span>
     <span class="mono" id="modelCount"><span class="dot"></span>— MODELS IN CLASS</span>
   </div>
 </header>
@@ -545,6 +618,19 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
   </div>
 </section>
 
+<!-- ─── COMPARE PANEL ─── -->
+<section class="compare-section" id="compareSection" style="display:none">
+  <div class="compare-head">
+    <h3><em>Side-by-side</em></h3>
+    <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+      <span class="compare-meta"><span class="count" id="compareCount">0</span> selected · max 3</span>
+      <button class="compare-clear" id="compareClear">Clear</button>
+    </div>
+  </div>
+  <div class="compare-grid" id="compareGrid"></div>
+  <div style="font-family:'Newsreader',serif;font-style:italic;color:var(--fg-muted);font-size:13.5px;margin-top:16px;line-height:1.55">Click any row in the ledger to add it to this comparison. Best value in each numeric row is highlighted in purple. Links to competitor product pages appear in the Sources row.</div>
+</section>
+
 <!-- ─── CHART ─── -->
 <section class="chart-section">
   <div class="section-head">
@@ -602,6 +688,18 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
   </div>
 </footer>
 </div>
+</div>
+
+<!-- ─── SEARCH OVERLAY ─── -->
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Search scopes">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span class="icon">⌕</span>
+      <input class="search-input" id="searchInput" placeholder="Search scopes, brands, classes…" autocomplete="off" spellcheck="false">
+      <span class="search-hint">ESC</span>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
 </div>
 
 <script>
@@ -877,9 +975,38 @@ const COLS = [
   {id:'price',label:'Price',w:'auto'}
 ];
 
-let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1, tubeFocus:null};
+let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1, tubeFocus:null, selected:new Set()};
 const cls = ()=>CLASSES[state.classIdx];
 const metric = ()=>METRICS.find(m=>m.id===state.metric);
+const modelKey = m => `${m.brand}|${m.name}|${cls().id}`;
+
+function findModelByKey(key){
+  const [brand,name,classId] = key.split('|');
+  const c = CLASSES.find(cc => cc.id === classId);
+  if(!c) return null;
+  return c.models.find(m => m.brand === brand && m.name === name);
+}
+
+// ─── Deep linking
+function updateHash(){
+  const c = cls();
+  const t = (state.tubeFocus === 'all' || state.tubeFocus == null) ? 'all' : state.tubeFocus;
+  const newHash = `#${c.id}/${t}/${state.metric}`;
+  if(location.hash !== newHash) history.replaceState(null,'',newHash);
+}
+function parseHash(){
+  const h = location.hash.replace(/^#/,'');
+  if(!h) return false;
+  const parts = h.split('/');
+  const ci = CLASSES.findIndex(c => c.id === parts[0]);
+  if(ci >= 0) state.classIdx = ci;
+  if(parts[1]){
+    if(parts[1] === 'all') state.tubeFocus = 'all';
+    else if(!isNaN(+parts[1])) state.tubeFocus = +parts[1];
+  }
+  if(parts[2] && METRICS.some(m => m.id === parts[2])) state.metric = parts[2];
+  return true;
+}
 
 function availableTubes(c){ return [...new Set(c.models.map(m=>m.tube))].sort((a,b)=>a-b); }
 function ventusTubes(c){ return [...new Set(c.models.filter(m=>m.ventus).map(m=>m.tube))].sort((a,b)=>a-b); }
@@ -928,6 +1055,7 @@ function renderTubeFocus(){
       const t = b.dataset.tube;
       state.tubeFocus = (t==='all') ? 'all' : +t;
       renderTubeFocus(); renderHero(); renderOverview(); renderTable(); renderChart();
+      updateHash();
     });
   });
 }
@@ -1001,8 +1129,9 @@ function renderTable(){
 
   const maxElev = models.length?Math.max(...models.map(x=>x.elev)):0;
   document.getElementById('ledgerBody').innerHTML = models.map((m,i)=>{
-    const rowCls = (m.ventus?'ventus-row':'')+(m.discontinued?' discontinued':'');
-    return `<tr class="${rowCls}">
+    const sel = state.selected.has(modelKey(m));
+    const rowCls = [m.ventus?'ventus-row':'', m.discontinued?'discontinued':'', sel?'selected':''].filter(Boolean).join(' ');
+    return `<tr class="${rowCls}" data-key="${modelKey(m)}">
       <td class="model-cell">
         <span class="brand-line">${m.brand}</span>
         <span class="model-name">${m.name}</span>
@@ -1024,6 +1153,166 @@ function renderTable(){
       <td>${m.priceText||'—'}</td>
     </tr>`;
   }).join('');
+
+  // Attach row-click handlers (ignore clicks on links)
+  document.querySelectorAll('#ledgerBody tr').forEach(tr=>{
+    tr.addEventListener('click',(e)=>{
+      if(e.target.closest('a')) return;
+      const k = tr.dataset.key;
+      toggleSelect(k);
+    });
+  });
+}
+
+function toggleSelect(key){
+  if(state.selected.has(key)){
+    state.selected.delete(key);
+  } else {
+    if(state.selected.size >= 3){
+      const first = state.selected.values().next().value;
+      state.selected.delete(first);
+    }
+    state.selected.add(key);
+  }
+  renderTable();
+  renderCompare();
+}
+
+function renderCompare(){
+  const section = document.getElementById('compareSection');
+  const grid = document.getElementById('compareGrid');
+  const countEl = document.getElementById('compareCount');
+  const size = state.selected.size;
+  countEl.textContent = size;
+  if(size < 2){ section.style.display='none'; return; }
+  section.style.display='block';
+
+  const models = [...state.selected].map(findModelByKey).filter(Boolean);
+  const cols = models.length;
+  grid.style.gridTemplateColumns = `130px repeat(${cols}, minmax(180px,1fr))`;
+
+  const hi = ['elev','wind','fovMin','er'];
+  const lo = ['weight','length'];
+  const bestIdx = (field) => {
+    const vals = models.map(m=>m[field]);
+    if(vals.some(v=>v==null||isNaN(v))) return -1;
+    const best = hi.includes(field) ? Math.max(...vals) : Math.min(...vals);
+    return vals.indexOf(best);
+  };
+
+  const rows = [
+    ['Focal Plane', m=>m.fp, null],
+    ['Magnification', m=>m.mag, null],
+    ['Objective', m=>m.obj+' mm', null],
+    ['Tube', m=>m.tube+' mm', null],
+    ['Elevation', m=>m.elev+' MIL', 'elev'],
+    ['Windage', m=>m.wind+' MIL', 'wind'],
+    ['Click', m=>m.click, null],
+    ['FOV min', m=>m.fovMin.toFixed(1)+' m', 'fovMin'],
+    ['FOV max', m=>m.fovMax.toFixed(1)+' m', null],
+    ['Weight', m=>m.weight+' g', 'weight'],
+    ['Length', m=>(m.length?m.length+' mm':'—'), 'length'],
+    ['Eye Relief', m=>m.er+' mm', 'er'],
+    ['Price', m=>m.priceText||'—', null]
+  ];
+
+  let html = '';
+  html += '<div class="compare-cell row-label" style="background:var(--bg);border-bottom:2px solid var(--hairline-bright);font-weight:700">Model</div>';
+  models.forEach(m=>{
+    html += `<div class="compare-cell header ${m.ventus?'ventus':''}"><span class="brand">${m.brand}</span><span class="name">${m.name}</span></div>`;
+  });
+  rows.forEach(([label, fn, bestField])=>{
+    html += `<div class="compare-cell row-label">${label}</div>`;
+    const bi = bestField ? bestIdx(bestField) : -1;
+    models.forEach((m,i)=>{
+      html += `<div class="compare-cell"><span class="val ${i===bi?'best':''}">${fn(m)}</span></div>`;
+    });
+  });
+  // Sources row — prominent links
+  html += '<div class="compare-cell row-label">Sources</div>';
+  models.forEach(m=>{
+    if(m.ventus){
+      html += '<div class="compare-cell sources-cell"><div class="compare-sources"><span class="oem-note">OEM · Ventus</span></div></div>';
+    } else {
+      const src = getSources(m);
+      if(src.length){
+        html += '<div class="compare-cell sources-cell"><div class="compare-sources">'+
+          src.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener noreferrer">${l} <span class="ext">↗</span></a>`).join('')+
+          '</div></div>';
+      } else {
+        html += '<div class="compare-cell sources-cell"><span class="val" style="color:var(--fg-muted);font-style:italic">No source linked</span></div>';
+      }
+    }
+  });
+  grid.innerHTML = html;
+}
+
+// ─── Search ⌘K
+function openSearch(){
+  document.getElementById('searchOverlay').classList.add('open');
+  const input = document.getElementById('searchInput');
+  input.value='';
+  setTimeout(()=>input.focus(),40);
+  renderSearchResults('');
+  document.body.style.overflow='hidden';
+}
+function closeSearch(){
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function renderSearchResults(q){
+  const results = document.getElementById('searchResults');
+  q = (q||'').trim().toLowerCase();
+  const hits = [];
+  CLASSES.forEach((c, ci)=>{
+    c.models.forEach(m=>{
+      const hay = `${m.brand} ${m.name} ${c.label}`.toLowerCase();
+      if(!q || q.split(/\s+/).every(term => hay.includes(term))){
+        hits.push({ci, c, m, score: m.ventus?0:1});
+      }
+    });
+  });
+  hits.sort((a,b)=>a.score-b.score);
+  if(hits.length === 0){
+    results.innerHTML = '<div class="search-empty">No models match "<em>'+q+'</em>"</div>';
+    return;
+  }
+  results.innerHTML = hits.slice(0,60).map((h,i)=>`
+    <div class="search-result ${h.m.ventus?'ventus':''} ${i===0?'active':''}" data-ci="${h.ci}" data-key="${h.m.brand}|${h.m.name}|${h.c.id}">
+      <span class="class-badge">${h.c.label}</span>
+      <span class="model-text"><span class="brand">${h.m.brand}</span><span class="name">${h.m.name}</span></span>
+      <span class="tube-tag">${h.m.tube}mm · ${h.m.fp}</span>
+    </div>
+  `).join('');
+  results.querySelectorAll('.search-result').forEach(el=>{
+    el.addEventListener('click',()=>jumpToSearchResult(el));
+    el.addEventListener('mouseover',()=>{
+      results.querySelectorAll('.search-result.active').forEach(x=>x.classList.remove('active'));
+      el.classList.add('active');
+    });
+  });
+}
+function jumpToSearchResult(el){
+  const ci = +el.dataset.ci;
+  const key = el.dataset.key;
+  state.classIdx = ci;
+  const c = CLASSES[ci];
+  const [brand,name] = key.split('|');
+  const m = c.models.find(x => x.brand===brand && x.name===name);
+  if(m) state.tubeFocus = m.tube;
+  state.sortKey = 'elev';
+  state.sortDir = -1;
+  closeSearch();
+  renderAll();
+  updateHash();
+  setTimeout(()=>{
+    const row = document.querySelector(`#ledgerBody tr[data-key="${modelKey(m)}"]`);
+    if(row){
+      row.scrollIntoView({behavior:'smooth', block:'center'});
+      row.classList.add('flash');
+      setTimeout(()=>row.classList.remove('flash'), 1500);
+    }
+  }, 120);
 }
 
 function renderMetricPicker(){
@@ -1036,6 +1325,7 @@ function renderMetricPicker(){
       state.metric = b.dataset.id;
       renderChart();
       renderMetricPicker();
+      updateHash();
     });
   });
 }
@@ -1074,8 +1364,51 @@ function renderChart(){
 function renderAll(){
   if(state.tubeFocus==null) state.tubeFocus = defaultTubeFocus(cls());
   renderRail(); renderTubeFocus(); renderHero(); renderOverview();
-  renderTable(); renderMetricPicker(); renderChart();
+  renderTable(); renderMetricPicker(); renderChart(); renderCompare();
+  updateHash();
 }
+
+// ─── Wire up
+document.getElementById('compareClear').addEventListener('click',()=>{
+  state.selected.clear();
+  renderTable();
+  renderCompare();
+});
+document.getElementById('searchTrigger').addEventListener('click',openSearch);
+document.getElementById('searchInput').addEventListener('input',e=>renderSearchResults(e.target.value));
+document.getElementById('searchOverlay').addEventListener('click',e=>{
+  if(e.target.id==='searchOverlay') closeSearch();
+});
+document.addEventListener('keydown',e=>{
+  if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==='k'){
+    e.preventDefault(); openSearch();
+  } else if(e.key==='Escape'){
+    closeSearch();
+  } else if(document.getElementById('searchOverlay').classList.contains('open')){
+    const results = document.getElementById('searchResults');
+    const items = [...results.querySelectorAll('.search-result')];
+    const activeIdx = items.findIndex(x=>x.classList.contains('active'));
+    if(e.key==='ArrowDown'){
+      e.preventDefault();
+      const next = items[Math.min(activeIdx+1, items.length-1)];
+      if(next){ items.forEach(x=>x.classList.remove('active')); next.classList.add('active'); next.scrollIntoView({block:'nearest'}); }
+    } else if(e.key==='ArrowUp'){
+      e.preventDefault();
+      const prev = items[Math.max(activeIdx-1, 0)];
+      if(prev){ items.forEach(x=>x.classList.remove('active')); prev.classList.add('active'); prev.scrollIntoView({block:'nearest'}); }
+    } else if(e.key==='Enter'){
+      e.preventDefault();
+      const active = results.querySelector('.search-result.active');
+      if(active) jumpToSearchResult(active);
+    }
+  }
+});
+window.addEventListener('hashchange',()=>{
+  parseHash();
+  renderAll();
+});
+
+parseHash();
 renderAll();
 </script>
 
