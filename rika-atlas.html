@@ -935,7 +935,38 @@ const SOURCES = {
   'Marcool|Stalker ED 5-25×56 FFP IR Zerostop':[['Official','https://marcooloptics.com/product/stalker-ed-5-25x56-ffp-ir-scope-prs/']],
   'Marcool|Stalker HD 5-30×56 FFP IR':[['Official','https://www.marcool-cn.com/en/ProductShow/Marcool-STALKER-5-30X56-SFIR-FFP-Rifle-Scope-MAR-120_2254.html']],
   'Marcool|Evolver HD 5-25×56 FFP IR Zerostop':[['Official','https://marcooloptics.com/product/evolver-5-25x56-riflescope/']],
-  'Marcool|Stalker ED 4-32×56 FFP IR Zerostop':[['Official','https://marcoolscopes.com/products/4781']]
+  'Marcool|Stalker ED 4-32×56 FFP IR Zerostop':[['Official','https://marcoolscopes.com/products/4781']],
+
+  'Arken|LH-6 1-6×24 SFP LPVO':[['Official','https://www.arkenopticsusa.com/products/lh-6-1-6x24-sfp-lpvo-illum-klbox-30mm-tube']],
+  'Arken|EP-8 1-8×28 FFP LPVO':[['Official','https://www.arkenopticsusa.com/products/ep-8-1-8x28-ffp-lpvo-illum-klbox-34mm-tube']],
+  'Arken|LH-4 4-16×44 FFP':[['Official','https://www.arkenopticsusa.com/products/lh-4-4-16x44-ffp-capped-tool-less-turrets-illum-vpr-30mm-tube']],
+  'Arken|EPL-4 4-16×44 FFP':[['Official','https://www.arkenopticsusa.com/products/epl-4-4-16x44-ffp-illuminated-vhr-zero-stop-30mm-tube']],
+  'Arken|EPL-4 6-24×50 FFP':[['Official','https://www.arkenopticsusa.com/products/epl-4-6-24x50-ffp-illuminated-vhr-vpr-zero-stop-30mm-tube']],
+  'Arken|EP-5 Gen2 7-35×56 FFP':[['Official','https://www.arkenopticsusa.com/products/ep-5-7-35x56-gen-2-ffp-illuminated-vpr-zero-stop-34mm-tube']],
+
+  'Arkon|Model A 1-8×24 FFP':[['Official','https://arkonoptics.ru/catalog/model_a/']],
+  'Arkon|Model A 1-10×28 FFP':[['Official','https://arkonoptics.ru/catalog/model_a/']],
+  'Arkon|Model A 3-18×50 FFP':[['Official','https://arkonoptics.ru/catalog/model_a/']],
+  'Arkon|Model A 5-30×56 FFP':[['Official','https://arkonoptics.ru/catalog/model_a/']],
+  'Arkon|Model A 6-36×56 FFP':[['Official','https://arkonoptics.ru/catalog/model_a/']],
+  'Arkon|Model B 1-8×24 SFP':[['Official','https://arkonrussia.ru/pritsely/']],
+  'Arkon|Model B 1.7-10×45 SFP':[['Dealer','https://arkon.pro/opticheskie-pritsely/']],
+  'Arkon|Model B 3-18×44 FFP':[['Official','https://arkonrussia.ru/pritsely/']],
+  'Arkon|Model B 5-25×56 FFP':[['Official','https://arkonrussia.ru/pritsely/']],
+  'Arkon|Model C 1-6×24 SFP':[['Official','https://arkonrussia.ru/pritsely/']],
+  'Arkon|Model C 1-10×24 SFP':[['Official','https://arkonrussia.ru/pritsely/']],
+  'Arkon|Model C 4-16×44 SFP':[['Official','https://arkonrussia.ru/pritsely/']],
+  'Arkon|Model C 4-24×50 SFP':[['Official','https://arkonrussia.ru/pritsely/']],
+
+  'Artelv|CRS 1-6×28 FFP':[['Dealer','https://opticstrade.com/opticheskie_pricely/artelv-crs-1-6x28-ffp']],
+  'Artelv|CRS 1-10×28 FFP 34mm':[['Dealer','https://opticstrade.com/opticheskie_pricely/opticheskij-pricel-artelv-crs-1-10x28-ffp-34mm']],
+  'Artelv|LRS 4-16×50 FFP':[['Dealer','https://opticstrade.com/opticheskie_pricely/artelv-lrs-4-16x50-ffp']],
+  'Artelv|LRS 5-25×56 FFP':[['Dealer','https://opticstrade.com/opticheskie_pricely/artelv-lrs-5-25x56-ffp']],
+  'Artelv|LRS 6-24×56 FFP':[['Dealer','https://opticstrade.com/opticheskie_pricely/artelv-lrs-6-24x56-ffp']],
+  'Artelv|LRS 3-18×50 FFP 34mm':[['Dealer','https://opticstrade.com/opticheskie_pricely/opticheskij-pricel-artelv-lrs-3-18x50-ffp']],
+  'Artelv|LRS 4-24×56 FFP 34mm':[['Dealer','https://opticstrade.com/opticheskie_pricely/opticheskij_pricel_artelv_lrs_4_24x56_ffp_34mm']],
+  'Artelv|LRS 5-30×56 FFP 34mm':[['Dealer','https://opticstrade.com/opticheskie_pricely/opticheskij-pricel-artelv-lrs-5-30x56-ffp-34mm']],
+  'Artelv|LRS 6-50×56 FFP 34mm':[['Dealer','https://opticstrade.com/opticheskie_pricely/opticheskij-pricel-artelv-lrs-6-50x56-ffp']]
 };
 function getSources(m){ return SOURCES[`${m.brand}|${m.name}`] || []; }
 function sourcesHtml(m){
@@ -981,6 +1012,12 @@ const CLASSES = [
       {brand:'Discovery',name:'ED-AR 1-8×24 SFIR FFP',fp:'FFP',mag:'1-8×',obj:24,tube:34,elev:38,wind:22,click:'0.1 MIL',fovMin:40.7,fovMax:4.8,weight:687,length:290,er:102,priceText:'$210'},
       {brand:'Discovery',name:'ED-AR 1-6×24 IR FFP',fp:'FFP',mag:'1-6×',obj:24,tube:30,elev:35,wind:19.5,click:'0.1 MIL',fovMin:40.3,fovMax:6.2,weight:657,length:423,er:103,priceText:'$170'},
       {brand:'Marcool',name:'Stalker 1-8×24 FFP IR',fp:'FFP',mag:'1-8×',obj:24,tube:30,elev:14.5,wind:14.5,click:'0.1 MIL',fovMin:38.0,fovMax:5.0,weight:510,length:280,er:90,priceText:'$199'},
+      {brand:'Arken',name:'LH-6 1-6×24 SFP LPVO',fp:'SFP',mag:'1-6×',obj:24,tube:30,elev:52.4,wind:52.4,click:'¼ MOA',fovMin:40.69,fovMax:6.46,weight:584,length:0,er:95,priceText:'$249.99'},
+      {brand:'Arken',name:'EP-8 1-8×28 FFP LPVO',fp:'FFP',mag:'1-8×',obj:28,tube:34,elev:32,wind:32,click:'¼ MOA',fovMin:36.93,fovMax:4.44,weight:595,length:0,er:95,priceText:'$374.98'},
+      {brand:'Arkon',name:'Model A 1-8×24 FFP',fp:'FFP',mag:'1-8×',obj:24,tube:30,elev:41,wind:41,click:'0.1 MIL',fovMin:41.2,fovMax:5.6,weight:480,length:0,er:102,priceText:'40,800 ₽'},
+      {brand:'Arkon',name:'Model B 1-8×24 SFP',fp:'SFP',mag:'1-8×',obj:24,tube:30,elev:35.3,wind:35.3,click:'0.1 MIL',fovMin:42.5,fovMax:5.2,weight:0,length:0,er:100,priceText:'34,520–36,090 ₽'},
+      {brand:'Arkon',name:'Model C 1-6×24 SFP',fp:'SFP',mag:'1-6×',obj:24,tube:30,elev:17.5,wind:17.5,click:'0.1 MIL',fovMin:36.0,fovMax:5.8,weight:0,length:0,er:100,priceText:'18,450–20,230 ₽'},
+      {brand:'Artelv',name:'CRS 1-6×28 FFP',fp:'FFP',mag:'1-6×',obj:28,tube:30,elev:52,wind:52,click:'0.1 MIL',fovMin:40.8,fovMax:6.8,weight:550,length:296,er:100,priceText:'52,800 ₽'},
       {brand:'Burris',name:'XTR II 1-8×24 FFP',fp:'FFP',mag:'1-8×',obj:24,tube:34,elev:30,wind:30,click:'0.1 MIL',fovMin:35.0,fovMax:4.15,weight:692,length:273,er:96,priceText:'$900–1,100',discontinued:true},
       {brand:'Trijicon',name:'Credo 1-8×28 FFP',fp:'FFP',mag:'1-8×',obj:28,tube:34,elev:29,wind:29,click:'0.1 MIL',fovMin:35.3,fovMax:4.4,weight:726,length:274,er:89,priceText:'$1,389–1,410'},
       {brand:'Trijicon',name:'VCOG 1-8×28',fp:'FFP',mag:'1-8×',obj:28,tube:34,elev:35,wind:35,click:'0.1 MIL',fovMin:36.4,fovMax:4.37,weight:893,length:274,er:101,priceText:'$2,300–2,800'}
@@ -1009,7 +1046,10 @@ const CLASSES = [
       {brand:'Sig Sauer',name:'TANGO-MSR Compact 1-10×24 FFP',fp:'FFP',mag:'1-10×',obj:24,tube:30,elev:23,wind:23,click:'½ MOA',fovMin:37.2,fovMax:3.72,weight:751,length:213,er:94,priceText:'$700'},
       {brand:'Sig Sauer',name:'TANGO-MSR 1-10×28 SFP',fp:'SFP',mag:'1-10×',obj:28,tube:30,elev:29,wind:29,click:'½ MOA',fovMin:36.6,fovMax:3.66,weight:600,length:279,er:86,priceText:'$400–450'},
       {brand:'Marcool',name:'Stalker LPVO 1-10×28 FFP MIL',fp:'FFP',mag:'1-10×',obj:28,tube:34,elev:25,wind:25,click:'0.1 MIL',fovMin:38.0,fovMax:4.0,weight:712,length:252,er:90,priceText:'$349'},
-      {brand:'Marcool',name:'Stalker ED 1-10×28 FFP IR Zerostop',fp:'FFP',mag:'1-10×',obj:28,tube:34,elev:50,wind:50,click:'0.1 MIL',fovMin:41.0,fovMax:4.1,weight:712,length:252,er:95,priceText:'$499–599'}
+      {brand:'Marcool',name:'Stalker ED 1-10×28 FFP IR Zerostop',fp:'FFP',mag:'1-10×',obj:28,tube:34,elev:50,wind:50,click:'0.1 MIL',fovMin:41.0,fovMax:4.1,weight:712,length:252,er:95,priceText:'$499–599'},
+      {brand:'Arkon',name:'Model A 1-10×28 FFP',fp:'FFP',mag:'1-10×',obj:28,tube:34,elev:34,wind:34,click:'0.1 MIL',fovMin:38.9,fovMax:3.8,weight:720,length:0,er:102,priceText:'59,310 ₽'},
+      {brand:'Arkon',name:'Model C 1-10×24 SFP',fp:'SFP',mag:'1-10×',obj:24,tube:30,elev:17.5,wind:17.5,click:'0.1 MIL',fovMin:38.0,fovMax:4.4,weight:0,length:0,er:120,priceText:'27,220–30,400 ₽'},
+      {brand:'Artelv',name:'CRS 1-10×28 FFP 34mm',fp:'FFP',mag:'1-10×',obj:28,tube:34,elev:51,wind:51,click:'0.1 MIL',fovMin:40.4,fovMax:4.1,weight:662,length:278,er:93,priceText:'69,300 ₽'}
     ]
   },
   {
@@ -1048,7 +1088,8 @@ const CLASSES = [
       {brand:'Swarovski',name:'Z5i+ 2-10×42 L SFP',fp:'SFP',mag:'2-10×',obj:42,tube:30,elev:15,wind:15,click:'0.1 MIL',fovMin:18.6,fovMax:3.7,weight:520,length:330,er:95,priceText:'$1,869'},
       {brand:'Discovery',name:'HD 3-12×44 SFIR FFP',fp:'FFP',mag:'3-12×',obj:44,tube:30,elev:20,wind:20,click:'0.1 MIL',fovMin:14.0,fovMax:3.5,weight:700,length:330,er:90,priceText:'$210'},
       {brand:'Discovery',name:'HD 2-12×24 SFIR FFP',fp:'FFP',mag:'2-12×',obj:24,tube:30,elev:25,wind:25,click:'0.1 MIL',fovMin:18.0,fovMax:3.0,weight:600,length:280,er:90,priceText:'$200'},
-      {brand:'Marcool',name:'EVV 3-12×44 SFIR FFP',fp:'FFP',mag:'3-12×',obj:44,tube:30,elev:17,wind:17,click:'0.1 MIL',fovMin:10.7,fovMax:2.65,weight:625,length:245,er:88,priceText:'$235'}
+      {brand:'Marcool',name:'EVV 3-12×44 SFIR FFP',fp:'FFP',mag:'3-12×',obj:44,tube:30,elev:17,wind:17,click:'0.1 MIL',fovMin:10.7,fovMax:2.65,weight:625,length:245,er:88,priceText:'$235'},
+      {brand:'Arkon',name:'Model B 1.7-10×45 SFP',fp:'SFP',mag:'1.7-10×',obj:45,tube:30,elev:29.4,wind:29.4,click:'0.1 MIL',fovMin:21.0,fovMax:3.6,weight:0,length:0,er:95,priceText:'42,190 ₽'}
     ]
   },
   {
@@ -1101,7 +1142,10 @@ const CLASSES = [
       {brand:'Swarovski',name:'X5i 3.5-18×50 P SFP',fp:'SFP',mag:'3.5-18×',obj:50,tube:30,elev:34,wind:19.5,click:'¼ MOA',fovMin:12.0,fovMax:2.3,weight:870,length:366,er:95,priceText:'$3,799'},
       {brand:'Discovery',name:'ED-LHT GEN II 3-15×50 SFIR FFP',fp:'FFP',mag:'3-15×',obj:50,tube:30,elev:23.2,wind:17,click:'0.1 MIL',fovMin:12.6,fovMax:2.5,weight:792,length:333,er:89,priceText:'$285'},
       {brand:'Marcool',name:'Stalker HD 3-18×50 FFP IR',fp:'FFP',mag:'3-18×',obj:50,tube:30,elev:20,wind:20,click:'0.1 MIL',fovMin:11.2,fovMax:1.87,weight:1378,length:490,er:96,priceText:'$309'},
-      {brand:'Marcool',name:'Stalker ED 3-18×50 FFP Zerostop',fp:'FFP',mag:'3-18×',obj:50,tube:34,elev:35,wind:35,click:'0.1 MIL',fovMin:12.3,fovMax:2.08,weight:998,length:355,er:94,priceText:'$349'}
+      {brand:'Marcool',name:'Stalker ED 3-18×50 FFP Zerostop',fp:'FFP',mag:'3-18×',obj:50,tube:34,elev:35,wind:35,click:'0.1 MIL',fovMin:12.3,fovMax:2.08,weight:998,length:355,er:94,priceText:'$349'},
+      {brand:'Arkon',name:'Model A 3-18×50 FFP',fp:'FFP',mag:'3-18×',obj:50,tube:34,elev:24,wind:24,click:'0.1 MIL',fovMin:13.6,fovMax:2.4,weight:822,length:0,er:94,priceText:'54,490 ₽'},
+      {brand:'Arkon',name:'Model B 3-18×44 FFP',fp:'FFP',mag:'3-18×',obj:44,tube:34,elev:35,wind:35,click:'0.1 MIL',fovMin:12.9,fovMax:2.2,weight:0,length:0,er:95,priceText:'53,780 ₽'},
+      {brand:'Artelv',name:'LRS 3-18×50 FFP 34mm',fp:'FFP',mag:'3-18×',obj:50,tube:34,elev:44,wind:14.5,click:'0.1 MIL',fovMin:10.2,fovMax:1.7,weight:720,length:338,er:95,priceText:'69,300 ₽'}
     ]
   },
   {
@@ -1145,7 +1189,14 @@ const CLASSES = [
       {brand:'Discovery',name:'HD GEN II 4-24×50 SFIR FFP',fp:'FFP',mag:'4-24×',obj:50,tube:34,elev:32,wind:17,click:'0.1 MIL',fovMin:9.6,fovMax:1.5,weight:991,length:318,er:93,priceText:'$265'},
       {brand:'Discovery',name:'LHD 6-24×50 SFIR FFP',fp:'FFP',mag:'6-24×',obj:50,tube:30,elev:17.5,wind:17.5,click:'0.1 MIL',fovMin:5.85,fovMax:1.46,weight:890,length:365,er:103,priceText:'$210'},
       {brand:'Discovery',name:'ED-PRS GEN II 4-20×52 SFIR FFP',fp:'FFP',mag:'4-20×',obj:52,tube:34,elev:35,wind:17,click:'0.1 MIL',fovMin:9.3,fovMax:1.9,weight:1190,length:375,er:87,priceText:'$310'},
-      {brand:'Marcool',name:'Stalker HD 4-24×50 FFP IR',fp:'FFP',mag:'4-24×',obj:50,tube:30,elev:17,wind:17,click:'0.1 MIL',fovMin:8.26,fovMax:1.22,weight:773,length:375,er:92,priceText:'$319'}
+      {brand:'Marcool',name:'Stalker HD 4-24×50 FFP IR',fp:'FFP',mag:'4-24×',obj:50,tube:30,elev:17,wind:17,click:'0.1 MIL',fovMin:8.26,fovMax:1.22,weight:773,length:375,er:92,priceText:'$319'},
+      {brand:'Arken',name:'LH-4 4-16×44 FFP',fp:'FFP',mag:'4-16×',obj:44,tube:30,elev:17,wind:14,click:'0.1 MIL',fovMin:9.14,fovMax:2.29,weight:693,length:335,er:91,priceText:'$312.49'},
+      {brand:'Arken',name:'EPL-4 4-16×44 FFP',fp:'FFP',mag:'4-16×',obj:44,tube:30,elev:25,wind:12,click:'0.1 MIL',fovMin:9.14,fovMax:2.29,weight:672,length:335,er:91,priceText:'$374.99'},
+      {brand:'Arken',name:'EPL-4 6-24×50 FFP',fp:'FFP',mag:'6-24×',obj:50,tube:30,elev:20,wind:12,click:'0.1 MIL',fovMin:5.66,fovMax:1.42,weight:672,length:351,er:89,priceText:'$412.49'},
+      {brand:'Arkon',name:'Model C 4-16×44 SFP',fp:'SFP',mag:'4-16×',obj:44,tube:30,elev:17.5,wind:17.5,click:'0.1 MIL',fovMin:5.6,fovMax:1.0,weight:0,length:0,er:87,priceText:'19,380–22,270 ₽'},
+      {brand:'Arkon',name:'Model C 4-24×50 SFP',fp:'SFP',mag:'4-24×',obj:50,tube:30,elev:17.5,wind:17.5,click:'0.1 MIL',fovMin:5.6,fovMax:1.0,weight:0,length:0,er:90,priceText:'26,280–30,400 ₽'},
+      {brand:'Artelv',name:'LRS 4-16×50 FFP',fp:'FFP',mag:'4-16×',obj:50,tube:30,elev:26,wind:26,click:'0.1 MIL',fovMin:9.5,fovMax:2.4,weight:590,length:334,er:97,priceText:'37,500 ₽'},
+      {brand:'Artelv',name:'LRS 4-24×56 FFP 34mm',fp:'FFP',mag:'4-24×',obj:56,tube:34,elev:34,wind:14.5,click:'0.1 MIL',fovMin:10.2,fovMax:1.7,weight:780,length:362,er:95,priceText:'71,100 ₽'}
     ]
   },
   {
@@ -1181,7 +1232,9 @@ const CLASSES = [
       {brand:'Steiner',name:'Predator 8 4-32×56 SFP',fp:'SFP',mag:'4-32×',obj:56,tube:30,elev:9.3,wind:9.3,click:'¼ MOA',fovMin:10.3,fovMax:1.3,weight:774,length:383,er:94,priceText:'$1,840'},
       {brand:'Sig Sauer',name:'TANGO4 6-24×50 FFP',fp:'FFP',mag:'6-24×',obj:50,tube:30,elev:17,wind:8.5,click:'0.1 MIL',fovMin:4.48,fovMax:1.13,weight:649,length:340,er:84,priceText:'$700–900'},
       {brand:'Swarovski',name:'dS Gen II 5-25×52 P L SFP',fp:'SFP',mag:'5-25×',obj:52,tube:40,elev:14,wind:7,click:'¼ MOA',fovMin:7.3,fovMax:1.5,weight:1066,length:399,er:95,priceText:'$5,499'},
-      {brand:'Marcool',name:'Stalker ED 3-21×50 FFP',fp:'FFP',mag:'3-21×',obj:50,tube:34,elev:25,wind:25,click:'0.1 MIL',fovMin:8.4,fovMax:1.05,weight:919,length:360,er:94,priceText:'$349'}
+      {brand:'Marcool',name:'Stalker ED 3-21×50 FFP',fp:'FFP',mag:'3-21×',obj:50,tube:34,elev:25,wind:25,click:'0.1 MIL',fovMin:8.4,fovMax:1.05,weight:919,length:360,er:94,priceText:'$349'},
+      {brand:'Artelv',name:'LRS 5-25×56 FFP',fp:'FFP',mag:'5-25×',obj:56,tube:30,elev:18.9,wind:18.9,click:'0.1 MIL',fovMin:13.1,fovMax:2.6,weight:660,length:365,er:100,priceText:'49,700 ₽'},
+      {brand:'Artelv',name:'LRS 6-24×56 FFP',fp:'FFP',mag:'6-24×',obj:56,tube:30,elev:18.9,wind:18.9,click:'0.1 MIL',fovMin:11.0,fovMax:2.8,weight:670,length:365,er:100,priceText:'44,500 ₽'}
     ]
   },
   {
@@ -1221,7 +1274,10 @@ const CLASSES = [
       {brand:'Marcool',name:'Stalker ED 5-25×56 FFP IR Zerostop',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:35,wind:22,click:'0.1 MIL',fovMin:7.78,fovMax:1.55,weight:1100,length:365,er:90,priceText:'$449–499'},
       {brand:'Marcool',name:'Stalker HD 5-30×56 FFP IR',fp:'FFP',mag:'5-30×',obj:56,tube:30,elev:17,wind:17,click:'0.1 MIL',fovMin:6.43,fovMax:1.07,weight:761,length:403,er:96,priceText:'$329'},
       {brand:'Marcool',name:'Evolver HD 5-25×56 FFP IR Zerostop',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:23,wind:23,click:'0.1 MIL',fovMin:7.6,fovMax:1.5,weight:938,length:345,er:95,priceText:'$299'},
-      {brand:'Marcool',name:'Stalker ED 4-32×56 FFP IR Zerostop',fp:'FFP',mag:'4-32×',obj:56,tube:34,elev:30,wind:18,click:'0.1 MIL',fovMin:9.0,fovMax:1.13,weight:1100,length:380,er:90,priceText:'$699'}
+      {brand:'Marcool',name:'Stalker ED 4-32×56 FFP IR Zerostop',fp:'FFP',mag:'4-32×',obj:56,tube:34,elev:30,wind:18,click:'0.1 MIL',fovMin:9.0,fovMax:1.13,weight:1100,length:380,er:90,priceText:'$699'},
+      {brand:'Arkon',name:'Model A 5-30×56 FFP',fp:'FFP',mag:'5-30×',obj:56,tube:34,elev:24,wind:24,click:'0.1 MIL',fovMin:8.0,fovMax:1.36,weight:992,length:0,er:94,priceText:'60,390 ₽'},
+      {brand:'Arkon',name:'Model B 5-25×56 FFP',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:29.4,wind:29.4,click:'0.1 MIL',fovMin:8.2,fovMax:1.6,weight:0,length:0,er:94,priceText:'60,900 ₽'},
+      {brand:'Artelv',name:'LRS 5-30×56 FFP 34mm',fp:'FFP',mag:'5-30×',obj:56,tube:34,elev:22,wind:22,click:'0.1 MIL',fovMin:14.3,fovMax:2.4,weight:810,length:392,er:95,priceText:'74,400 ₽'}
     ]
   },
   {
@@ -1253,7 +1309,10 @@ const CLASSES = [
       {brand:'Swarovski',name:'Z8i+ 5-40×56 P L SFP',fp:'SFP',mag:'5-40×',obj:56,tube:34,elev:16,wind:10,click:'0.1 MIL',fovMin:8.6,fovMax:1.1,weight:890,length:391,er:95,priceText:'$4,899'},
       {brand:'Discovery',name:'ED-ELR GEN II 5-40×56 SFIR FFP',fp:'FFP',mag:'5-40×',obj:56,tube:35,elev:25,wind:18,click:'0.1 MIL',fovMin:7.2,fovMax:0.9,weight:1279,length:423,er:91,priceText:'$485'},
       {brand:'Discovery',name:'XED 6-36×56 SFIR FFP',fp:'FFP',mag:'6-36×',obj:56,tube:35,elev:35,wind:18,click:'0.1 MIL',fovMin:5.9,fovMax:0.9,weight:1287,length:425,er:95,priceText:'$650'},
-      {brand:'Discovery',name:'LHD 8-32×56 SFIR FFP',fp:'FFP',mag:'8-32×',obj:56,tube:34,elev:20,wind:20,click:'0.1 MIL',fovMin:4.5,fovMax:1.1,weight:1100,length:400,er:90,priceText:'$270'}
+      {brand:'Discovery',name:'LHD 8-32×56 SFIR FFP',fp:'FFP',mag:'8-32×',obj:56,tube:34,elev:20,wind:20,click:'0.1 MIL',fovMin:4.5,fovMax:1.1,weight:1100,length:400,er:90,priceText:'$270'},
+      {brand:'Arken',name:'EP-5 Gen2 7-35×56 FFP',fp:'FFP',mag:'7-35×',obj:56,tube:34,elev:32,wind:16,click:'0.1 MIL',fovMin:5.08,fovMax:1.02,weight:1191,length:406,er:89,priceText:'$749.99'},
+      {brand:'Arkon',name:'Model A 6-36×56 FFP',fp:'FFP',mag:'6-36×',obj:56,tube:34,elev:27,wind:27,click:'0.1 MIL',fovMin:6.8,fovMax:1.13,weight:1065,length:0,er:102,priceText:'82,600 ₽'},
+      {brand:'Artelv',name:'LRS 6-50×56 FFP 34mm',fp:'FFP',mag:'6-50×',obj:56,tube:34,elev:22,wind:22,click:'0.1 MIL',fovMin:6.8,fovMax:0.84,weight:901,length:403,er:95,priceText:'92,200 ₽'}
     ]
   }
 ];
