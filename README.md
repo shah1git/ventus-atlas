@@ -1,5 +1,12 @@
 # Ventus Riflescope Competitive Analysis
 
+**Live atlas:** https://shah1git.github.io/ventus-atlas/  ·  Published by RIKA NV
+
+## Interactive tools
+
+- **[`index.html`](index.html)** — live Rika-branded competitive atlas (vellum-paper, purple/amber)
+- **[`compare.html`](compare.html)** — dark-theme variant of the same tool
+
 ## Overview
 
 This repository contains per-class competitive analyses comparing the **Ventus riflescope catalog (35 SKUs, 16 sheets)** against current 2025–2026 products from Vector Optics, Vortex, Primary Arms, Athlon, Arken, Leupold, Bushnell, Burris, Trijicon, Nightforce, March, Schmidt & Bender, ZCO and Tangent Theta. The purpose is to identify where Ventus wins and loses on published specifications (elevation/windage travel, weight, length, eye relief, FOV, click value, tube diameter) so that positioning, pricing, and marketing decisions can be grounded in apples-to-apples data rather than marketing copy.
