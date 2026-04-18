@@ -826,8 +826,11 @@ const SOURCES = {
 
   'ZCO|ZC527 5-27×56 FFP':[['MileHighShooting','https://www.milehighshooting.com/zero-compromise-optic-zc527-5-27x56-ffp-nle-10mil-mpct2x/']],
 
-  'Tangent Theta|TT525P 5-25×56':[['Armament','https://armament.com/products/tangent-theta-525x56mm-professional'],['SportOptics','https://www.sportoptics.com/tangent-theta-tt525p-800100-0001.html']],
-  'Tangent Theta|TT735P 7-35×56':[['Armament','https://armament.com/products/tangent-theta-725x56mm-professional']]
+  'Tangent Theta|TT315H Long Range Hunter 3-15×50':[['Armament','https://armament.com/collections/tangent-theta-riflescopes/products/tangent-theta-315x50mm-long-range-hunter']],
+  'Tangent Theta|TT315M Marksman 3-15×50':[['Armament','https://armament.com/collections/tangent-theta-riflescopes/products/tangent-theta-315x50mm-marksman']],
+  'Tangent Theta|TT315P Professional 3-15×50':[['Armament','https://armament.com/collections/tangent-theta-riflescopes/products/tangent-theta-315x50mm-professional']],
+  'Tangent Theta|TT525P 5-25×56':[['Armament','https://armament.com/collections/tangent-theta-riflescopes/products/tangent-theta-525x56mm-professional'],['SportOptics','https://www.sportoptics.com/tangent-theta-tt525p-800100-0001.html']],
+  'Tangent Theta|TT735P 7-35×56':[['Armament','https://armament.com/collections/tangent-theta-riflescopes/products/tangent-theta-735x56mm']]
 };
 function getSources(m){ return SOURCES[`${m.brand}|${m.name}`] || []; }
 function sourcesHtml(m){
@@ -935,7 +938,10 @@ const CLASSES = [
       {brand:'Arken',name:'EP-5 5-25×56 FFP',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:32,wind:16,click:'0.1 MIL',fovMin:8.4,fovMax:1.6,weight:1111,length:356,er:86,priceText:'$562–720'},
       {brand:'Leupold',name:'Mark 5HD 3.6-18×44 FFP',fp:'FFP',mag:'3.6-18×',obj:44,tube:35,elev:29,wind:23,click:'0.1 MIL',fovMin:9.42,fovMax:1.93,weight:737,length:307,er:93,priceText:'$1,700–2,200'},
       {brand:'Bushnell',name:'Match Pro ED 5-30×56 FFP',fp:'FFP',mag:'5-30×',obj:56,tube:34,elev:29.4,wind:14.7,click:'0.1 MRAD',fovMin:8.2,fovMax:1.4,weight:907,length:0,er:97,priceText:'$699–899'},
-      {brand:'Burris',name:'XTR III 3.3-18×50 FFP',fp:'FFP',mag:'3.3-18×',obj:50,tube:34,elev:35,wind:16,click:'0.1 MIL',fovMin:12.6,fovMax:2.27,weight:845,length:338,er:92,priceText:'$1,199–1,700'}
+      {brand:'Burris',name:'XTR III 3.3-18×50 FFP',fp:'FFP',mag:'3.3-18×',obj:50,tube:34,elev:35,wind:16,click:'0.1 MIL',fovMin:12.6,fovMax:2.27,weight:845,length:338,er:92,priceText:'$1,199–1,700'},
+      {brand:'Tangent Theta',name:'TT315H Long Range Hunter 3-15×50',fp:'FFP',mag:'3-15×',obj:50,tube:30,elev:18,wind:24,click:'0.1 MIL',fovMin:12.8,fovMax:2.8,weight:763,length:347,er:90,priceText:'$4,753'},
+      {brand:'Tangent Theta',name:'TT315M Marksman 3-15×50',fp:'SFP',mag:'3-15×',obj:50,tube:30,elev:18,wind:24,click:'0.1 MIL',fovMin:12.8,fovMax:2.8,weight:786,length:351,er:90,priceText:'$4,956'},
+      {brand:'Tangent Theta',name:'TT315P Professional 3-15×50',fp:'FFP',mag:'3-15×',obj:50,tube:34,elev:34,wind:16,click:'0.1 MIL',fovMin:12.8,fovMax:2.8,weight:1025,length:356,er:90,priceText:'$5,542+'}
     ]
   },
   {
