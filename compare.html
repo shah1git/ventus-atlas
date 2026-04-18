@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ventus — Competitive Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#131211;
+  --bg-raised:#1a1814;
+  --bg-deep:#0e0d0b;
+  --fg:#ece5d8;
+  --fg-muted:#8a847a;
+  --fg-subtle:#4f4a42;
+  --hairline:#2a2621;
+  --hairline-bright:#3a3530;
+  --brass:#d4a254;
+  --brass-dim:#916324;
+  --brass-glow:#e4ba74;
+  --olive:#5a6151;
+  --rust:#a85c3a;
+  --ventus:#d4a254;
+  --gutter:clamp(20px, 4vw, 56px);
+}
+*,*:before,*:after{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{
+  font-family:'Newsreader',Georgia,serif;
+  font-weight:300;
+  line-height:1.5;
+  font-size:16px;
+  overflow-x:hidden;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(212,162,84,.05), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 0% 100%, rgba(90,97,81,.05), transparent 60%),
+    var(--bg);
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+  opacity:.35;
+  mix-blend-mode:overlay;
+  pointer-events:none;
+  z-index:1;
+}
+
+/* ─── TYPO ─── */
+.display{font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.01em;line-height:.92}
+.display-italic{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.micro{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);font-weight:400}
+.caps{text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-family:'JetBrains Mono',monospace}
+
+/* ─── CONTAINER / GRID ─── */
+.shell{max-width:1480px;margin:0 auto;padding:0 var(--gutter);position:relative;z-index:2}
+
+/* ─── RETICLE HEADER ─── */
+header.masthead{
+  padding:28px 0 18px;
+  border-bottom:1px solid var(--hairline);
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:28px;
+  position:sticky;top:0;z-index:50;
+  background:rgba(19,18,17,.82);
+  backdrop-filter:blur(14px);
+}
+.reticle-mark{width:36px;height:36px;position:relative;flex-shrink:0}
+.reticle-mark svg{display:block;width:100%;height:100%}
+.brand{display:flex;align-items:center;gap:16px}
+.brand-name{font-family:'Instrument Serif',serif;font-size:24px;letter-spacing:-.01em;line-height:1}
+.brand-name em{font-style:italic;color:var(--brass)}
+.brand-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;color:var(--fg-muted);text-transform:uppercase;padding-top:4px}
+.brand-sep{width:1px;height:22px;background:var(--hairline-bright);margin:0 4px}
+.meta-right{display:flex;gap:22px;align-items:center}
+.meta-right .mono{font-size:11px;color:var(--fg-muted)}
+
+/* ─── HERO / CLASS STAGE ─── */
+.hero{
+  padding:64px 0 40px;
+  position:relative;
+  border-bottom:1px solid var(--hairline);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:48px;
+  align-items:end;
+}
+.class-num{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(90px,14vw,200px);
+  line-height:.82;
+  color:var(--brass);
+  font-style:italic;
+  letter-spacing:-.04em;
+  text-shadow:0 0 40px rgba(212,162,84,.15);
+  display:flex;
+  align-items:baseline;
+}
+.class-num .slash{color:var(--fg-subtle);font-style:italic;margin:0 12px;font-size:.5em}
+.class-num .total{color:var(--fg-subtle);font-size:.5em;font-style:italic}
+.hero-title{display:flex;flex-direction:column;gap:14px;padding-bottom:10px}
+.hero-title .kicker{color:var(--fg-muted)}
+.hero-title h1{
+  font-family:'Instrument Serif',serif;
+  font-weight:400;
+  font-size:clamp(42px,6.4vw,96px);
+  line-height:.96;
+  letter-spacing:-.015em;
+}
+.hero-title h1 em{color:var(--brass);font-style:italic}
+.hero-title .lead{color:var(--fg-muted);font-family:'Newsreader',serif;font-style:italic;font-size:19px;max-width:60ch;margin-top:8px}
+
+/* ─── CLASS SELECTOR RAIL ─── */
+.rail-wrap{padding:28px 0;border-bottom:1px solid var(--hairline);overflow:hidden}
+.rail{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:0;
+  min-width:940px;
+}
+.rail-item{
+  padding:18px 14px 14px;
+  border-left:1px solid var(--hairline);
+  display:flex;flex-direction:column;gap:8px;
+  cursor:pointer;
+  transition:background .25s ease;
+  position:relative;
+  background:transparent;border-top:none;border-right:none;border-bottom:none;
+  text-align:left;
+  color:var(--fg);
+  font:inherit;
+}
+.rail-item:last-child{border-right:1px solid var(--hairline)}
+.rail-item:hover{background:rgba(212,162,84,.03)}
+.rail-item .mono{font-size:10px;color:var(--fg-muted);display:flex;align-items:center;gap:6px}
+.rail-item .dot{width:6px;height:6px;border-radius:50%;background:transparent;border:1px solid var(--fg-subtle);transition:all .25s}
+.rail-item[data-active="true"] .dot{background:var(--brass);border-color:var(--brass);box-shadow:0 0 8px rgba(212,162,84,.6)}
+.rail-item[data-active="true"] .rail-label{color:var(--brass)}
+.rail-item[data-active="true"]::before{
+  content:"";position:absolute;top:-28px;left:0;right:0;height:1px;background:var(--brass);
+  box-shadow:0 0 10px rgba(212,162,84,.45);
+}
+.rail-label{font-family:'Instrument Serif',serif;font-size:19px;line-height:1.1;font-style:italic}
+.rail-tiny{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-subtle);letter-spacing:.1em}
+
+/* ─── OVERVIEW ─── */
+.overview{padding:56px 0;border-bottom:1px solid var(--hairline);display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+.lead-spec{position:relative;padding-left:36px}
+.lead-spec::before{
+  content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(var(--brass),transparent);
+}
+.lead-spec .micro{margin-bottom:12px;color:var(--brass)}
+.lead-value{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(72px,11vw,160px);
+  line-height:.86;
+  letter-spacing:-.03em;
+  font-style:italic;
+}
+.lead-value .unit{font-size:.28em;font-style:normal;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;margin-left:18px;color:var(--fg-muted);vertical-align:middle;font-weight:300}
+.lead-note{margin-top:20px;font-family:'Newsreader',serif;font-style:italic;color:var(--fg-muted);font-size:17px;max-width:46ch}
+.lead-caption{margin-top:28px;padding:18px 22px;border:1px solid var(--hairline);background:rgba(90,97,81,.04);display:flex;gap:20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--fg-muted)}
+.lead-caption strong{color:var(--brass);font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+
+.lineup{display:flex;flex-direction:column;gap:0}
+.lineup-head{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--hairline-bright);margin-bottom:0}
+.lineup-card{
+  padding:20px 0 18px;
+  border-bottom:1px dashed var(--hairline);
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:24px;
+  align-items:baseline;
+  position:relative;
+}
+.lineup-card:last-child{border-bottom:none}
+.lineup-idx{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-subtle);letter-spacing:.1em;min-width:28px}
+.lineup-name{font-family:'Instrument Serif',serif;font-size:22px;line-height:1.1}
+.lineup-name em{color:var(--brass);font-style:italic}
+.lineup-specs{display:flex;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-muted);flex-wrap:wrap;margin-top:4px;letter-spacing:.06em}
+.lineup-specs span{white-space:nowrap}
+.lineup-price{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brass);letter-spacing:.08em;text-align:right}
+
+/* ─── DATA TABLE SECTION ─── */
+.data-section{padding:64px 0;border-bottom:1px solid var(--hairline);position:relative}
+.section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:28px;gap:24px;flex-wrap:wrap}
+.section-head h2{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(36px,5vw,64px);line-height:1;color:var(--fg)}
+.section-head .notice{font-family:'Newsreader',serif;font-style:italic;color:var(--fg-muted);max-width:50ch;font-size:15px}
+
+.tbl-wrap{overflow-x:auto;margin:0 -8px;padding:0 8px;scrollbar-width:thin;scrollbar-color:var(--hairline-bright) transparent}
+table.ledger{
+  width:100%;min-width:1100px;border-collapse:collapse;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+}
+.ledger th{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:var(--fg-muted);
+  text-align:left;
+  padding:14px 12px;
+  border-bottom:1px solid var(--hairline-bright);
+  border-top:1px solid var(--hairline);
+  white-space:nowrap;
+  vertical-align:bottom;
+  cursor:pointer;
+  user-select:none;
+  transition:color .2s;
+  position:relative;
+}
+.ledger th:hover{color:var(--fg)}
+.ledger th .sort-mark{margin-left:6px;color:var(--fg-subtle);font-size:9px}
+.ledger th.active{color:var(--brass)}
+.ledger th.active .sort-mark{color:var(--brass)}
+.ledger td{
+  padding:16px 12px;
+  border-bottom:1px solid var(--hairline);
+  color:var(--fg);
+  vertical-align:baseline;
+}
+.ledger td.num{text-align:right}
+.ledger td.neg{color:var(--fg-subtle)}
+.ledger tr.ventus-row{background:rgba(212,162,84,.06);position:relative}
+.ledger tr.ventus-row td{color:var(--fg);border-bottom-color:rgba(212,162,84,.18)}
+.ledger tr.ventus-row .model-name{color:var(--brass)}
+.ledger tr.ventus-row::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--brass);
+}
+.ledger tr.discontinued td{color:var(--fg-muted)}
+.ledger tr.discontinued .model-name{color:var(--fg-muted)}
+.ledger tr:hover:not(.ventus-row) td{background:rgba(255,255,255,.015)}
+.model-cell{display:flex;flex-direction:column;gap:3px;min-width:260px;font-family:'Newsreader',serif;font-size:15px;letter-spacing:0}
+.model-cell .brand-line{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--fg-muted);letter-spacing:.16em;text-transform:uppercase}
+.model-cell .model-name{color:var(--fg)}
+.model-cell .mflag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;background:rgba(168,92,58,.15);color:var(--rust);letter-spacing:.1em;border:1px solid rgba(168,92,58,.3);display:inline-block;margin-top:4px;width:fit-content}
+.ledger .pill{display:inline-block;padding:3px 7px;font-size:10px;border:1px solid var(--hairline-bright);border-radius:2px;color:var(--fg-muted);letter-spacing:.05em}
+.ledger .pill.ffp{color:var(--brass);border-color:rgba(212,162,84,.4)}
+.ledger .pill.big-tube{color:var(--rust);border-color:rgba(168,92,58,.3)}
+
+/* ─── CHART SECTION ─── */
+.chart-section{padding:64px 0 88px;position:relative}
+.metric-picker{display:flex;gap:0;border:1px solid var(--hairline-bright);margin-bottom:44px;width:fit-content;background:var(--bg-raised)}
+.metric-picker button{
+  padding:12px 22px;
+  background:transparent;
+  border:none;
+  border-right:1px solid var(--hairline);
+  color:var(--fg-muted);
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all .22s ease;
+}
+.metric-picker button:last-child{border-right:none}
+.metric-picker button:hover{color:var(--fg);background:rgba(212,162,84,.04)}
+.metric-picker button.active{color:var(--bg);background:var(--brass)}
+.metric-picker button.active:hover{background:var(--brass-glow)}
+
+.chart{display:flex;flex-direction:column;gap:2px;position:relative;border-left:1px solid var(--hairline)}
+.chart::before{content:"";position:absolute;left:0;top:-6px;bottom:-6px;border-left:1px solid var(--hairline)}
+.bar-row{
+  display:grid;
+  grid-template-columns:220px 1fr 100px;
+  align-items:center;
+  gap:18px;
+  padding:10px 18px 10px 16px;
+  position:relative;
+  transition:background .22s;
+}
+.bar-row:hover{background:rgba(255,255,255,.015)}
+.bar-row .bar-label{font-family:'Newsreader',serif;font-size:14px;color:var(--fg);display:flex;align-items:baseline;gap:10px;line-height:1.2}
+.bar-row .bar-brand{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.15em;color:var(--fg-muted);text-transform:uppercase;flex-shrink:0}
+.bar-row.ventus-bar .bar-label{color:var(--brass)}
+.bar-row.ventus-bar .bar-brand{color:var(--brass-glow)}
+.bar-track{position:relative;height:22px;background:linear-gradient(90deg,rgba(255,255,255,.01),transparent)}
+.bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,rgba(138,132,122,.4) 0%,rgba(138,132,122,.55) 100%);
+  border-right:1px solid rgba(236,229,216,.35);
+  transform-origin:left;
+  transition:width .8s cubic-bezier(.22,.9,.28,1), background .3s;
+  position:relative;
+}
+.ventus-bar .bar-fill{
+  background:linear-gradient(90deg,rgba(212,162,84,.85) 0%,rgba(228,186,116,.95) 100%);
+  border-right:1px solid var(--brass-glow);
+  box-shadow:0 0 18px rgba(212,162,84,.22);
+}
+.bar-fill::after{
+  content:"";position:absolute;right:-1px;top:-3px;bottom:-3px;width:1px;background:currentColor;opacity:.4;
+}
+.bar-value{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  color:var(--fg);
+  text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+.ventus-bar .bar-value{color:var(--brass)}
+
+/* ─── LEGEND & FOOTER ─── */
+.legend{margin-top:36px;display:flex;gap:32px;flex-wrap:wrap;padding-top:24px;border-top:1px dashed var(--hairline)}
+.legend-item{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-muted);letter-spacing:.08em}
+.legend-swatch{width:18px;height:10px}
+.legend-swatch.ventus{background:linear-gradient(90deg,var(--brass),var(--brass-glow));box-shadow:0 0 8px rgba(212,162,84,.4)}
+.legend-swatch.comp{background:rgba(138,132,122,.5)}
+.legend-swatch.disc{background:rgba(168,92,58,.3);border:1px solid rgba(168,92,58,.5)}
+
+footer.colophon{padding:56px 0 80px;border-top:1px solid var(--hairline);display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;position:relative}
+footer.colophon h3{font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;font-weight:400;margin-bottom:18px}
+footer.colophon p{color:var(--fg-muted);font-family:'Newsreader',serif;font-size:14px;line-height:1.65;max-width:40ch}
+footer.colophon ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+footer.colophon li{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--fg-muted);display:flex;justify-content:space-between;gap:12px;padding-bottom:9px;border-bottom:1px dotted var(--hairline)}
+footer.colophon li strong{color:var(--fg);font-weight:400;letter-spacing:.08em}
+
+.reticle-footnote{position:absolute;top:56px;right:var(--gutter);width:72px;height:72px;opacity:.4}
+.reticle-footnote svg{width:100%;height:100%}
+
+/* ─── TICK MARK DECORATIONS ─── */
+.ticks{display:flex;gap:2px;margin-top:12px}
+.tick{width:1px;height:10px;background:var(--fg-subtle)}
+.tick.major{height:16px;background:var(--brass)}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:24px}
+  .overview{grid-template-columns:1fr;gap:40px}
+  footer.colophon{grid-template-columns:1fr}
+  .bar-row{grid-template-columns:180px 1fr 80px;gap:12px}
+}
+@media (max-width:720px){
+  header.masthead{grid-template-columns:auto 1fr;gap:16px}
+  .meta-right{display:none}
+  .brand-sub{display:none}
+  .bar-row{grid-template-columns:1fr;gap:8px;padding:14px 16px}
+  .bar-row .bar-label{font-size:13px}
+  .bar-track{height:14px}
+}
+
+/* ─── LOAD ANIMATION ─── */
+@keyframes reveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.anim-in{animation:reveal .7s cubic-bezier(.22,.9,.28,1) both}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{height:10px;width:10px}
+::-webkit-scrollbar-track{background:var(--bg-raised)}
+::-webkit-scrollbar-thumb{background:var(--hairline-bright);border-radius:0}
+::-webkit-scrollbar-thumb:hover{background:var(--fg-subtle)}
+
+/* ─── SELECTION ─── */
+::selection{background:var(--brass);color:var(--bg)}
+
+/* ─── SMALL CAPS NUMBER EMPHASIS ─── */
+.num-accent{color:var(--brass)}
+.num-weak{color:var(--fg-subtle)}
+</style>
+</head>
+<body>
+
+<!-- ─── MASTHEAD ─── -->
+<div class="shell">
+<header class="masthead">
+  <div class="reticle-mark">
+    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width=".6">
+      <circle cx="20" cy="20" r="18.5" stroke="var(--brass)" stroke-width=".8"/>
+      <circle cx="20" cy="20" r="11" stroke="var(--fg-muted)" stroke-dasharray="1.5 2"/>
+      <line x1="20" y1="0" x2="20" y2="13" stroke="var(--fg-muted)"/>
+      <line x1="20" y1="27" x2="20" y2="40" stroke="var(--fg-muted)"/>
+      <line x1="0" y1="20" x2="13" y2="20" stroke="var(--fg-muted)"/>
+      <line x1="27" y1="20" x2="40" y2="20" stroke="var(--fg-muted)"/>
+      <circle cx="20" cy="20" r="1.2" fill="var(--brass)"/>
+      <line x1="18" y1="20" x2="22" y2="20" stroke="var(--brass)" stroke-width="1"/>
+      <line x1="20" y1="18" x2="20" y2="22" stroke="var(--brass)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="brand">
+    <div class="brand-name">Ventus <em>Competitive Atlas</em></div>
+    <div class="brand-sep"></div>
+    <div class="brand-sub">Edition 01 · Apr 2026</div>
+  </div>
+  <div class="meta-right">
+    <span class="mono" id="modelCount">— MODELS IN CLASS</span>
+    <span class="mono">A/Z · OPTICS REFERENCE</span>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="class-num">
+      <span id="heroNum">01</span>
+      <span class="slash">/</span>
+      <span class="total">VIII</span>
+    </div>
+    <div class="hero-title">
+      <div class="kicker micro">Catalog Class</div>
+      <h1 id="heroTitle"><em>Low-Power</em> Variable Optic, 1–8×</h1>
+      <div class="lead" id="heroLead">A competitive atlas of Ventus riflescope specifications set against current 2025–2026 products from the world's precision-optics tier.</div>
+    </div>
+  </div>
+  <div class="ticks" style="margin-top:36px">
+    <div class="tick major"></div>
+    <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div>
+    <div class="tick major"></div>
+    <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div>
+    <div class="tick major"></div>
+    <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div>
+    <div class="tick major"></div>
+    <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div>
+    <div class="tick major"></div>
+    <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div>
+    <div class="tick major"></div>
+    <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div>
+    <div class="tick major"></div>
+    <div class="tick"></div><div class="tick"></div><div class="tick"></div><div class="tick"></div>
+    <div class="tick major"></div>
+  </div>
+</section>
+
+<!-- ─── CLASS RAIL ─── -->
+<section class="rail-wrap">
+  <div class="rail" id="classRail"></div>
+</section>
+
+<!-- ─── OVERVIEW ─── -->
+<section class="overview">
+  <div class="lead-spec">
+    <div class="micro" id="leadLabel">HEADLINE METRIC</div>
+    <div class="lead-value" id="leadValue">—<span class="unit">—</span></div>
+    <div class="lead-note" id="leadNote">—</div>
+    <div class="lead-caption">
+      <span><strong>Tube</strong> <span id="tubeSpec">—</span></span>
+      <span><strong>Obj</strong> <span id="objSpec">—</span></span>
+      <span><strong>Click</strong> <span id="clickSpec">—</span></span>
+    </div>
+  </div>
+  <div class="lineup">
+    <div class="lineup-head">
+      <span class="caps" style="color:var(--fg-muted)">Ventus Lineup</span>
+      <span class="caps" style="color:var(--brass)" id="skuCountBadge">— SKU</span>
+    </div>
+    <div id="lineupList"></div>
+  </div>
+</section>
+
+<!-- ─── DATA TABLE ─── -->
+<section class="data-section">
+  <div class="section-head">
+    <h2>Master Ledger</h2>
+    <p class="notice">Sortable data sheet. All specifications as published by manufacturers or authorized retailers. Click any column heading to re-sort. Ventus entries are highlighted in brass.</p>
+  </div>
+  <div class="tbl-wrap">
+    <table class="ledger" id="ledgerTable">
+      <thead><tr id="ledgerHead"></tr></thead>
+      <tbody id="ledgerBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── CHART ─── -->
+<section class="chart-section">
+  <div class="section-head">
+    <h2>Metric Atlas</h2>
+    <p class="notice">Visualized ranking across the active class. Ventus performance in brass; competitors in graphite. Discontinued models are hatched.</p>
+  </div>
+  <div class="metric-picker" id="metricPicker"></div>
+  <div class="chart" id="chart"></div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch ventus"></div>VENTUS CATALOG</div>
+    <div class="legend-item"><div class="legend-swatch comp"></div>COMPETITOR · CURRENT</div>
+    <div class="legend-item"><div class="legend-swatch disc"></div>DISCONTINUED · REFERENCE</div>
+  </div>
+</section>
+
+<!-- ─── COLOPHON ─── -->
+<footer class="colophon">
+  <div class="reticle-footnote">
+    <svg viewBox="0 0 40 40" fill="none" stroke="var(--fg-subtle)" stroke-width=".4">
+      <circle cx="20" cy="20" r="19"/>
+      <circle cx="20" cy="20" r="10" stroke-dasharray="2 2"/>
+      <line x1="20" y1="1" x2="20" y2="39"/>
+      <line x1="1" y1="20" x2="39" y2="20"/>
+      <circle cx="20" cy="20" r="1" fill="var(--fg-subtle)"/>
+    </svg>
+  </div>
+  <div>
+    <h3>On this document</h3>
+    <p>An editorial companion to the per-class written analyses. Specifications were sourced from manufacturer product pages and authorized retailers during April 2026. No independent optical or mechanical verification was performed; manufacturer FOV claims are flagged where they exceed peer group.</p>
+  </div>
+  <div>
+    <h3>Sources</h3>
+    <ul>
+      <li><span>VENTUS</span><strong>Ventus_Specs_EN_v1.xlsx</strong></li>
+      <li><span>VECTOR</span><strong>vectoroptics.com</strong></li>
+      <li><span>NIGHTFORCE</span><strong>nightforceoptics.com</strong></li>
+      <li><span>S&amp;B</span><strong>schmidtundbender.de</strong></li>
+      <li><span>VORTEX</span><strong>vortexoptics.com</strong></li>
+      <li><span>ZCO · TT · MARCH</span><strong>armament · mhs</strong></li>
+    </ul>
+  </div>
+  <div>
+    <h3>Legend</h3>
+    <ul>
+      <li><span>MIL</span><strong>milliradian</strong></li>
+      <li><span>FFP</span><strong>first focal plane</strong></li>
+      <li><span>SFP</span><strong>second focal plane</strong></li>
+      <li><span>ER</span><strong>eye relief</strong></li>
+      <li><span>FOV</span><strong>field of view @ 100m</strong></li>
+    </ul>
+  </div>
+</footer>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   DATA
+   Curated from Ventus_Specs_EN_v1.xlsx + competitor analysis MDs
+   All numeric fields normalized: mil totals, grams, mm, meters, USD
+   ══════════════════════════════════════════════════════════ */
+
+const V = {ventus:true,fp:'FFP'};
+
+const CLASSES = [
+  {
+    id:'lpvo-1-8',
+    roman:'I',
+    label:'LPVO 1-8×',
+    title:'<em>Low-Power</em> Variable Optic, 1–8×',
+    lead:'Close-to-mid tactical and driven-game LPVO tier. 1× daylight combat through 8× DMR reach on a single platform.',
+    leadMetric:{label:'Elevation · Ventus peak',value:'34.9',unit:'MIL',note:'Tied-second among current FFP 1-8× options — beaten only by the discontinued Leupold Mark 8 CQBSS.'},
+    meta:{tube:'30 / 34 mm',obj:'24 / 26 / 28 mm',click:'½ MOA'},
+    models:[
+      {brand:'Ventus',name:'FFP 1-8×26',fp:'FFP',mag:'1-8×',obj:26,tube:34,elev:34.9,wind:34.9,click:'½ MOA',fovMin:46.0,fovMax:5.77,weight:608,length:278,er:86,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 1-8×24',fp:'FFP',mag:'1-8×',obj:24,tube:30,elev:34.9,wind:34.9,click:'½ MOA',fovMin:42.7,fovMax:5.33,weight:525,length:270,er:86,priceText:'OEM',...V},
+      {brand:'Ventus',name:'SFP 1-8×28',fp:'SFP',mag:'1-8×',obj:28,tube:34,elev:26.2,wind:26.2,click:'½ MOA',fovMin:49.9,fovMax:6.11,weight:646,length:278,er:85,priceText:'OEM',...V,fp:'SFP'},
+      {brand:'Ventus',name:'SFP 1-8×24',fp:'SFP',mag:'1-8×',obj:24,tube:30,elev:34.9,wind:34.9,click:'½ MOA',fovMin:44.4,fovMax:5.53,weight:551,length:270,er:85,priceText:'OEM',ventus:true},
+      {brand:'Vector Optics',name:'Continental x8 1-8×24 SFP ED',fp:'SFP',mag:'1-8×',obj:24,tube:30,elev:40,wind:40,click:'0.1 MIL',fovMin:41.0,fovMax:5.1,weight:520,length:284,er:95,price:449,priceText:'$349–499'},
+      {brand:'Primary Arms',name:'PLxC 1-8×24 FFP',fp:'FFP',mag:'1-8×',obj:24,tube:30,elev:29.1,wind:29.1,click:'0.1 MIL',fovMin:40.3,fovMax:4.86,weight:481,length:236,er:87,price:1749,priceText:'$1,749'},
+      {brand:'Athlon',name:'Ares ETR 1-10×24 FFP',fp:'FFP',mag:'1-10×',obj:24,tube:34,elev:29.1,wind:23.3,click:'0.1 MIL',fovMin:39.1,fovMax:3.9,weight:544,length:254,er:94,price:999,priceText:'$849–1,062',substitute:true},
+      {brand:'Vortex',name:'Razor HD Gen III 1-10×24 FFP',fp:'FFP',mag:'1-10×',obj:24,tube:34,elev:30,wind:30,click:'0.1 MRAD',fovMin:38.7,fovMax:3.9,weight:610,length:257,er:91,price:1999,priceText:'$1,999',substitute:true},
+      {brand:'Burris',name:'XTR II 1-8×24 FFP',fp:'FFP',mag:'1-8×',obj:24,tube:34,elev:30,wind:30,click:'0.1 MIL',fovMin:35.0,fovMax:4.15,weight:692,length:273,er:96,price:999,priceText:'$900–1,100',discontinued:true},
+      {brand:'Trijicon',name:'Credo 1-8×28 FFP',fp:'FFP',mag:'1-8×',obj:28,tube:34,elev:29,wind:29,click:'0.1 MIL',fovMin:35.3,fovMax:4.4,weight:726,length:274,er:89,price:1400,priceText:'$1,389–1,410'},
+      {brand:'Trijicon',name:'VCOG 1-8×28',fp:'FFP',mag:'1-8×',obj:28,tube:34,elev:35,wind:35,click:'0.1 MIL',fovMin:36.4,fovMax:4.37,weight:893,length:274,er:101,price:2500,priceText:'$2,300–2,800'}
+    ]
+  },
+  {
+    id:'lpvo-1-10',
+    roman:'II',
+    label:'LPVO 1-10×',
+    title:'<em>Variable</em> Optic, 1–10× — Jupiter Series',
+    lead:'Ten-times zoom LPVO — the contemporary replacement for 1-8× in tactical and 3-Gun platforms. Tighter eye-box, more magnification reach.',
+    leadMetric:{label:'Weight · Ventus 30mm tube',value:'527',unit:'G',note:'Class-leading among current FFP 1-10× options; peers Primary Arms PLx does not exist, Trijicon Credo HX (601g) is next.'},
+    meta:{tube:'30 / 34 mm',obj:'24 / 26 / 28 mm',click:'½ MOA'},
+    models:[
+      {brand:'Ventus',name:'FFP 1-10×26',fp:'FFP',mag:'1-10×',obj:26,tube:34,elev:34.9,wind:34.9,click:'½ MOA',fovMin:46.0,fovMax:5.76,weight:608,length:278,er:86,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 1-10×24',fp:'FFP',mag:'1-10×',obj:24,tube:30,elev:34.9,wind:34.9,click:'½ MOA',fovMin:42.7,fovMax:4.27,weight:527,length:270,er:86,priceText:'OEM',...V},
+      {brand:'Ventus',name:'SFP 1-10×28',fp:'SFP',mag:'1-10×',obj:28,tube:34,elev:26.2,wind:26.2,click:'½ MOA',fovMin:49.9,fovMax:6.11,weight:646,length:278,er:85,priceText:'OEM',ventus:true},
+      {brand:'Ventus',name:'SFP 1-10×24',fp:'SFP',mag:'1-10×',obj:24,tube:30,elev:34.9,wind:34.9,click:'½ MOA',fovMin:44.3,fovMax:4.43,weight:553,length:270,er:85,priceText:'OEM',ventus:true},
+      {brand:'Vector Optics',name:'Continental x10 1-10×28 FFP ED',fp:'FFP',mag:'1-10×',obj:28,tube:34,elev:51,wind:51,click:'0.1 MIL',fovMin:39.2,fovMax:3.92,weight:651,length:278,er:93,price:800,priceText:'$750–849'},
+      {brand:'Vortex',name:'Razor HD Gen III 1-10×24 FFP',fp:'FFP',mag:'1-10×',obj:24,tube:34,elev:30,wind:30,click:'0.1 MRAD',fovMin:38.6,fovMax:3.90,weight:610,length:257,er:91,price:1999,priceText:'$1,999'},
+      {brand:'Primary Arms',name:'GLx 1-10×24 FFP',fp:'FFP',mag:'1-10×',obj:24,tube:30,elev:40,wind:40,click:'0.1 MIL',fovMin:34.6,fovMax:3.20,weight:660,length:290,er:102,price:680,priceText:'$680'},
+      {brand:'Primary Arms',name:'SLx 1-10×28 SFP',fp:'SFP',mag:'1-10×',obj:28,tube:34,elev:11.6,wind:11.6,click:'½ MOA',fovMin:36.6,fovMax:3.33,weight:542,length:267,er:85,price:450,priceText:'$450'},
+      {brand:'Athlon',name:'Ares ETR Gen2 1-10×24 FFP',fp:'FFP',mag:'1-10×',obj:24,tube:34,elev:29,wind:25,click:'0.1 MIL',fovMin:39.1,fovMax:3.90,weight:762,length:254,er:94,price:1000,priceText:'$1,000'},
+      {brand:'Trijicon',name:'Credo HX 1-10×28 FFP',fp:'FFP',mag:'1-10×',obj:28,tube:34,elev:29,wind:29,click:'0.1 MIL',fovMin:38.8,fovMax:3.90,weight:601,length:257,er:90,price:1500,priceText:'$1,429–1,600'}
+    ]
+  },
+  {
+    id:'mid-2-16',
+    roman:'III',
+    label:'Mid 2-12 / 2-16 × 44',
+    title:'<em>Mid-Range</em> 2-12 · 2-16 × 44mm',
+    lead:'The PRS-adjacent mid-range tier. 44mm objective, 30mm tube, 2× low-end — a zoom range the Western FFP market largely vacated.',
+    leadMetric:{label:'Windage · Ventus total',value:'40.7',unit:'MIL',note:'Class-leading windage by a wide margin. The next scope in class (Vector x8 SFP) offers 32 MIL; most 34mm premium 3-18× peers sit at 10–23 MIL.'},
+    meta:{tube:'30 mm',obj:'44 mm',click:'0.1 MIL / ¼ MOA'},
+    models:[
+      {brand:'Ventus',name:'FFP 2-16×44',fp:'FFP',mag:'2-16×',obj:44,tube:30,elev:49.5,wind:40.7,click:'0.1 MIL',fovMin:21.9,fovMax:2.72,weight:715,length:307,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 2-12×44',fp:'FFP',mag:'2-12×',obj:44,tube:30,elev:49.5,wind:40.7,click:'0.1 MIL',fovMin:21.9,fovMax:3.63,weight:710,length:307,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'SFP 2-16×44',fp:'SFP',mag:'2-16×',obj:44,tube:30,elev:49.5,wind:40.7,click:'0.1 MIL',fovMin:21.9,fovMax:2.72,weight:715,length:307,er:91,priceText:'OEM',ventus:true},
+      {brand:'Ventus',name:'SFP 2-12×44',fp:'SFP',mag:'2-12×',obj:44,tube:30,elev:49.5,wind:40.7,click:'0.1 MIL',fovMin:21.9,fovMax:3.63,weight:710,length:307,er:91,priceText:'OEM',ventus:true},
+      {brand:'Vector Optics',name:'Continental x6 2-12×44 FFP',fp:'FFP',mag:'2-12×',obj:44,tube:34,elev:63,wind:30,click:'0.1 MIL',fovMin:20.8,fovMax:3.6,weight:767,length:317,er:100,price:649,priceText:'$549–699'},
+      {brand:'Vector Optics',name:'Continental x8 2-16×44 SFP ED',fp:'SFP',mag:'2-16×',obj:44,tube:30,elev:32,wind:32,click:'0.1 MIL',fovMin:20.5,fovMax:2.56,weight:672,length:347,er:95,price:549,priceText:'$449–629'},
+      {brand:'Vortex',name:'Viper PST Gen II 3-15×44 FFP',fp:'FFP',mag:'3-15×',obj:44,tube:30,elev:22,wind:11,click:'0.1 MRAD',fovMin:13.7,fovMax:2.86,weight:797,length:363,er:86,price:949,priceText:'$899–999'},
+      {brand:'Athlon',name:'Ares ETR 3-18×50 FFP',fp:'FFP',mag:'3-18×',obj:50,tube:34,elev:32,wind:25,click:'0.1 MIL',fovMin:13.1,fovMax:2.21,weight:890,length:361,er:95,price:950,priceText:'$900–999'},
+      {brand:'Athlon',name:'Midas TAC Gen2 HD 4-16×44 FFP',fp:'FFP',mag:'4-16×',obj:44,tube:30,elev:24,wind:16,click:'0.1 MIL',fovMin:9.22,fovMax:2.33,weight:675,length:361,er:94,price:650,priceText:'$600–700'},
+      {brand:'Arken',name:'SH-4 Gen2 4-16×50 FFP',fp:'FFP',mag:'4-16×',obj:50,tube:34,elev:36,wind:10,click:'0.1 MIL',fovMin:10.0,fovMax:2.50,weight:1009,length:340,er:91,price:400,priceText:'$400'},
+      {brand:'Leupold',name:'Mark 5HD 3.6-18×44 FFP',fp:'FFP',mag:'3.6-18×',obj:44,tube:35,elev:29,wind:23,click:'0.1 MIL',fovMin:9.42,fovMax:1.93,weight:737,length:307,er:93,price:1800,priceText:'$1,700–1,900'},
+      {brand:'Bushnell',name:'Match Pro ED 3-18×50 FFP',fp:'FFP',mag:'3-18×',obj:50,tube:34,elev:40,wind:14.5,click:'0.1 MRAD',fovMin:13.6,fovMax:2.26,weight:805,length:335,er:97,price:849,priceText:'$849'},
+      {brand:'Burris',name:'XTR III 3.3-18×50 FFP',fp:'FFP',mag:'3.3-18×',obj:50,tube:34,elev:35,wind:16,click:'0.1 MIL',fovMin:12.6,fovMax:2.27,weight:845,length:338,er:92,price:1550,priceText:'$1,400–1,700'}
+    ]
+  },
+  {
+    id:'mid-2.5-20',
+    roman:'IV',
+    label:'Mid 2.5-20 / 3-18 × 50',
+    title:'<em>Versatile</em> Field, 2.5-20 · 3-18 × 50mm',
+    lead:'The all-round hunting-to-mid-range tier. 50mm objective, 30mm tube, 2.5× or 3× low end — full feature-set turrets and side focus from 10 yards.',
+    leadMetric:{label:'Elevation · Ventus total',value:'37.8',unit:'MIL',note:'Class-leading elevation among 30mm-tube 3-18×50 FFP. Only Vector Continental 3-18×50 (34mm tube, 44 MIL) exceeds it.'},
+    meta:{tube:'30 mm',obj:'50 mm',click:'0.1 MIL / ¼ MOA'},
+    models:[
+      {brand:'Ventus',name:'FFP 2.5-20×50',fp:'FFP',mag:'2.5-20×',obj:50,tube:30,elev:37.8,wind:32,click:'0.1 MIL',fovMin:17.5,fovMax:2.18,weight:840,length:331,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 2.5-15×50',fp:'FFP',mag:'2.5-15×',obj:50,tube:30,elev:37.8,wind:32,click:'0.1 MIL',fovMin:17.5,fovMax:2.89,weight:840,length:331,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 3-18×50',fp:'FFP',mag:'3-18×',obj:50,tube:30,elev:37.8,wind:32,click:'0.1 MIL',fovMin:14.56,fovMax:2.40,weight:785,length:352,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'SFP 2.5-20×50',fp:'SFP',mag:'2.5-20×',obj:50,tube:30,elev:37.8,wind:32,click:'0.1 MIL',fovMin:17.5,fovMax:2.18,weight:840,length:331,er:91,priceText:'OEM',ventus:true},
+      {brand:'Ventus',name:'SFP 2.5-15×50',fp:'SFP',mag:'2.5-15×',obj:50,tube:30,elev:37.8,wind:32,click:'0.1 MIL',fovMin:17.5,fovMax:2.89,weight:840,length:331,er:91,priceText:'OEM',ventus:true},
+      {brand:'Ventus',name:'SFP 3-18×50',fp:'SFP',mag:'3-18×',obj:50,tube:30,elev:37.8,wind:32,click:'0.1 MIL',fovMin:14.56,fovMax:2.40,weight:785,length:352,er:91,priceText:'OEM',ventus:true},
+      {brand:'Vector Optics',name:'Continental 3-18×50 FFP',fp:'FFP',mag:'3-18×',obj:50,tube:34,elev:44,wind:16,click:'0.1 MIL',fovMin:13.6,fovMax:2.30,weight:820,length:338,er:100,price:649,priceText:'$524–799'},
+      {brand:'Vortex',name:'Viper PST Gen II 3-15×44 FFP',fp:'FFP',mag:'3-15×',obj:44,tube:30,elev:22,wind:11,click:'0.1 MRAD',fovMin:13.7,fovMax:2.86,weight:797,length:363,er:86,price:1050,priceText:'$999–1,199'},
+      {brand:'Athlon',name:'Ares ETR 3-18×50 FFP',fp:'FFP',mag:'3-18×',obj:50,tube:34,elev:32,wind:25,click:'0.1 MIL',fovMin:13.1,fovMax:2.21,weight:890,length:361,er:95,price:800,priceText:'$600–900'},
+      {brand:'Arken',name:'SH-4 Gen2 4-16×50 FFP',fp:'FFP',mag:'4-16×',obj:50,tube:34,elev:36,wind:14,click:'0.1 MIL',fovMin:10.0,fovMax:2.50,weight:1009,length:340,er:91,price:375,priceText:'$375'},
+      {brand:'Arken',name:'EP-5 5-25×56 FFP',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:32,wind:16,click:'0.1 MIL',fovMin:8.4,fovMax:1.6,weight:1111,length:356,er:86,price:640,priceText:'$562–720'},
+      {brand:'Leupold',name:'Mark 5HD 3.6-18×44 FFP',fp:'FFP',mag:'3.6-18×',obj:44,tube:35,elev:29,wind:23,click:'0.1 MIL',fovMin:9.42,fovMax:1.93,weight:737,length:307,er:93,price:1950,priceText:'$1,700–2,200'},
+      {brand:'Bushnell',name:'Match Pro ED 5-30×56 FFP',fp:'FFP',mag:'5-30×',obj:56,tube:34,elev:29.4,wind:14.7,click:'0.1 MRAD',fovMin:8.2,fovMax:1.4,weight:907,length:0,er:97,price:800,priceText:'$699–899'},
+      {brand:'Burris',name:'XTR III 3.3-18×50 FFP',fp:'FFP',mag:'3.3-18×',obj:50,tube:34,elev:35,wind:16,click:'0.1 MIL',fovMin:12.6,fovMax:2.27,weight:845,length:338,er:92,price:1450,priceText:'$1,199–1,700'}
+    ]
+  },
+  {
+    id:'long-3-24',
+    roman:'V',
+    label:'Long 3-24 / 4-24 × 50',
+    title:'<em>Long-Range</em> 3-24 · 4-24 × 50mm',
+    lead:'Entry to precision long-range. 30mm tube at 24× — an uncommon format, because most tactical buyers default to 34mm at this magnification class.',
+    leadMetric:{label:'Windage · Ventus total',value:'26.2',unit:'MIL',note:'Class-leading windage across all tube diameters. Nightforce NX8 on matching 30mm tube reaches 20 MRAD; everyone else is below 18 MIL.'},
+    meta:{tube:'30 mm',obj:'50 mm',click:'0.1 MIL / ¼ MOA'},
+    models:[
+      {brand:'Ventus',name:'FFP 3-24×50',fp:'FFP',mag:'3-24×',obj:50,tube:30,elev:32,wind:26.2,click:'0.1 MIL',fovMin:14.54,fovMax:1.81,weight:792,length:352,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 4-24×50',fp:'FFP',mag:'4-24×',obj:50,tube:30,elev:32,wind:26.2,click:'0.1 MIL',fovMin:10.93,fovMax:1.81,weight:870,length:375,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'SFP 3-24×50',fp:'SFP',mag:'3-24×',obj:50,tube:30,elev:32,wind:26.2,click:'0.1 MIL',fovMin:14.54,fovMax:1.81,weight:792,length:352,er:91,priceText:'OEM',ventus:true},
+      {brand:'Ventus',name:'SFP 4-24×50',fp:'SFP',mag:'4-24×',obj:50,tube:30,elev:32,wind:26.2,click:'0.1 MIL',fovMin:10.93,fovMax:1.81,weight:870,length:375,er:91,priceText:'OEM',ventus:true},
+      {brand:'Vector Optics',name:'Continental x6 4-24×56 FFP',fp:'FFP',mag:'4-24×',obj:56,tube:34,elev:34,wind:16,click:'0.1 MIL',fovMin:10.2,fovMax:1.7,weight:841,length:362,er:100,price:699,priceText:'$599–829'},
+      {brand:'Vortex',name:'Razor HD Gen II 4.5-27×56 FFP',fp:'FFP',mag:'4.5-27×',obj:56,tube:34,elev:28.5,wind:14,click:'0.1 MRAD',fovMin:8.4,fovMax:1.5,weight:1375,length:366,er:94,price:2499,priceText:'$2,499'},
+      {brand:'Vortex',name:'Viper PST Gen II 5-25×50 FFP',fp:'FFP',mag:'5-25×',obj:50,tube:30,elev:20,wind:10,click:'0.1 MRAD',fovMin:8.0,fovMax:1.6,weight:885,length:401,er:86,price:1050,priceText:'$999–1,099'},
+      {brand:'Nightforce',name:'NX8 4-32×50 F1',fp:'FFP',mag:'4-32×',obj:50,tube:30,elev:26,wind:20,click:'0.1 MRAD',fovMin:8.7,fovMax:1.5,weight:811,length:340,er:89,price:2450,priceText:'$2,450'},
+      {brand:'Arken',name:'SH-4J Gen II 6-24×50 FFP',fp:'FFP',mag:'6-24×',obj:50,tube:34,elev:32,wind:10,click:'0.1 MIL',fovMin:6.37,fovMax:1.59,weight:1038,length:358,er:89,price:470,priceText:'$412–525'},
+      {brand:'Athlon',name:'Cronus BTR Gen II 4.5-29×56 FFP',fp:'FFP',mag:'4.5-29×',obj:56,tube:34,elev:32,wind:18,click:'0.1 MIL',fovMin:8.3,fovMax:1.3,weight:1015,length:366,er:93,price:1875,priceText:'$1,875'},
+      {brand:'Schmidt & Bender',name:'PM II 3-20×50 Ultra Short',fp:'FFP',mag:'3-20×',obj:50,tube:34,elev:30.5,wind:12,click:'0.1 MRAD',fovMin:13.0,fovMax:2.1,weight:940,length:343,er:90,price:5000,priceText:'$4,500–5,500'},
+      {brand:'Burris',name:'XTR III 5.5-30×56 FFP',fp:'FFP',mag:'5.5-30×',obj:56,tube:34,elev:26,wind:16,click:'0.1 MIL',fovMin:7.7,fovMax:1.4,weight:907,length:391,er:92,price:1125,priceText:'$1,049–1,199'}
+    ]
+  },
+  {
+    id:'long-3.125-25',
+    roman:'VI',
+    label:'Long 3.125-25 / 5-25 × 50',
+    title:'<em>Precision</em> 3.125-25 · 5-25 × 50mm',
+    lead:'The competitor NX8 tier. Ventus 32 MIL elevation on a 30mm tube is matched by only one other scope in class — and that scope costs three times as much.',
+    leadMetric:{label:'Elevation · 30mm tube',value:'32.0',unit:'MIL',note:'Ties Nightforce NX8 2.5-20×50 F1 at 32 MRAD. No other 30mm-tube FFP in this zoom class exceeds 25 MIL.'},
+    meta:{tube:'30 mm',obj:'50 mm',click:'0.1 MIL / ¼ MOA'},
+    models:[
+      {brand:'Ventus',name:'FFP 3.125-25×50',fp:'FFP',mag:'3.125-25×',obj:50,tube:30,elev:32,wind:26.2,click:'0.1 MIL',fovMin:13.99,fovMax:1.75,weight:765,length:349,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 5-25×50',fp:'FFP',mag:'5-25×',obj:50,tube:30,elev:32,wind:26.2,click:'0.1 MIL',fovMin:8.74,fovMax:1.75,weight:765,length:349,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'SFP 3.125-25×50',fp:'SFP',mag:'3.125-25×',obj:50,tube:30,elev:32,wind:26.2,click:'0.1 MIL',fovMin:13.99,fovMax:1.75,weight:765,length:349,er:91,priceText:'OEM',ventus:true},
+      {brand:'Ventus',name:'SFP 5-25×50',fp:'SFP',mag:'5-25×',obj:50,tube:30,elev:32,wind:26.2,click:'0.1 MIL',fovMin:8.74,fovMax:1.75,weight:765,length:349,er:91,priceText:'OEM',ventus:true},
+      {brand:'Vector Optics',name:'Continental x6 5-30×56 SFP',fp:'SFP',mag:'5-30×',obj:56,tube:30,elev:16.5,wind:16.5,click:'0.1 MIL',fovMin:7.6,fovMax:1.3,weight:745,length:401,er:100,price:833,priceText:'$833'},
+      {brand:'Vortex',name:'Viper PST Gen II 5-25×50 FFP',fp:'FFP',mag:'5-25×',obj:50,tube:30,elev:20,wind:10,click:'0.1 MRAD',fovMin:7.35,fovMax:1.46,weight:885,length:401,er:86,price:1050,priceText:'$999–1,099'},
+      {brand:'Nightforce',name:'NX8 2.5-20×50 F1',fp:'FFP',mag:'2.5-20×',obj:50,tube:30,elev:32,wind:23,click:'0.1 MRAD',fovMin:12.7,fovMax:2.13,weight:802,length:305,er:88,price:2425,priceText:'$2,250–2,600'},
+      {brand:'Arken',name:'SH-4J Gen II 6-24×50 FFP',fp:'FFP',mag:'6-24×',obj:50,tube:34,elev:32,wind:10,click:'0.1 MIL',fovMin:6.37,fovMax:1.59,weight:1038,length:358,er:89,price:470,priceText:'$412–525'},
+      {brand:'Athlon',name:'Midas TAC 6-24×50 FFP',fp:'FFP',mag:'6-24×',obj:50,tube:30,elev:25,wind:25,click:'0.1 MIL',fovMin:5.43,fovMax:1.40,weight:745,length:371,er:94,price:690,priceText:'$687–700'},
+      {brand:'Athlon',name:'Cronus BTR Gen II 4.5-29×56 FFP',fp:'FFP',mag:'4.5-29×',obj:56,tube:34,elev:32,wind:18,click:'0.1 MIL',fovMin:8.3,fovMax:1.3,weight:1015,length:366,er:93,price:1875,priceText:'$1,875'},
+      {brand:'Schmidt & Bender',name:'PM II 5-25×56 LP',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:27,wind:12,click:'0.1 MRAD',fovMin:5.3,fovMax:1.5,weight:1065,length:420,er:90,price:3500,priceText:'$3,209–3,800'},
+      {brand:'Burris',name:'XTR III 5.5-30×56 FFP',fp:'FFP',mag:'5.5-30×',obj:56,tube:34,elev:26,wind:16,click:'0.1 MIL',fovMin:7.01,fovMax:1.28,weight:907,length:391,er:92,price:2000,priceText:'$1,800–2,200'}
+    ]
+  },
+  {
+    id:'long-4-32-5-30',
+    roman:'VII',
+    label:'Long 4-32 / 5-30 × 56 (34mm)',
+    title:'<em>Alpha-Tier</em> 4-32 · 5-25 · 5-30 × 56mm',
+    lead:'The 34mm-tube premium class — Nightforce ATACR, Schmidt & Bender PM II, ZCO, Tangent Theta territory. Ventus enters with a claim nobody else matches.',
+    leadMetric:{label:'Elevation · Ventus claim',value:'46.5',unit:'MIL',note:'Leads the entire alpha-tier by 10+ MIL. Next best (Vortex Razor Gen III 6-36) is 36.1 MRAD; Nightforce ATACR 5-25 is 35 MRAD. Plausible but at 34mm physical ceiling — flagged for independent tracking verification.'},
+    meta:{tube:'34 mm',obj:'56 mm',click:'0.1 MIL / ¼ MOA'},
+    models:[
+      {brand:'Ventus',name:'FFP 4-32×56',fp:'FFP',mag:'4-32×',obj:56,tube:34,elev:46.5,wind:23.3,click:'0.1 MIL',fovMin:10.9,fovMax:1.36,weight:880,length:375,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 5-25×56',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:46.5,wind:23.3,click:'0.1 MIL',fovMin:8.74,fovMax:1.75,weight:875,length:375,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 5-30×56',fp:'FFP',mag:'5-30×',obj:56,tube:34,elev:46.5,wind:23.3,click:'0.1 MIL',fovMin:8.74,fovMax:1.46,weight:880,length:375,er:91,priceText:'OEM',...V},
+      {brand:'Vector Optics',name:'Continental x6 5-30×56 FFP',fp:'FFP',mag:'5-30×',obj:56,tube:34,elev:30,wind:16,click:'0.1 MIL',fovMin:8.1,fovMax:1.36,weight:810,length:393,er:100,price:750,priceText:'$674–833'},
+      {brand:'Vortex',name:'Razor HD Gen III 6-36×56 FFP',fp:'FFP',mag:'6-36×',obj:56,tube:34,elev:36.1,wind:15.5,click:'0.1 MRAD',fovMin:6.25,fovMax:1.07,weight:1278,length:387,er:89,price:3800,priceText:'$3,000–4,800'},
+      {brand:'Nightforce',name:'ATACR 5-25×56 F1',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:35,wind:23,click:'0.1 MRAD',fovMin:6.24,fovMax:1.63,weight:1066,length:391,er:89,price:5325,priceText:'$5,291–5,360'},
+      {brand:'March',name:'March-FX 5-40×56 HM Gen II',fp:'FFP',mag:'5-40×',obj:56,tube:34,elev:23,wind:11.5,click:'0.05 MIL',fovMin:6.98,fovMax:0.87,weight:900,length:389,er:96,price:4150,priceText:'$3,800–4,500'},
+      {brand:'Schmidt & Bender',name:'PM II 5-25×56 LP',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:27,wind:12,click:'0.1 MRAD',fovMin:5.3,fovMax:1.5,weight:1065,length:420,er:90,price:3500,priceText:'$3,209–3,800'},
+      {brand:'ZCO',name:'ZC527 5-27×56 FFP',fp:'FFP',mag:'5-27×',obj:56,tube:36,elev:35,wind:21,click:'0.1 MRAD',fovMin:6.4,fovMax:1.37,weight:1075,length:387,er:90,price:4485,priceText:'$4,485'},
+      {brand:'Tangent Theta',name:'TT525P 5-25×56',fp:'FFP',mag:'5-25×',obj:56,tube:34,elev:30,wind:20,click:'0.1 MRAD',fovMin:7.6,fovMax:1.6,weight:1150,length:425,er:90,price:5997,priceText:'$5,537–6,457'}
+    ]
+  },
+  {
+    id:'elr',
+    roman:'VIII',
+    label:'ELR 5-40 / 6-36 / 7-35 × 56/60',
+    title:'<em>Extreme Long Range</em>, 56 / 60mm Objective',
+    lead:'The flagship class. 37.8 MIL elevation, 940g weight, 393mm length — at GML-5-40×60 tier this is Ventus engineering at its most refined.',
+    leadMetric:{label:'Weight · Ventus',value:'940',unit:'G',note:'Lighter than every premium ELR competitor except Vector Continental. Nightforce ATACR 7-35 is 1113g; Tangent Theta TT735P is ~1220g; Vortex Razor Gen III is 1278g.'},
+    meta:{tube:'34 mm',obj:'56 / 60 mm',click:'0.1 MIL / ¼ MOA'},
+    models:[
+      {brand:'Ventus',name:'FFP 5-40×56 — Jupiter',fp:'FFP',mag:'5-40×',obj:56,tube:34,elev:37.8,wind:20.4,click:'0.1 MIL',fovMin:8.73,fovMax:1.10,weight:940,length:393,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 6-36×56 — Venus',fp:'FFP',mag:'6-36×',obj:56,tube:34,elev:37.8,wind:20.4,click:'0.1 MIL',fovMin:7.30,fovMax:1.21,weight:940,length:393,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 7-35×56 — Venus',fp:'FFP',mag:'7-35×',obj:56,tube:34,elev:37.8,wind:20.4,click:'0.1 MIL',fovMin:6.21,fovMax:1.25,weight:940,length:393,er:91,priceText:'OEM',...V},
+      {brand:'Ventus',name:'FFP 5-40×60 — Jupiter ★',fp:'FFP',mag:'5-40×',obj:60,tube:34,elev:37.8,wind:20.4,click:'0.1 MIL',fovMin:8.73,fovMax:1.10,weight:940,length:393,er:91,priceText:'OEM · Flagship',ventus:true},
+      {brand:'Ventus',name:'FFP 6-36×60 — Venus',fp:'FFP',mag:'6-36×',obj:60,tube:34,elev:37.8,wind:20.4,click:'0.1 MIL',fovMin:7.30,fovMax:1.21,weight:940,length:393,er:91,priceText:'OEM',ventus:true},
+      {brand:'Ventus',name:'FFP 7-35×60 — Venus',fp:'FFP',mag:'7-35×',obj:60,tube:34,elev:37.8,wind:20.4,click:'0.1 MIL',fovMin:6.21,fovMax:1.25,weight:940,length:393,er:91,priceText:'OEM',ventus:true},
+      {brand:'March',name:'March-FX 5-42×56 HM Gen II WA',fp:'FFP',mag:'5-42×',obj:56,tube:34,elev:40,wind:14,click:'0.1 MIL',fovMin:8.7,fovMax:1.1,weight:1015,length:410,er:82,price:3999,priceText:'$3,999+'},
+      {brand:'Vortex',name:'Razor HD Gen III 6-36×56 FFP',fp:'FFP',mag:'6-36×',obj:56,tube:34,elev:36.1,wind:15.5,click:'0.1 MRAD',fovMin:6.25,fovMax:1.07,weight:1278,length:387,er:89,price:2999,priceText:'$2,999'},
+      {brand:'ZCO',name:'ZC527 5-27×56 FFP',fp:'FFP',mag:'5-27×',obj:56,tube:36,elev:35,wind:20,click:'0.1 MRAD',fovMin:7.0,fovMax:1.37,weight:1075,length:387,er:90,price:3800,priceText:'$3,800+'},
+      {brand:'Nightforce',name:'ATACR 7-35×56 F1',fp:'FFP',mag:'7-35×',obj:56,tube:34,elev:29,wind:18,click:'0.1 MIL',fovMin:5.0,fovMax:1.10,weight:1113,length:406,er:91,price:3500,priceText:'$3,500+'},
+      {brand:'Tangent Theta',name:'TT735P 7-35×56',fp:'FFP',mag:'7-35×',obj:56,tube:36,elev:28,wind:13,click:'0.1 MIL',fovMin:5.5,fovMax:1.2,weight:1220,length:406,er:90,price:6210,priceText:'$6,210+'},
+      {brand:'Schmidt & Bender',name:'PM II 5-45×56 HP',fp:'FFP',mag:'5-45×',obj:56,tube:34,elev:27,wind:12,click:'0.1 MIL',fovMin:7.8,fovMax:0.9,weight:1130,length:434,er:90,price:4700,priceText:'€4,700+'},
+      {brand:'Vector Optics',name:'Continental x6 5-30×56 FFP',fp:'FFP',mag:'5-30×',obj:56,tube:34,elev:26,wind:16,click:'0.1 MIL',fovMin:8.17,fovMax:1.37,weight:810,length:392,er:100,price:833,priceText:'$833'}
+    ]
+  }
+];
+
+const METRICS = [
+  {id:'elev',label:'Elevation (MIL)',unit:'MIL',dir:'max',fmt:v=>v.toFixed(1)},
+  {id:'wind',label:'Windage (MIL)',unit:'MIL',dir:'max',fmt:v=>v.toFixed(1)},
+  {id:'weight',label:'Weight (g)',unit:'g',dir:'min',fmt:v=>v.toString()},
+  {id:'length',label:'Length (mm)',unit:'mm',dir:'min',fmt:v=>v.toString()},
+  {id:'fovMin',label:'FOV @ min mag',unit:'m/100m',dir:'max',fmt:v=>v.toFixed(1)},
+  {id:'er',label:'Eye Relief (mm)',unit:'mm',dir:'max',fmt:v=>v.toString()}
+];
+
+const COLS = [
+  {id:'name',label:'Model',w:'28%',sortable:false},
+  {id:'fp',label:'FP',w:'auto'},
+  {id:'mag',label:'Mag',w:'auto'},
+  {id:'obj',label:'Obj',w:'auto',num:true,suffix:'mm'},
+  {id:'tube',label:'Tube',w:'auto',num:true,suffix:'mm'},
+  {id:'elev',label:'Elev',w:'auto',num:true,suffix:' MIL'},
+  {id:'wind',label:'Wind',w:'auto',num:true,suffix:' MIL'},
+  {id:'click',label:'Click',w:'auto'},
+  {id:'fovMin',label:'FOV Min',w:'auto',num:true,suffix:' m'},
+  {id:'weight',label:'Weight',w:'auto',num:true,suffix:' g'},
+  {id:'length',label:'Length',w:'auto',num:true,suffix:' mm'},
+  {id:'er',label:'ER',w:'auto',num:true,suffix:' mm'},
+  {id:'price',label:'Price',w:'auto'}
+];
+
+/* ══════════════════════════════════════════════════════════
+   STATE + RENDER
+   ══════════════════════════════════════════════════════════ */
+
+let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1};
+
+function cls(){ return CLASSES[state.classIdx]; }
+function metric(){ return METRICS.find(m=>m.id===state.metric); }
+
+function renderRail(){
+  const rail = document.getElementById('classRail');
+  rail.innerHTML = CLASSES.map((c,i)=>`
+    <button class="rail-item" data-idx="${i}" data-active="${i===state.classIdx}">
+      <span class="mono"><span class="dot"></span>${String(i+1).padStart(2,'0')}</span>
+      <span class="rail-label">${c.label}</span>
+      <span class="rail-tiny">${c.roman}</span>
+    </button>
+  `).join('');
+  rail.querySelectorAll('.rail-item').forEach(el=>{
+    el.addEventListener('click',()=>{
+      state.classIdx = +el.dataset.idx;
+      state.sortKey = 'elev';
+      state.sortDir = -1;
+      renderAll();
+    });
+  });
+}
+
+function renderHero(){
+  const c = cls();
+  document.getElementById('heroNum').textContent = c.roman;
+  document.getElementById('heroTitle').innerHTML = c.title;
+  document.getElementById('heroLead').textContent = c.lead;
+  const ventusCount = c.models.filter(m=>m.ventus).length;
+  document.getElementById('modelCount').textContent = `${c.models.length.toString().padStart(2,'0')} · ${ventusCount} VENTUS`;
+}
+
+function renderOverview(){
+  const c = cls();
+  document.getElementById('leadLabel').textContent = c.leadMetric.label;
+  document.getElementById('leadValue').innerHTML = `${c.leadMetric.value}<span class="unit">${c.leadMetric.unit}</span>`;
+  document.getElementById('leadNote').textContent = c.leadMetric.note;
+  document.getElementById('tubeSpec').textContent = c.meta.tube;
+  document.getElementById('objSpec').textContent = c.meta.obj;
+  document.getElementById('clickSpec').textContent = c.meta.click;
+
+  const ventusOnly = c.models.filter(m=>m.ventus);
+  document.getElementById('skuCountBadge').textContent = `${String(ventusOnly.length).padStart(2,'0')} SKU`;
+  document.getElementById('lineupList').innerHTML = ventusOnly.map((m,i)=>`
+    <div class="lineup-card">
+      <div class="lineup-idx">${String(i+1).padStart(2,'0')}/${String(ventusOnly.length).padStart(2,'0')}</div>
+      <div>
+        <div class="lineup-name">${m.name.replace(/★/g,'<em>★</em>')}</div>
+        <div class="lineup-specs">
+          <span>${m.tube}mm tube</span>
+          <span>${m.obj}mm obj</span>
+          <span>${m.elev} MIL elev</span>
+          <span>${m.weight}g</span>
+          <span>${m.length}mm</span>
+          <span>${m.fp}</span>
+        </div>
+      </div>
+      <div class="lineup-price">${m.priceText||'—'}</div>
+    </div>
+  `).join('');
+}
+
+function renderTable(){
+  const c = cls();
+  const head = document.getElementById('ledgerHead');
+  head.innerHTML = COLS.map(col=>{
+    const active = state.sortKey===col.id;
+    const mark = active ? (state.sortDir<0?'↓':'↑') : '';
+    return `<th class="${active?'active':''}" data-key="${col.id}" data-num="${!!col.num}">${col.label}<span class="sort-mark">${mark}</span></th>`;
+  }).join('');
+  head.querySelectorAll('th').forEach(th=>{
+    th.addEventListener('click',()=>{
+      const k = th.dataset.key;
+      if(k==='name'||k==='click'||k==='price') return;
+      if(state.sortKey===k) state.sortDir=-state.sortDir;
+      else { state.sortKey=k; state.sortDir=-1; }
+      renderTable();
+    });
+  });
+
+  const models = [...c.models].sort((a,b)=>{
+    const k = state.sortKey;
+    let av = a[k], bv = b[k];
+    if(typeof av==='string') return state.sortDir*(av>bv?1:av<bv?-1:0);
+    return state.sortDir*((bv??0)-(av??0));
+  });
+
+  document.getElementById('ledgerBody').innerHTML = models.map((m,i)=>{
+    const rowCls = (m.ventus?'ventus-row':'')+(m.discontinued?' discontinued':'');
+    return `<tr class="${rowCls}" style="animation-delay:${i*20}ms">
+      <td class="model-cell">
+        <span class="brand-line">${m.brand}</span>
+        <span class="model-name">${m.name}</span>
+        ${m.discontinued?'<span class="mflag">DISCONTINUED</span>':''}
+        ${m.substitute?'<span class="mflag" style="background:rgba(90,97,81,.15);color:var(--olive);border-color:rgba(90,97,81,.4)">SUBSTITUTE</span>':''}
+      </td>
+      <td><span class="pill ${m.fp==='FFP'?'ffp':''}">${m.fp}</span></td>
+      <td>${m.mag}</td>
+      <td class="num">${m.obj}<span class="num-weak">mm</span></td>
+      <td class="num"><span class="${m.tube>34?'pill big-tube':''}">${m.tube}<span class="num-weak">mm</span></span></td>
+      <td class="num ${(m.elev===Math.max(...models.map(x=>x.elev)))?'num-accent':''}">${m.elev}<span class="num-weak"> MIL</span></td>
+      <td class="num">${m.wind}<span class="num-weak"> MIL</span></td>
+      <td>${m.click}</td>
+      <td class="num">${m.fovMin.toFixed(1)}<span class="num-weak"> m</span></td>
+      <td class="num">${m.weight}<span class="num-weak"> g</span></td>
+      <td class="num">${m.length||'—'}<span class="num-weak">${m.length?' mm':''}</span></td>
+      <td class="num">${m.er}<span class="num-weak"> mm</span></td>
+      <td>${m.priceText||'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderMetricPicker(){
+  const box = document.getElementById('metricPicker');
+  box.innerHTML = METRICS.map(m=>`
+    <button data-id="${m.id}" class="${state.metric===m.id?'active':''}">${m.label}</button>
+  `).join('');
+  box.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click',()=>{
+      state.metric = b.dataset.id;
+      renderChart();
+      renderMetricPicker();
+    });
+  });
+}
+
+function renderChart(){
+  const c = cls();
+  const m = metric();
+  const models = [...c.models].sort((a,b)=>{
+    return m.dir==='max' ? b[m.id]-a[m.id] : a[m.id]-b[m.id];
+  });
+  const maxVal = Math.max(...models.map(x=>x[m.id]));
+  const chart = document.getElementById('chart');
+
+  chart.innerHTML = models.map((mo,i)=>{
+    const pct = m.dir==='max' ? (mo[m.id]/maxVal)*100 : (1 - (mo[m.id]-Math.min(...models.map(x=>x[m.id]))) / (maxVal-Math.min(...models.map(x=>x[m.id])))) * 100;
+    const isVentus = mo.ventus;
+    return `<div class="bar-row ${isVentus?'ventus-bar':''}" style="animation-delay:${i*40}ms">
+      <div class="bar-label">
+        <span class="bar-brand">${mo.brand}</span>
+        <span>${mo.name}</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct.toFixed(1)}%"></div></div>
+      <div class="bar-value">${m.fmt(mo[m.id])} <span class="num-weak">${m.unit}</span></div>
+    </div>`;
+  }).join('');
+
+  // trigger width animation from 0
+  const fills = chart.querySelectorAll('.bar-fill');
+  fills.forEach(f=>{
+    const w = f.style.width;
+    f.style.width = '0%';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{ f.style.width = w; }));
+  });
+}
+
+function renderAll(){
+  renderRail();
+  renderHero();
+  renderOverview();
+  renderTable();
+  renderMetricPicker();
+  renderChart();
+  document.querySelectorAll('.anim-in').forEach(e=>{
+    e.style.animation='none';requestAnimationFrame(()=>e.style.animation='');
+  });
+}
+
+renderAll();
+
+// apply staggered reveal classes once on initial load
+requestAnimationFrame(()=>{
+  document.querySelectorAll('.rail-item,.lineup-card,.bar-row,.ledger tbody tr').forEach((el,i)=>{
+    el.classList.add('anim-in');
+  });
+});
+</script>
+
+</body>
+</html>
