@@ -621,14 +621,14 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
 <!-- ─── COMPARE PANEL ─── -->
 <section class="compare-section" id="compareSection" style="display:none">
   <div class="compare-head">
-    <h3><em>Side-by-side</em></h3>
+    <h3 id="compareTitle"><em>Scope Detail</em></h3>
     <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
       <span class="compare-meta"><span class="count" id="compareCount">0</span> selected · max 3</span>
       <button class="compare-clear" id="compareClear">Clear</button>
     </div>
   </div>
   <div class="compare-grid" id="compareGrid"></div>
-  <div style="font-family:'Newsreader',serif;font-style:italic;color:var(--fg-muted);font-size:13.5px;margin-top:16px;line-height:1.55">Click any row in the ledger to add it to this comparison. Best value in each numeric row is highlighted in purple. Links to competitor product pages appear in the Sources row.</div>
+  <div style="font-family:'Newsreader',serif;font-style:italic;color:var(--fg-muted);font-size:13.5px;margin-top:16px;line-height:1.55">Click any row in the ledger to add it here — competitor product page links appear in the <strong style="font-style:normal;color:var(--rika);font-weight:600">Sources</strong> row. Select up to 3 scopes for side-by-side comparison; best value in each numeric row is highlighted in purple.</div>
 </section>
 
 <!-- ─── CHART ─── -->
@@ -1182,10 +1182,12 @@ function renderCompare(){
   const section = document.getElementById('compareSection');
   const grid = document.getElementById('compareGrid');
   const countEl = document.getElementById('compareCount');
+  const titleEl = document.getElementById('compareTitle');
   const size = state.selected.size;
   countEl.textContent = size;
-  if(size < 2){ section.style.display='none'; return; }
+  if(size < 1){ section.style.display='none'; return; }
   section.style.display='block';
+  if(titleEl) titleEl.innerHTML = size===1 ? '<em>Scope Detail</em>' : '<em>Side-by-side</em>';
 
   const models = [...state.selected].map(findModelByKey).filter(Boolean);
   const cols = models.length;
