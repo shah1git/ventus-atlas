@@ -849,7 +849,7 @@ function renderTubeFocus(){
     b.addEventListener('click',()=>{
       const t = b.dataset.tube;
       state.tubeFocus = (t==='all') ? 'all' : +t;
-      renderHero(); renderOverview(); renderTable(); renderChart();
+      renderTubeFocus(); renderHero(); renderOverview(); renderTable(); renderChart();
     });
   });
 }
