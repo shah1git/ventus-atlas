@@ -404,6 +404,18 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
 .ledger tbody tr.selected{outline:1px solid var(--rika);outline-offset:-1px}
 .ledger tbody tr.ventus-row.selected td{background:rgba(168,105,26,.08)}
 .ledger tbody tr.ventus-row.selected{outline:1px solid var(--ventus)}
+
+/* ─── VECTOR OPTICS emphasis (primary peer) ─── */
+.ledger tbody tr.vector-row td:first-child{background:linear-gradient(90deg,rgba(126,20,255,.05) 0%,var(--bg) 80%);box-shadow:inset 3px 0 0 var(--rika),1px 0 0 var(--hairline)}
+.ledger tbody tr.vector-row .brand-line{color:var(--rika);font-weight:700}
+.ledger tbody tr.vector-row .peer-flag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;background:rgba(126,20,255,.08);color:var(--rika);letter-spacing:.14em;border:1px solid rgba(126,20,255,.4);display:inline-block;margin-top:4px;width:fit-content;font-weight:700;text-transform:uppercase}
+.ledger tbody tr.vector-row.selected{outline:1px solid var(--rika)}
+.lineup-card .vector-link{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:8px;color:var(--fg-muted);font-weight:500;padding-top:8px;border-top:1px dotted var(--hairline)}
+.lineup-card .vector-link::before{content:"↔";color:var(--rika);font-weight:700;font-size:14px;line-height:1}
+.lineup-card .vector-link .vp-label{color:var(--rika);font-weight:700}
+.lineup-card .vector-link a{color:var(--fg);text-decoration:none;font-family:'Newsreader',serif;font-style:italic;font-size:13.5px;letter-spacing:normal;text-transform:none;font-weight:400;border-bottom:1px dotted var(--fg-subtle);transition:all .2s}
+.lineup-card .vector-link a:hover{color:var(--rika);border-bottom-color:var(--rika)}
+.lineup-card .vector-link .ext{opacity:.7;color:var(--fg-muted);margin-left:2px}
 @keyframes flash{0%,100%{background-color:transparent}20%,60%{background-color:rgba(126,20,255,.2)}}
 .ledger tbody tr.flash td{animation:flash 1.4s ease-out}
 
@@ -987,6 +999,26 @@ function findModelByKey(key){
   return c.models.find(m => m.brand === brand && m.name === name);
 }
 
+// Vector Optics is the primary peer. For each Ventus SKU, pick the
+// closest Vector Optics scope in the same class by matching tube, FP, obj.
+function closestVectorPeer(vm, classIdx){
+  const c = CLASSES[classIdx];
+  const vecs = c.models.filter(x => x.brand === 'Vector Optics');
+  if(vecs.length === 0) return null;
+  const score = v => {
+    let s = 0;
+    if(v.tube === vm.tube) s += 100;
+    if(v.fp === vm.fp) s += 50;
+    if(v.obj === vm.obj) s += 20;
+    return s;
+  };
+  return vecs.reduce((a,b) => score(b) > score(a) ? b : a);
+}
+function peerSourceUrl(m){
+  const s = (SOURCES[`${m.brand}|${m.name}`]||[])[0];
+  return s ? s[1] : null;
+}
+
 // ─── Deep linking
 function updateHash(){
   const c = cls();
@@ -1032,6 +1064,7 @@ function renderRail(){
       state.sortKey = 'elev';
       state.sortDir = -1;
       state.tubeFocus = defaultTubeFocus(CLASSES[state.classIdx]);
+      state.selected.clear();
       renderAll();
       window.scrollTo({top:0,behavior:'smooth'});
     });
@@ -1054,7 +1087,8 @@ function renderTubeFocus(){
     b.addEventListener('click',()=>{
       const t = b.dataset.tube;
       state.tubeFocus = (t==='all') ? 'all' : +t;
-      renderTubeFocus(); renderHero(); renderOverview(); renderTable(); renderChart();
+      state.selected.clear();
+      renderTubeFocus(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
       updateHash();
     });
   });
@@ -1083,7 +1117,12 @@ function renderOverview(){
 
   const ventusOnly = filteredModels(c).filter(m=>m.ventus);
   document.getElementById('skuCountBadge').textContent = `${String(ventusOnly.length).padStart(2,'0')} SKU`;
-  document.getElementById('lineupList').innerHTML = ventusOnly.map((m,i)=>`
+  document.getElementById('lineupList').innerHTML = ventusOnly.map((m,i)=>{
+    const peer = closestVectorPeer(m, state.classIdx);
+    const peerUrl = peer ? peerSourceUrl(peer) : null;
+    const peerMatch = peer ? ((peer.tube===m.tube)+(peer.fp===m.fp)+(peer.obj===m.obj)) : 0;
+    const matchLabel = peerMatch>=3 ? 'exact match' : peerMatch===2 ? 'close' : peerMatch===1 ? 'partial' : 'only option';
+    return `
     <div class="lineup-card">
       <div class="lineup-idx">${String(i+1).padStart(2,'0')}/${String(ventusOnly.length).padStart(2,'0')}</div>
       <div>
@@ -1096,10 +1135,11 @@ function renderOverview(){
           <span>${m.length}mm</span>
           <span>${m.fp}</span>
         </div>
+        ${peer ? `<div class="vector-link"><span class="vp-label">Vector peer · ${matchLabel}</span>${peerUrl?`<a href="${peerUrl}" target="_blank" rel="noopener noreferrer">${peer.name}<span class="ext"> ↗</span></a>`:`<span>${peer.name}</span>`}</div>` : ''}
       </div>
       <div class="lineup-price">${m.priceText||'—'}</div>
     </div>
-  `).join('');
+  `;}).join('');
 }
 
 function renderTable(){
@@ -1130,11 +1170,13 @@ function renderTable(){
   const maxElev = models.length?Math.max(...models.map(x=>x.elev)):0;
   document.getElementById('ledgerBody').innerHTML = models.map((m,i)=>{
     const sel = state.selected.has(modelKey(m));
-    const rowCls = [m.ventus?'ventus-row':'', m.discontinued?'discontinued':'', sel?'selected':''].filter(Boolean).join(' ');
+    const isVector = m.brand === 'Vector Optics';
+    const rowCls = [m.ventus?'ventus-row':'', isVector?'vector-row':'', m.discontinued?'discontinued':'', sel?'selected':''].filter(Boolean).join(' ');
     return `<tr class="${rowCls}" data-key="${modelKey(m)}">
       <td class="model-cell">
         <span class="brand-line">${m.brand}</span>
         <span class="model-name">${m.name}</span>
+        ${isVector?'<span class="peer-flag">Primary peer</span>':''}
         ${m.discontinued?'<span class="mflag">DISCONTINUED</span>':''}
         ${m.substitute?'<span class="mflag" style="background:rgba(110,101,88,.1);color:var(--fg-muted);border-color:var(--hairline-bright)">SUBSTITUTE</span>':''}
         ${sourcesHtml(m)}
