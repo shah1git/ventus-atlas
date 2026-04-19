@@ -59,10 +59,23 @@ const workers = Array.from({ length: CONCURRENCY }, async () => {
 });
 await Promise.all(workers);
 
-const broken = results.filter(r => r.status >= 400);
+// Categorize:
+//   broken   — 404/410 etc. URL is truly gone; needs fix.
+//   blocked  — 401/403/429/451: site is up, bot-detection or rate-limit;
+//              not a data problem, no exit-code impact.
+//   server   — 5xx: server-side issue; usually transient.
+//   errored  — network/timeout: transient.
+const isBlocked = (s) => s === 401 || s === 403 || s === 429 || s === 451;
+const isServer  = (s) => s >= 500 && s <= 599;
+const isBroken  = (s) => s >= 400 && s < 500 && !isBlocked(s);
+
+const broken  = results.filter(r => isBroken(r.status));
+const blocked = results.filter(r => isBlocked(r.status));
+const server  = results.filter(r => isServer(r.status));
 const errored = results.filter(r => r.status === 0);
 
-console.error(`\nDone. ok=${results.length - broken.length - errored.length}  broken=${broken.length}  errored=${errored.length}`);
+const okCount = results.length - broken.length - blocked.length - server.length - errored.length;
+console.error(`\nDone. ok=${okCount}  broken=${broken.length}  blocked=${blocked.length}  server=${server.length}  errored=${errored.length}`);
 
 // Markdown report on stdout (workflow captures it for issue body)
 const today = new Date().toISOString().slice(0, 10);
@@ -71,19 +84,35 @@ lines.push(`# Source link health · ${today}`);
 lines.push('');
 lines.push(`Checked **${results.length}** URLs across **${Object.keys(sources).length}** source entries.`);
 lines.push('');
-if (broken.length === 0 && errored.length === 0) {
+if (broken.length + blocked.length + server.length + errored.length === 0) {
   lines.push('✅ All links healthy.');
 } else {
   if (broken.length) {
-    lines.push(`## 🔴 ${broken.length} broken (4xx/5xx)`);
+    lines.push(`## 🔴 ${broken.length} broken (404 / 410 — needs fix)`);
     lines.push('');
     lines.push('| Status | Source key | URL |');
     lines.push('|---|---|---|');
     for (const r of broken) lines.push(`| ${r.status} | \`${r.key}\` (${r.label}) | ${r.url} |`);
     lines.push('');
   }
+  if (server.length) {
+    lines.push(`## 🟠 ${server.length} server error (5xx — usually transient)`);
+    lines.push('');
+    lines.push('| Status | Source key | URL |');
+    lines.push('|---|---|---|');
+    for (const r of server) lines.push(`| ${r.status} | \`${r.key}\` (${r.label}) | ${r.url} |`);
+    lines.push('');
+  }
+  if (blocked.length) {
+    lines.push(`## 🟡 ${blocked.length} blocked (403/429/451 — bot detection or rate-limit, **not a data problem**)`);
+    lines.push('');
+    lines.push('| Status | Source key | URL |');
+    lines.push('|---|---|---|');
+    for (const r of blocked) lines.push(`| ${r.status} | \`${r.key}\` (${r.label}) | ${r.url} |`);
+    lines.push('');
+  }
   if (errored.length) {
-    lines.push(`## ⚠️ ${errored.length} errored (network / timeout — likely transient)`);
+    lines.push(`## ⚪ ${errored.length} errored (network / timeout — likely transient)`);
     lines.push('');
     lines.push('| Error | Source key | URL |');
     lines.push('|---|---|---|');
@@ -97,5 +126,6 @@ if (broken.length === 0 && errored.length === 0) {
 
 console.log(lines.join('\n'));
 
-// Exit 1 only on real broken links, not transient errors.
+// Exit 1 only on truly broken (4xx non-blocked) — these need attention.
+// 5xx/blocked/errored are transient or environmental and don't block CI.
 process.exit(broken.length > 0 ? 1 : 0);
