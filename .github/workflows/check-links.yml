@@ -33,12 +33,13 @@ jobs:
           echo "--- report ---"
           cat /tmp/link-report.md
 
-      - name: Open / update issue on broken links
-        if: steps.check.outputs.exit_code != '0'
+      - name: Open / update / close issue based on link health
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
+            const exitCode = '${{ steps.check.outputs.exit_code }}';
+            const broken = exitCode !== '0';
             const body = fs.readFileSync('/tmp/link-report.md', 'utf8');
             const title = 'Source link health — broken URLs detected';
 
@@ -51,20 +52,33 @@ jobs:
             });
             const found = existing.find(i => i.title === title);
 
-            if (found) {
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+            if (broken) {
+              // Open or refresh the issue
+              if (found) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: found.number, body,
+                });
+                console.log(`Updated issue #${found.number}`);
+              } else {
+                const { data: created } = await github.rest.issues.create({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  title, body,
+                });
+                console.log(`Created issue #${created.number}`);
+              }
+            } else if (found) {
+              // All clean now — comment + close the existing tracking issue
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
                 issue_number: found.number,
-                body,
+                body: '✅ All broken links resolved. Closing automatically.\n\n' + body,
               });
-              console.log(`Updated issue #${found.number}`);
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: found.number, state: 'closed',
+              });
+              console.log(`Closed issue #${found.number}`);
             } else {
-              const { data: created } = await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title,
-                body,
-              });
-              console.log(`Created issue #${created.number}`);
+              console.log('No broken links and no existing issue — nothing to do.');
             }
