@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shah1git.github.io/ventus-atlas/data/sources.schema.json",
+  "title": "Ventus Atlas — competitor source URLs",
+  "description": "Map of `Brand|Model name` → array of [label, url] pairs.",
+  "type": "object",
+  "patternProperties": {
+    "^[^|]+\\|.+$": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "prefixItems": [
+          { "type": "string", "minLength": 1 },
+          { "type": "string", "format": "uri", "pattern": "^https?://" }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false
+}

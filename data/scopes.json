@@ -513,7 +513,7 @@
           "fovMin": 40.69,
           "fovMax": 6.46,
           "weight": 584,
-          "length": 0,
+          "length": null,
           "er": 95,
           "priceText": "$249.99"
         },
@@ -530,7 +530,7 @@
           "fovMin": 36.93,
           "fovMax": 4.44,
           "weight": 595,
-          "length": 0,
+          "length": null,
           "er": 95,
           "priceText": "$374.98"
         },
@@ -547,7 +547,7 @@
           "fovMin": 41.2,
           "fovMax": 5.6,
           "weight": 480,
-          "length": 0,
+          "length": null,
           "er": 102,
           "priceText": "40,800 ₽"
         },
@@ -563,8 +563,8 @@
           "click": "0.1 MIL",
           "fovMin": 42.5,
           "fovMax": 5.2,
-          "weight": 0,
-          "length": 0,
+          "weight": null,
+          "length": null,
           "er": 100,
           "priceText": "34,520–36,090 ₽"
         },
@@ -580,8 +580,8 @@
           "click": "0.1 MIL",
           "fovMin": 36,
           "fovMax": 5.8,
-          "weight": 0,
-          "length": 0,
+          "weight": null,
+          "length": null,
           "er": 100,
           "priceText": "18,450–20,230 ₽"
         },
@@ -980,7 +980,7 @@
           "fovMin": 38.9,
           "fovMax": 3.8,
           "weight": 720,
-          "length": 0,
+          "length": null,
           "er": 102,
           "priceText": "59,310 ₽"
         },
@@ -996,8 +996,8 @@
           "click": "0.1 MIL",
           "fovMin": 38,
           "fovMax": 4.4,
-          "weight": 0,
-          "length": 0,
+          "weight": null,
+          "length": null,
           "er": 120,
           "priceText": "27,220–30,400 ₽"
         },
@@ -1564,8 +1564,8 @@
           "click": "0.1 MIL",
           "fovMin": 21,
           "fovMax": 3.6,
-          "weight": 0,
-          "length": 0,
+          "weight": null,
+          "length": null,
           "er": 95,
           "priceText": "42,190 ₽"
         }
@@ -1897,7 +1897,7 @@
           "fovMin": 8.2,
           "fovMax": 1.4,
           "weight": 907,
-          "length": 0,
+          "length": null,
           "er": 97,
           "priceText": "$699–899"
         },
@@ -2356,7 +2356,7 @@
           "fovMin": 13.6,
           "fovMax": 2.4,
           "weight": 822,
-          "length": 0,
+          "length": null,
           "er": 94,
           "priceText": "54,490 ₽"
         },
@@ -2372,8 +2372,8 @@
           "click": "0.1 MIL",
           "fovMin": 12.9,
           "fovMax": 2.2,
-          "weight": 0,
-          "length": 0,
+          "weight": null,
+          "length": null,
           "er": 95,
           "priceText": "53,780 ₽"
         },
@@ -3076,8 +3076,8 @@
           "click": "0.1 MIL",
           "fovMin": 5.6,
           "fovMax": 1,
-          "weight": 0,
-          "length": 0,
+          "weight": null,
+          "length": null,
           "er": 87,
           "priceText": "19,380–22,270 ₽"
         },
@@ -3093,8 +3093,8 @@
           "click": "0.1 MIL",
           "fovMin": 5.6,
           "fovMax": 1,
-          "weight": 0,
-          "length": 0,
+          "weight": null,
+          "length": null,
           "er": 90,
           "priceText": "26,280–30,400 ₽"
         },
@@ -4212,7 +4212,7 @@
           "fovMin": 8,
           "fovMax": 1.36,
           "weight": 992,
-          "length": 0,
+          "length": null,
           "er": 94,
           "priceText": "60,390 ₽"
         },
@@ -4228,8 +4228,8 @@
           "click": "0.1 MIL",
           "fovMin": 8.2,
           "fovMax": 1.6,
-          "weight": 0,
-          "length": 0,
+          "weight": null,
+          "length": null,
           "er": 94,
           "priceText": "60,900 ₽"
         },
@@ -4697,7 +4697,7 @@
           "fovMin": 6.8,
           "fovMax": 1.13,
           "weight": 1065,
-          "length": 0,
+          "length": null,
           "er": 102,
           "priceText": "82,600 ₽"
         },

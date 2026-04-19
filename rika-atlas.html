@@ -306,6 +306,9 @@ table.ledger{
 .tube-focus button.active{color:#fff;background:var(--rika)}
 .tube-focus button:disabled{opacity:.3;cursor:not-allowed}
 .tube-focus button .ventus-dot{display:inline-block;width:4px;height:4px;background:var(--ventus);border-radius:50%;margin-left:6px;vertical-align:middle}
+.brand-select{padding:8px 26px 8px 14px;background:var(--bg);border:1px solid var(--hairline-bright);color:var(--fg);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23999' stroke-width='1.5' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.brand-select:hover{border-color:var(--rika);color:var(--rika)}
+.brand-select.filtered{color:#fff;background-color:var(--rika);border-color:var(--rika)}
 .tube-bar .caption{font-family:'Newsreader',serif;font-style:italic;color:var(--fg-muted);font-size:13.5px;line-height:1.4;flex:1;min-width:200px}
 .tube-bar .caption strong{color:var(--ventus-deep);font-weight:500;font-style:normal}
 
@@ -510,9 +513,25 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
 /* Load anim */
 @keyframes reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .anim-in{animation:reveal .7s cubic-bezier(.22,.9,.28,1) both}
+
+/* Loading overlay — shown until data fetch + first render */
+#loadingOverlay{position:fixed;inset:0;background:var(--bg);z-index:1000;display:flex;align-items:center;justify-content:center;transition:opacity .25s ease-out}
+#loadingOverlay.hidden{opacity:0;pointer-events:none}
+.loading-card{display:flex;flex-direction:column;align-items:center;gap:18px}
+.loading-spinner{width:40px;height:40px;border:2px solid var(--hairline);border-top-color:var(--rika);border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font:500 12px/1 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-muted)}
 </style>
 </head>
 <body>
+
+<!-- ─── LOADING OVERLAY ─── shown until data fetch + first render -->
+<div id="loadingOverlay" aria-live="polite" aria-busy="true">
+  <div class="loading-card">
+    <div class="loading-spinner" aria-hidden="true"></div>
+    <div class="loading-text">Loading atlas data…</div>
+  </div>
+</div>
 
 <div class="shell">
 
@@ -625,7 +644,9 @@ footer.colophon li strong{color:var(--fg);font-weight:500;letter-spacing:.08em}
     <div class="tube-focus" id="tubeFocus"></div>
     <span class="caps">Focal plane</span>
     <div class="tube-focus" id="fpFocus"></div>
-    <span class="caption">Tube diameter is structurally fixed; FP (FFP / SFP) defines whether the reticle scales with magnification. Comparing <strong>30mm</strong> and <strong>34mm</strong> scopes — or FFP and SFP — mixes different engineering classes; we filter to like-for-like only. Dots mark tubes present in the Ventus lineup.</span>
+    <span class="caps">Brand</span>
+    <select class="brand-select" id="brandFilter" aria-label="Filter by brand"></select>
+    <span class="caption">Tube diameter is structurally fixed; FP (FFP / SFP) defines whether the reticle scales with magnification. Comparing <strong>30mm</strong> and <strong>34mm</strong> scopes — or FFP and SFP — mixes different engineering classes; we filter to like-for-like only. Brand filter keeps Ventus rows visible for context. Dots mark tubes present in the Ventus lineup.</span>
   </div>
   <div class="tbl-wrap">
     <table class="ledger" id="ledgerTable">
@@ -739,12 +760,12 @@ function sourcesHtml(m){
 let CLASSES = [];
 
 const METRICS = [
-  {id:'elev',label:'Elevation (MIL)',unit:'MIL',dir:'max',fmt:v=>v.toFixed(1)},
-  {id:'wind',label:'Windage (MIL)',unit:'MIL',dir:'max',fmt:v=>v.toFixed(1)},
-  {id:'weight',label:'Weight (g)',unit:'g',dir:'min',fmt:v=>v.toString()},
-  {id:'length',label:'Length (mm)',unit:'mm',dir:'min',fmt:v=>v.toString()},
-  {id:'fovMin',label:'FOV @ min mag',unit:'m/100m',dir:'max',fmt:v=>v.toFixed(1)},
-  {id:'er',label:'Eye Relief (mm)',unit:'mm',dir:'max',fmt:v=>v.toString()}
+  {id:'elev',label:'Elevation (MIL)',unit:'MIL',dir:'max',fmt:v=>v==null?'—':v.toFixed(1)},
+  {id:'wind',label:'Windage (MIL)',unit:'MIL',dir:'max',fmt:v=>v==null?'—':v.toFixed(1)},
+  {id:'weight',label:'Weight (g)',unit:'g',dir:'min',fmt:v=>v==null?'—':v.toString()},
+  {id:'length',label:'Length (mm)',unit:'mm',dir:'min',fmt:v=>v==null?'—':v.toString()},
+  {id:'fovMin',label:'FOV @ min mag',unit:'m/100m',dir:'max',fmt:v=>v==null?'—':v.toFixed(1)},
+  {id:'er',label:'Eye Relief (mm)',unit:'mm',dir:'max',fmt:v=>v==null?'—':v.toString()}
 ];
 
 const COLS = [
@@ -763,7 +784,7 @@ const COLS = [
   {id:'price',label:'Price',w:'auto'}
 ];
 
-let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1, tubeFocus:null, fpFocus:'all', selected:new Set()};
+let state = {classIdx:0, metric:'elev', sortKey:'elev', sortDir:-1, tubeFocus:null, fpFocus:'all', brandFilter:'all', selected:new Set()};
 const cls = ()=>CLASSES[state.classIdx];
 const metric = ()=>METRICS.find(m=>m.id===state.metric);
 const modelKey = m => `${m.brand}|${m.name}|${cls().id}`;
@@ -814,7 +835,16 @@ function updateHash(){
   const c = cls();
   const t = (state.tubeFocus === 'all' || state.tubeFocus == null) ? 'all' : state.tubeFocus;
   const p = state.fpFocus || 'all';
-  const newHash = `#${c.id}/${t}/${state.metric}/${p}`;
+  const b = state.brandFilter || 'all';
+  // Selection encoded as comma-joined brand|name keys (URL-encoded each).
+  // Class id is implicit (selection is always within current class).
+  const sel = state.selected.size
+    ? [...state.selected].map(k => encodeURIComponent(k.split('|').slice(0,2).join('|'))).join(',')
+    : '';
+  // Drop trailing empty segments so simple #class/tube/metric still round-trips clean.
+  const segs = [c.id, t, state.metric, p, encodeURIComponent(b), sel];
+  while(segs.length && (segs[segs.length-1]===''||segs[segs.length-1]==='all')) segs.pop();
+  const newHash = '#' + segs.join('/');
   if(location.hash !== newHash) history.replaceState(null,'',newHash);
 }
 function parseHash(){
@@ -829,6 +859,22 @@ function parseHash(){
   }
   if(parts[2] && METRICS.some(m => m.id === parts[2])) state.metric = parts[2];
   if(parts[3] && (parts[3]==='all'||parts[3]==='FFP'||parts[3]==='SFP')) state.fpFocus = parts[3];
+  if(parts[4]){
+    const b = decodeURIComponent(parts[4]);
+    state.brandFilter = b;  // 'all' or a brand name (validated against availableBrands later)
+  }
+  if(parts[5]){
+    const c = CLASSES[state.classIdx];
+    const keys = parts[5].split(',').map(decodeURIComponent).filter(Boolean);
+    state.selected.clear();
+    for(const k of keys.slice(0,3)){
+      // Verify the key matches an actual model in this class before adding
+      const [brand, name] = k.split('|');
+      if(c && c.models.some(m => m.brand===brand && m.name===name)){
+        state.selected.add(`${brand}|${name}|${c.id}`);
+      }
+    }
+  }
   return true;
 }
 
@@ -837,12 +883,18 @@ function ventusTubes(c){ return [...new Set(c.models.filter(m=>m.ventus).map(m=>
 function defaultTubeFocus(c){ return ventusTubes(c)[0]; }
 function availableFps(c){ return [...new Set(c.models.map(m=>m.fp))].sort(); }
 function ventusFps(c){ return [...new Set(c.models.filter(m=>m.ventus).map(m=>m.fp))].sort(); }
+function availableBrands(c){
+  // Sorted alphabetically; Ventus dropped from list (always shown for context).
+  return [...new Set(c.models.map(m=>m.brand))].filter(b=>b!=='Ventus').sort();
+}
 function filteredModels(c){
   const f = state.tubeFocus;
   const p = state.fpFocus;
+  const b = state.brandFilter;
   let arr = c.models.slice();
   if(!(f==='all'||f==null)) arr = arr.filter(m=>m.tube===f);
   if(p && p!=='all') arr = arr.filter(m=>m.fp===p);
+  if(b && b!=='all') arr = arr.filter(m=>m.brand===b||m.brand==='Ventus');
   return arr;
 }
 
@@ -862,6 +914,7 @@ function renderRail(){
       state.sortDir = -1;
       state.tubeFocus = defaultTubeFocus(CLASSES[state.classIdx]);
       state.fpFocus = 'all';
+      state.brandFilter = 'all';
       state.selected.clear();
       renderAll();
       window.scrollTo({top:0,behavior:'smooth'});
@@ -886,7 +939,7 @@ function renderTubeFocus(){
       const t = b.dataset.tube;
       state.tubeFocus = (t==='all') ? 'all' : +t;
       state.selected.clear();
-      renderTubeFocus(); renderFpFocus(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
+      renderTubeFocus(); renderFpFocus(); renderBrandFilter(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
       updateHash();
     });
   });
@@ -908,10 +961,30 @@ function renderFpFocus(){
     b.addEventListener('click',()=>{
       state.fpFocus = b.dataset.fp;
       state.selected.clear();
-      renderTubeFocus(); renderFpFocus(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
+      renderTubeFocus(); renderFpFocus(); renderBrandFilter(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
       updateHash();
     });
   });
+}
+
+function renderBrandFilter(){
+  const c = cls();
+  const brands = availableBrands(c);
+  const sel = document.getElementById('brandFilter');
+  // If currently-selected brand isn't present in this class, reset to 'all'.
+  if(state.brandFilter!=='all' && !brands.includes(state.brandFilter)){
+    state.brandFilter = 'all';
+  }
+  sel.innerHTML = `<option value="all">All brands (${brands.length})</option>`
+    + brands.map(b=>`<option value="${b}"${b===state.brandFilter?' selected':''}>${b}</option>`).join('');
+  sel.classList.toggle('filtered', state.brandFilter!=='all');
+  // Re-bind on every render — innerHTML rewrite drops listeners.
+  sel.onchange = () => {
+    state.brandFilter = sel.value;
+    state.selected.clear();
+    renderTubeFocus(); renderFpFocus(); renderBrandFilter(); renderHero(); renderOverview(); renderTable(); renderChart(); renderCompare();
+    updateHash();
+  };
 }
 
 function renderHero(){
@@ -951,9 +1024,9 @@ function renderOverview(){
         <div class="lineup-specs">
           <span>${m.tube}mm tube</span>
           <span>${m.obj}mm obj</span>
-          <span>${m.elev} MIL elev</span>
-          <span>${m.weight}g</span>
-          <span>${m.length}mm</span>
+          <span>${m.elev==null?'— MIL elev':m.elev+' MIL elev'}</span>
+          <span>${m.weight==null?'— g':m.weight+'g'}</span>
+          <span>${m.length==null?'— mm':m.length+'mm'}</span>
           <span>${m.fp}</span>
         </div>
         ${peer ? `<div class="vector-link"><span class="vp-label">Vector peer · ${matchLabel}</span>${peerUrl?`<a href="${peerUrl}" target="_blank" rel="noopener noreferrer">${peer.name}<span class="ext"> ↗</span></a>`:`<span>${peer.name}</span>`}</div>` : ''}
@@ -985,7 +1058,12 @@ function renderTable(){
     const k = state.sortKey;
     let av = a[k], bv = b[k];
     if(typeof av==='string') return state.sortDir*(av>bv?1:av<bv?-1:0);
-    return state.sortDir*((bv??0)-(av??0));
+    // Push null/undefined to the bottom regardless of sort direction.
+    const aNull = av==null, bNull = bv==null;
+    if(aNull && bNull) return 0;
+    if(aNull) return 1;
+    if(bNull) return -1;
+    return state.sortDir*(bv-av);
   });
 
   const maxElev = models.length?Math.max(...models.map(x=>x.elev)):0;
@@ -1010,9 +1088,9 @@ function renderTable(){
       <td class="num">${m.wind}<span class="num-weak"> MIL</span></td>
       <td>${m.click}</td>
       <td class="num">${m.fovMin.toFixed(1)}<span class="num-weak"> m</span></td>
-      <td class="num">${m.weight}<span class="num-weak"> g</span></td>
-      <td class="num">${m.length||'—'}<span class="num-weak">${m.length?' mm':''}</span></td>
-      <td class="num">${m.er}<span class="num-weak"> mm</span></td>
+      <td class="num">${m.weight??'—'}<span class="num-weak">${m.weight==null?'':' g'}</span></td>
+      <td class="num">${m.length??'—'}<span class="num-weak">${m.length==null?'':' mm'}</span></td>
+      <td class="num">${m.er??'—'}<span class="num-weak">${m.er==null?'':' mm'}</span></td>
       <td>${m.priceText||'—'}</td>
     </tr>`;
   }).join('');
@@ -1039,6 +1117,7 @@ function toggleSelect(key){
   }
   renderTable();
   renderCompare();
+  updateHash();
 }
 
 function renderCompare(){
@@ -1076,9 +1155,9 @@ function renderCompare(){
     ['Click', m=>m.click, null],
     ['FOV min', m=>m.fovMin.toFixed(1)+' m', 'fovMin'],
     ['FOV max', m=>m.fovMax.toFixed(1)+' m', null],
-    ['Weight', m=>m.weight+' g', 'weight'],
-    ['Length', m=>(m.length?m.length+' mm':'—'), 'length'],
-    ['Eye Relief', m=>m.er+' mm', 'er'],
+    ['Weight', m=>(m.weight==null?'—':m.weight+' g'), 'weight'],
+    ['Length', m=>(m.length==null?'—':m.length+' mm'), 'length'],
+    ['Eye Relief', m=>(m.er==null?'—':m.er+' mm'), 'er'],
     ['Price', m=>m.priceText||'—', null]
   ];
 
@@ -1119,6 +1198,7 @@ function renderCompare(){
       state.selected.delete(btn.dataset.key);
       renderTable();
       renderCompare();
+      updateHash();
     });
   });
 }
@@ -1176,6 +1256,7 @@ function jumpToSearchResult(el){
   const [brand,name] = key.split('|');
   const m = c.models.find(x => x.brand===brand && x.name===name);
   if(m){ state.tubeFocus = m.tube; state.fpFocus = m.fp; }
+  state.brandFilter = 'all';
   state.sortKey = 'elev';
   state.sortDir = -1;
   closeSearch();
@@ -1209,7 +1290,9 @@ function renderMetricPicker(){
 function renderChart(){
   const c = cls();
   const m = metric();
-  const models = filteredModels(c).sort((a,b)=> m.dir==='max' ? b[m.id]-a[m.id] : a[m.id]-b[m.id]);
+  // Drop rows with null/undefined values for the active metric — they
+  // can't be plotted, and including them as 0-bars would lie about the data.
+  const models = filteredModels(c).filter(x=>x[m.id]!=null).sort((a,b)=> m.dir==='max' ? b[m.id]-a[m.id] : a[m.id]-b[m.id]);
   const vals = models.map(x=>x[m.id]);
   const maxV = Math.max(...vals);
   const minV = Math.min(...vals);
@@ -1240,7 +1323,8 @@ function renderChart(){
 function renderAll(){
   if(state.tubeFocus==null) state.tubeFocus = defaultTubeFocus(cls());
   if(state.fpFocus==null) state.fpFocus = 'all';
-  renderRail(); renderTubeFocus(); renderFpFocus(); renderHero(); renderOverview();
+  if(state.brandFilter==null) state.brandFilter = 'all';
+  renderRail(); renderTubeFocus(); renderFpFocus(); renderBrandFilter(); renderHero(); renderOverview();
   renderTable(); renderMetricPicker(); renderChart(); renderCompare();
   updateHash();
 }
@@ -1250,6 +1334,7 @@ document.getElementById('compareClear').addEventListener('click',()=>{
   state.selected.clear();
   renderTable();
   renderCompare();
+  updateHash();
 });
 document.getElementById('searchTrigger').addEventListener('click',openSearch);
 document.getElementById('searchInput').addEventListener('input',e=>renderSearchResults(e.target.value));
@@ -1301,7 +1386,14 @@ window.addEventListener('hashchange',()=>{
     Object.assign(SOURCES, sources);
     parseHash();
     renderAll();
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+      overlay.classList.add('hidden');
+      setTimeout(() => overlay.remove(), 350);
+    }
   } catch (err) {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.remove();
     document.body.innerHTML =
       '<div style="font:14px monospace;padding:40px;color:#900">' +
       'Failed to load atlas data. ' + err.message + '</div>';

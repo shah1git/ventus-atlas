@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shah1git.github.io/ventus-atlas/data/scopes.schema.json",
+  "title": "Ventus Atlas — scope catalog",
+  "type": "object",
+  "required": ["classes"],
+  "additionalProperties": false,
+  "properties": {
+    "classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/class" }
+    }
+  },
+  "$defs": {
+    "class": {
+      "type": "object",
+      "required": ["id", "roman", "label", "title", "lead", "leadMetric", "meta", "models"],
+      "additionalProperties": false,
+      "properties": {
+        "id":    { "type": "string", "pattern": "^[a-z0-9._-]+$" },
+        "roman": { "type": "string", "pattern": "^[IVX]+$" },
+        "label": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "lead":  { "type": "string", "minLength": 1 },
+        "leadMetric": {
+          "type": "object",
+          "required": ["label", "value", "unit", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "label": { "type": "string" },
+            "value": { "type": "string" },
+            "unit":  { "type": "string" },
+            "note":  { "type": "string" }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "required": ["tube", "obj", "click"],
+          "additionalProperties": false,
+          "properties": {
+            "tube":  { "type": "string" },
+            "obj":   { "type": "string" },
+            "click": { "type": "string" }
+          }
+        },
+        "models": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/model" }
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "required": ["brand", "name", "fp", "mag", "obj", "tube", "elev", "wind", "click", "fovMin", "fovMax", "weight", "length", "er", "priceText"],
+      "additionalProperties": true,
+      "properties": {
+        "brand":  { "type": "string", "minLength": 1 },
+        "name":   { "type": "string", "minLength": 1 },
+        "fp":     { "enum": ["FFP", "SFP"] },
+        "mag":    { "type": "string", "pattern": "^\\d+(?:\\.\\d+)?-\\d+(?:\\.\\d+)?×$" },
+        "obj":    { "type": "number", "exclusiveMinimum": 0 },
+        "tube":   { "type": "number", "enum": [25.4, 30, 34, 35, 36, 40] },
+        "elev":   { "type": ["number", "null"], "minimum": 0 },
+        "wind":   { "type": ["number", "null"], "minimum": 0 },
+        "click":  { "type": "string", "minLength": 1 },
+        "fovMin": { "type": ["number", "null"], "minimum": 0 },
+        "fovMax": { "type": ["number", "null"], "minimum": 0 },
+        "weight": { "type": ["number", "null"], "minimum": 0, "description": "grams — null if unknown" },
+        "length": { "type": ["number", "null"], "minimum": 0, "description": "millimetres — null if unknown" },
+        "er":     { "type": ["number", "null"], "minimum": 0, "description": "eye relief in mm — null if unknown" },
+        "priceText":   { "type": "string" },
+        "ventus":      { "type": "boolean" },
+        "discontinued":{ "type": "boolean" },
+        "substitute":  { "type": "boolean" }
+      }
+    }
+  }
+}
