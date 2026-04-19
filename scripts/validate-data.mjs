@@ -106,6 +106,41 @@ for (const [key, val] of Object.entries(sources)) {
 // Orphans are warnings, not errors — a brand-key may have been renamed
 // without cleaning the SOURCES side. Report so the team notices.
 
+// ─── leadMetric sanity check ──────────────────────────────────────────
+// For each class, the editorial leadMetric.value claims a Ventus spec.
+// Compare against the actual computed extreme across all Ventus rows in
+// that class — warn (not fail) on divergence > 0.5 absolute or > 5% relative.
+// Catches stale claims after data refreshes.
+const leadMetricWarnings = [];
+const metricByLabel = (label) => {
+  const l = label.toLowerCase();
+  if (l.includes('elevation')) return { key: 'elev', dir: 'max' };
+  if (l.includes('windage'))   return { key: 'wind', dir: 'max' };
+  if (l.includes('weight'))    return { key: 'weight', dir: 'min' };
+  if (l.includes('length'))    return { key: 'length', dir: 'min' };
+  if (l.includes('fov'))       return { key: 'fovMin', dir: 'max' };
+  if (l.includes('eye relief')) return { key: 'er', dir: 'max' };
+  return null;
+};
+for (const c of scopes.classes || []) {
+  const lm = c.leadMetric;
+  if (!lm) continue;
+  const claimed = parseFloat(lm.value);
+  if (isNaN(claimed)) continue;
+  const metric = metricByLabel(lm.label);
+  if (!metric) continue;
+  const ventusVals = c.models.filter(m => m.ventus && m[metric.key] != null).map(m => m[metric.key]);
+  if (ventusVals.length === 0) continue;
+  const actual = metric.dir === 'max' ? Math.max(...ventusVals) : Math.min(...ventusVals);
+  const absDelta = Math.abs(claimed - actual);
+  const relDelta = absDelta / Math.abs(actual || 1);
+  if (absDelta > 0.5 && relDelta > 0.05) {
+    leadMetricWarnings.push(
+      `class '${c.id}' leadMetric.value=${claimed} but actual Ventus ${metric.key} (${metric.dir}) = ${actual}`
+    );
+  }
+}
+
 // ─── done ─────────────────────────────────────────────────────────────
 finish();
 
@@ -113,6 +148,10 @@ function finish() {
   if (orphanSources.length) {
     console.log('⚠ orphan source keys (no matching model):');
     for (const k of orphanSources) console.log('  - ' + k);
+  }
+  if (typeof leadMetricWarnings !== 'undefined' && leadMetricWarnings.length) {
+    console.log('⚠ leadMetric drift (editorial claim vs. computed actual):');
+    for (const w of leadMetricWarnings) console.log('  - ' + w);
   }
   if (errors.length) {
     console.error(`\n✗ ${errors.length} validation error(s):`);
